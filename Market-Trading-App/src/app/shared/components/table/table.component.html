@@ -5,8 +5,18 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of tableData">
+    <tr *ngFor="let row of displayedData">
       <td *ngFor="let item of row | keyvalue : keepOrder">{{ item.value }}</td>
     </tr>
   </tbody>
 </table>
+<!-- <hr class="separator" /> -->
+
+<div class="pagination">
+  <button (click)="previousPage()" [disabled]="currentPage === 1">
+    Previous
+  </button>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+    Next
+  </button>
+</div>

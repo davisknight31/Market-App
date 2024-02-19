@@ -16,7 +16,7 @@ th {
 }
 
 /* Hover Effect */
-tr:hover {
+tbody tr:hover {
   background-color: #f5f5f5;
 }
 
@@ -30,6 +30,40 @@ table {
   border-radius: 6px;
   overflow: hidden;
 }
+
+.pagination {
+  margin: 15px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: #4c3ce0;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc !important;
+  cursor: not-allowed;
+}
+
+.pagination button:hover {
+  background-color: #6858ff;
+}
+
+// .separator {
+//   display: block;
+//   margin-top: 0.5em;
+//   margin-bottom: 0.5em;
+//   margin-left: 1vw;
+//   margin-right: 1vw;
+//   border-style: solid;
+//   border-color: rgb(223, 223, 223);
+// }
 
 /* Responsive Table */
 @media (max-width: 768px) {

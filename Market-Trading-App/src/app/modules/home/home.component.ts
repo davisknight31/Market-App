@@ -18,6 +18,21 @@ export class HomeComponent {
     { name: 'Stock 4', price: 50.5, percent: 10 },
     { name: 'Stock 5', price: 50.5, percent: 10 },
     { name: 'Stock 6', price: 50.5, percent: 10 },
+    { name: 'Stock 7', price: 50.5, percent: 10 },
+    { name: 'Stock 8', price: 50.5, percent: 10 },
+    { name: 'Stock 9', price: 50.5, percent: 10 },
+    { name: 'Stock 10', price: 50.5, percent: 10 },
+    { name: 'Stock 11', price: 50.5, percent: 10 },
+    { name: 'Stock 12', price: 50.5, percent: 10 },
+    { name: 'Stock 13', price: 50.5, percent: 10 },
+    { name: 'Stock 14', price: 50.5, percent: 10 },
+    { name: 'Stock 15', price: 50.5, percent: 10 },
+    { name: 'Stock 16', price: 50.5, percent: 10 },
+    { name: 'Stock 17', price: 50.5, percent: 10 },
+    { name: 'Stock 18', price: 50.5, percent: 10 },
+    { name: 'Stock 19', price: 50.5, percent: 10 },
+    { name: 'Stock 20', price: 50.5, percent: 10 },
+    { name: 'Stock 21', price: 50.5, percent: 10 },
   ];
   tableColumnHeaders: string[] = ['Name', 'Price', 'Percent'];
 }
