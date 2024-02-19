@@ -1,0 +1,30 @@
+.separator {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  //   border-style: solid;
+}
+
+.main-list-wrapper {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.main-list-container {
+  box-shadow: #d8d8d8 0px 4px 24px;
+  border-radius: 10px;
+  width: 75%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 20px;
+}
+
+ul li {
+  padding: 5px;
+}

@@ -1,0 +1,12 @@
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let header of columnHeaders">{{ header }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of tableData">
+      <td *ngFor="let item of row | keyvalue : keepOrder">{{ item.value }}</td>
+    </tr>
+  </tbody>
+</table>

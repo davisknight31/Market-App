@@ -1,0 +1,43 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+}
+
+/* Hover Effect */
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Striped Rows */
+tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Border Radius */
+table {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  table {
+    font-size: 12px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+}
