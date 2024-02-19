@@ -9,4 +9,9 @@ export interface Stock {
 
 /* probably should keep this type safe from background,
  and have some shared conversion method which converts
- to string somewhere when displaying and needing to add a symbol */
+ to string somewhere when displaying and needing to add a symbol 
+ 
+ 
+ Also could have a full amount of info being returned from api, and then a different model which is specifically for table display? 
+ Could also just be done in the component that is passing the data to the table 
+ */

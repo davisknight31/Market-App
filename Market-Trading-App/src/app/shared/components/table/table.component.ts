@@ -19,6 +19,7 @@ export class TableComponent {
   totalPages: number;
 
   ngOnInit() {
+    // this.columnHeaders.unshift('');
     this.currentPage = 1;
     this.calculateTotalRows();
     this.calculateTotalPages();

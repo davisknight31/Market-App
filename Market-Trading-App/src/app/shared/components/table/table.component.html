@@ -6,6 +6,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let row of displayedData">
+      <!-- <td>1</td> -->
       <td *ngFor="let item of row | keyvalue : keepOrder">{{ item.value }}</td>
     </tr>
   </tbody>
