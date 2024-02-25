@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { TableComponent } from '../../shared/components/table/table.component';
 import { Stock } from '../../shared/interfaces/stock';
+import { ApiService } from '../../core/services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,28 @@ import { Stock } from '../../shared/interfaces/stock';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  responseData: any;
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
+    this.myData.forEach((item) => {
+      item.price = '$' + item.price;
+      item.percent = item.percent + '%';
+    });
+  }
+
+  hitApi(): void {
+    this.apiService.getStockQuoteBySymbol('MSFT').subscribe(
+      (response: any) => {
+        this.responseData = response;
+        console.log(this.responseData);
+      },
+      (error) => {
+        console.error('Error fetching data: ', error);
+      }
+    );
+  }
+
   tableColumnHeaders: string[] = [
     'Name',
     'Price',
@@ -190,11 +213,4 @@ export class HomeComponent {
       test3: 'test',
     },
   ];
-
-  ngOnInit() {
-    this.myData.forEach((item) => {
-      item.price = '$' + item.price;
-      item.percent = item.percent + '%';
-    });
-  }
 }

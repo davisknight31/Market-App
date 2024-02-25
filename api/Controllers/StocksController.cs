@@ -26,6 +26,10 @@ public class StocksController : Controller
 
             return Ok(retrievedStockQuote);
         }
+        catch ()
+        {
+
+        }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);

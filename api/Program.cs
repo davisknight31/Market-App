@@ -16,6 +16,8 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
+builder.Services.AddCors();
+
 
 
 
@@ -34,10 +36,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(builder => builder
+     .AllowAnyOrigin()
+     .AllowAnyMethod()
+     .AllowAnyHeader());
+
 app.UseHttpsRedirection();
 
 app.UseMvc();
+
 app.UseAuthorization();
+
+app.MapControllers();
+
 
 
 
