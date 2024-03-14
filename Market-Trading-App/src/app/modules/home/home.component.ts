@@ -3,214 +3,260 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
 import { TableComponent } from '../../shared/components/table/table.component';
 import { Stock } from '../../shared/interfaces/stock';
 import { ApiService } from '../../core/services/api.service';
+import { NgIf } from '@angular/common';
+import { Observable, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, TableComponent],
+  imports: [NavbarComponent, TableComponent, NgIf],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  responseData: any;
+  responseData: Stock[] = [];
+  stockSymbols: string[] = [];
+  rowLabels: string[] = [];
+  tableColumnHeaders: string[] = [];
+  isLoading: boolean = true;
+  isDataCached: boolean = false;
+
+  stockDetails: Stock[] = [];
+
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.myData.forEach((item) => {
-      item.price = '$' + item.price;
-      item.percent = item.percent + '%';
+    this.stockSymbols.push(
+      'MSFT',
+      'AMZN',
+      'TSLA',
+      'AAPL',
+      'NVDA',
+      'META',
+      'PEP'
+    );
+    this.tableColumnHeaders.push(
+      'Name',
+      'Current Price',
+      'Change',
+      '% Change',
+      'Daily High',
+      'Daily Low',
+      'Open Price',
+      'Previous Close'
+    );
+    this.stockSymbols.forEach((symbol) => this.rowLabels.push(symbol));
+    this.getStockQuotes(this.stockSymbols);
+  }
+
+  getStockQuotes(stockSymbols: string[]): void {
+    const observables: Observable<any>[] = [];
+    this.responseData = [];
+
+    stockSymbols.forEach((symbol) => {
+      observables.push(this.apiService.getStockQuoteBySymbol(symbol));
+    });
+
+    forkJoin(observables).subscribe({
+      next: (responses) => {
+        console.log('All data received', responses);
+        this.responseData = responses;
+
+        let i = 0;
+        this.responseData.forEach((response) => {
+          //creating new object to guarantee property order
+          const object: Stock = {
+            name: stockSymbols[i],
+            c: response.c,
+            d: response.d,
+            dp: response.dp,
+            h: response.h,
+            l: response.l,
+            o: response.o,
+            pc: response.pc,
+          };
+          i++;
+          this.stockDetails.push(object);
+        });
+
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('error fetching', error);
+      },
     });
   }
 
-  hitApi(): void {
-    this.apiService.getStockQuoteBySymbol('MSFT').subscribe(
-      (response: any) => {
-        this.responseData = response;
-        console.log(this.responseData);
-      },
-      (error) => {
-        console.error('Error fetching data: ', error);
-      }
-    );
-  }
+  formatData() {}
 
-  tableColumnHeaders: string[] = [
-    'Name',
-    'Price',
-    'Percent',
-    'test1',
-    'test2',
-    'test3',
-  ];
-
-  myData: Stock[] = [
-    {
-      name: 'Stock 1',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 2',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 3',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 4',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 5',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 6',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 7',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 8',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 9',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 10',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 11',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 12',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 13',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 14',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 15',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 16',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 17',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 18',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 19',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 20',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-    {
-      name: 'Stock 21',
-      price: '50.5',
-      percent: '10',
-      test1: 'test',
-      test2: 'test',
-      test3: 'test',
-    },
-  ];
+  // myData: Stock[] = [
+  //   {
+  //     name: 'Stock 1',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 2',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 3',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 4',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 5',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 6',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 7',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 8',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 9',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 10',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 11',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 12',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 13',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 14',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 15',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 16',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 17',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 18',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 19',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 20',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  //   {
+  //     name: 'Stock 21',
+  //     price: '50.5',
+  //     percent: '10',
+  //     test1: 'test',
+  //     test2: 'test',
+  //     test3: 'test',
+  //   },
+  // ];
 }

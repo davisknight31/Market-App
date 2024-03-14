@@ -6,6 +6,6 @@ namespace api.Interfaces;
 
 public interface IFinnhubService
 {
-    Task<StockQuote> GetStockQuoteBySymbol(string stockSymbol);
+    Task<FinnhubStockQuoteResponse> GetStockQuoteBySymbol(string stockSymbol);
 
 }

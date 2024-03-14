@@ -1,12 +1,12 @@
-<app-navbar></app-navbar>
-<hr class="separator" />
-<button (click)="hitApi()">asd</button>
 <div class="main-list-wrapper">
   <div class="main-list-container">
-    <app-table
-      [tableData]="myData"
-      [columnHeaders]="tableColumnHeaders"
-      [rowsPerPage]="5"
-    ></app-table>
+    <div *ngIf="isLoading">Loading...</div>
+    <div *ngIf="!isLoading">
+      <app-table
+        [tableData]="stockDetails"
+        [columnHeaders]="tableColumnHeaders"
+        [rowsPerPage]="5"
+      ></app-table>
+    </div>
   </div>
 </div>

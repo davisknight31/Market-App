@@ -4,3 +4,13 @@
   font-weight: var(--c-font-weight-700);
   font-size: var(--c-font-size-600);
 }
+
+//could make this only apply if the size of the window hits a certain height
+// .footer {
+//   position: fixed;
+//   bottom: 0;
+//   left: 0;
+//   width: 100%;
+//   font-size: 16px;
+//   z-index: 9999;
+// }

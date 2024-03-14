@@ -1,10 +1,26 @@
 export interface Stock {
   name: string;
-  price: string; //should be number to be type safe and converted elsewhere
-  percent: string; //should be number to be type safe and converted elsewhere
-  test1: string;
-  test2: string;
-  test3: string;
+
+  //'current price'
+  c: string; //should be number to be type safe and converted elsewhere
+
+  //'change'
+  d: string; //should be number to be type safe and converted elsewhere
+
+  //'percent change'
+  dp: string;
+
+  //'high price of day'
+  h: string;
+
+  //'low price of day'
+  l: string;
+
+  //'open price of day'
+  o: string;
+
+  //'previous close price'
+  pc: string;
 }
 
 /* probably should keep this type safe from background,

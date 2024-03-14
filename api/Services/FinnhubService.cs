@@ -56,7 +56,7 @@ public class FinnhubService : IFinnhubService
         return responseBody;
     }
 
-    public async Task<StockQuote> GetStockQuoteBySymbol(string stockSymbol) 
+    public async Task<FinnhubStockQuoteResponse> GetStockQuoteBySymbol(string stockSymbol) 
     {
         try
         {
@@ -64,7 +64,7 @@ public class FinnhubService : IFinnhubService
 
             _logger.LogInformation($"Finnhub API response: {responseBody}");
 
-            var stockQuote = JsonConvert.DeserializeObject<StockQuote>(responseBody);
+            var stockQuote = JsonConvert.DeserializeObject<FinnhubStockQuoteResponse>(responseBody);
 
             return stockQuote;
         }
