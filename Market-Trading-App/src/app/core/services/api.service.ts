@@ -54,7 +54,7 @@ export class ApiService {
     }
   }
 
-  getCompanyOverviewBySymbol(symbol: string): Observable<any> {
+  getCompanyOverviewBySymbol(symbol: string): Observable<Overview> {
     return this.http
       .get<Overview>(`${this.apiUrl}/Stocks/GetCompanyOverview/${symbol}`)
       .pipe(

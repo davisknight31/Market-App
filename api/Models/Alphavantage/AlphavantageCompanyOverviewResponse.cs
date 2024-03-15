@@ -28,85 +28,85 @@ public class AlphavantageCompanyOverviewResponse
 
     public string FiscalYearEnd { get; set; }
 
-    public DateTime LatestQuarter { get; set; }
+    public string LatestQuarter { get; set; }
 
-    public long MarketCapitalization { get; set; }
+    public string MarketCapitalization { get; set; }
 
-    public long EBITDA { get; set; }
+    public string EBITDA { get; set; }
 
     //price to earnings ratio
-    public double PERatio { get; set; }
+    public string PERatio { get; set; }
     
     //price to growth ratio
-    public double PEGRatio { get; set; }
+    public string PEGRatio { get; set; }
 
     //Book value is the value of a company's total assets minus its total liabilities. In other words, it is equal to total shareholders' equity.
-    public double BookValue { get; set; }
+    public string BookValue { get; set; }
 
-    public double DividendPerShare { get; set; }
+    public string DividendPerShare { get; set; }
 
-    public double DividendYield { get; set; }
+    public string DividendYield { get; set; }
 
     //earnings per share
-    public double EPS { get; set; }
+    public string EPS { get; set; }
 
-    public double RevenuePerShareTTM { get; set; }
+    public string RevenuePerShareTTM { get; set; }
 
-    public double ProfitMargin { get; set; }
+    public string ProfitMargin { get; set; }
 
-    public double OperatingMarginTTM { get; set; }
+    public string OperatingMarginTTM { get; set; }
 
-    public double ReturnOnAssetsTTM { get; set; }
+    public string ReturnOnAssetsTTM { get; set; }
 
-    public double ReturnOnEquityTTM { get; set; }
+    public string ReturnOnEquityTTM { get; set; }
 
-    public long RevenueTTM { get; set; }
+    public string RevenueTTM { get; set; }
 
-    public long GrossProfitTTM { get; set; }
+    public string GrossProfitTTM { get; set; }
 
-    public double QuarterlyEarningsGrowthYOY { get; set; }
+    public string QuarterlyEarningsGrowthYOY { get; set; }
 
-    public double QuarterlyRevenueGrowthYOY { get; set; }
+    public string QuarterlyRevenueGrowthYOY { get; set; }
 
-    public double AnalystTargetPrice { get; set; }
+    public string AnalystTargetPrice { get; set; }
 
-    public int AnalystRatingStrongBuy { get; set; }
+    public string AnalystRatingStrongBuy { get; set; }
 
-    public int AnalystRatingBuy { get; set; }
+    public string AnalystRatingBuy { get; set; }
 
-    public int AnalystRatingHold { get; set; }
+    public string AnalystRatingHold { get; set; }
 
-    public int AnalystRatingSell { get; set; }
+    public string AnalystRatingSell { get; set; }
 
-    public int AnalystRatingStrongSell { get; set; }
+    public string AnalystRatingStrongSell { get; set; }
 
     //previous price to earnings ratio
-    public double TrailingPE { get; set; }
+    public string TrailingPE { get; set; }
 
     //price to earnings using forecasted earnings
-    public double ForwardPE { get; set; }
+    public string ForwardPE { get; set; }
 
-    public double PriceToSalesRatioTTM { get; set; }
+    public string PriceToSalesRatioTTM { get; set; }
 
-    public double PriceToBookRatio { get; set; }
+    public string PriceToBookRatio { get; set; }
 
-    public double EVToRevenue { get; set; }
+    public string EVToRevenue { get; set; }
 
-    public double EVToEBITDA { get; set; }
+    public string EVToEBITDA { get; set; }
 
-    public double Beta { get; set; }
+    public string Beta { get; set; }
 
-    public double FiftyTwoWeekHigh { get; set; }
+    public string FiftyTwoWeekHigh { get; set; }
 
-    public double FiftyTwoWeekLow { get; set; }
+    public string FiftyTwoWeekLow { get; set; }
 
-    public double FiftyDayMovingAverage { get; set; }
+    public string FiftyDayMovingAverage { get; set; }
 
-    public double TwoHundredDayMovingAverage { get; set; }
+    public string TwoHundredDayMovingAverage { get; set; }
 
-    public long SharesOutstanding { get; set; }
+    public string SharesOutstanding { get; set; }
 
-    public DateTime DividendDate { get; set; }
+    public string DividendDate { get; set; }
 
-    public DateTime ExDividendDate { get; set; }
+    public string ExDividendDate { get; set; }
 }

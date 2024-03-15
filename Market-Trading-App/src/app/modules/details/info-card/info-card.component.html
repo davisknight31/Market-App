@@ -1,9 +1,10 @@
 <div class="wrapper">
   <div class="container">
-    <div class="info-container">
+    <div class="key-info-container">
       <!-- info placeholder text is based on alpha company overview response -->
       <h2 class="stock-name">
-        Full Name <span class="symbol">{{ stockName }}</span>
+        {{ companyOverview?.name }}
+        <span class="symbol">{{ companyOverview?.symbol }}</span>
       </h2>
       <span class="price-percentage"
         ><div class="price">$00.00</div>

@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Overview } from '../../../shared/interfaces/overview';
+import { Stock } from '../../../shared/interfaces/stock';
 
 @Component({
   selector: 'app-info-card',
@@ -8,5 +10,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './info-card.component.scss',
 })
 export class InfoCardComponent {
-  @Input() stockName?: string;
+  @Input() stockQuote?: Stock;
+  @Input() companyOverview?: Overview;
 }

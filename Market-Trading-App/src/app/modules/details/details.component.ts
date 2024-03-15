@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Stock } from '../../shared/interfaces/stock';
+import { Overview } from '../../shared/interfaces/overview';
 import { ActivatedRoute } from '@angular/router';
 import { InfoCardComponent } from './info-card/info-card.component';
 import { ApiService } from '../../core/services/api.service';
@@ -15,7 +16,7 @@ export class DetailsComponent {
   // @Input() stock?: Stock;
   @Input() stockSymbol?: string;
 
-  companyOverview;
+  companyOverview: Overview;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {}
 
@@ -26,9 +27,10 @@ export class DetailsComponent {
   }
 
   getCompanyOverview(): void {
-    this.companyOverview = this.apiService
+    this.apiService
       .getCompanyOverviewBySymbol(this.stockSymbol)
-      .subscribe((response) => {
+      .subscribe((response: Overview) => {
+        this.companyOverview = response;
         console.log(response);
       });
   }

@@ -29,9 +29,9 @@ export class TableComponent {
     console.log(this.tableData);
   }
 
-  navigateToDetails(stock: string) {
-    console.log('hit');
-    this.router.navigate(['/details', stock]);
+  navigateToDetails(stockSymbol: string) {
+    console.log(stockSymbol);
+    this.router.navigate(['/details', stockSymbol]);
   }
 
   calculateTotalRows(): void {
