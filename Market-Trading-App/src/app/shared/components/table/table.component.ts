@@ -20,15 +20,18 @@ export class TableComponent {
   displayedData: Stock[];
   totalPages: number;
 
+  constructor(private router: Router) {}
   ngOnInit() {
     this.currentPage = 1;
     this.calculateTotalRows();
     this.calculateTotalPages();
     this.updateDisplayedData();
+    console.log(this.tableData);
   }
 
-  navigateTo(name: string) {
-    //set a selected stock and then pass that into a route directly which then gets passed to the details compojnent and uses that name to call another api endpoint which gets even more details
+  navigateToDetails(stock: string) {
+    console.log('hit');
+    this.router.navigate(['/details', stock]);
   }
 
   calculateTotalRows(): void {

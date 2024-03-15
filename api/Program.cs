@@ -25,6 +25,8 @@ builder.Services.AddCors();
 builder.Services.AddHttpClient();
 
 builder.Services.AddTransient<IFinnhubService, FinnhubService>();
+builder.Services.AddTransient<IAlphavantageService, AlphavantageService>();
+
 
 
 var app = builder.Build();

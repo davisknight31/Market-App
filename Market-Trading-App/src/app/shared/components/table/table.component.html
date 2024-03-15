@@ -8,7 +8,7 @@
     <tr
       class="data-row"
       *ngFor="let data of displayedData"
-      (click)="navigateTo(data.name)"
+      (click)="navigateToDetails(data.name)"
     >
       <td class="stock-name">{{ data.name }}</td>
       <td class="stock-price">

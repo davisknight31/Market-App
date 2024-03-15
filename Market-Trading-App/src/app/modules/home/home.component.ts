@@ -16,7 +16,6 @@ import { Observable, forkJoin } from 'rxjs';
 export class HomeComponent {
   responseData: Stock[] = [];
   stockSymbols: string[] = [];
-  rowLabels: string[] = [];
   tableColumnHeaders: string[] = [];
   isLoading: boolean = true;
   isDataCached: boolean = false;
@@ -45,7 +44,6 @@ export class HomeComponent {
       'Open Price',
       'Previous Close'
     );
-    this.stockSymbols.forEach((symbol) => this.rowLabels.push(symbol));
     this.getStockQuotes(this.stockSymbols);
   }
 
@@ -66,7 +64,7 @@ export class HomeComponent {
         this.responseData.forEach((response) => {
           //creating new object to guarantee property order
           const object: Stock = {
-            name: stockSymbols[i],
+            name: response.name,
             c: response.c,
             d: response.d,
             dp: response.dp,

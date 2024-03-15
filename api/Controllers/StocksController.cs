@@ -1,6 +1,7 @@
 using api.Interfaces;
 using api.Models;
 using api.Models.Finnhub;
+using api.Models.Alphavantage;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -13,10 +14,12 @@ namespace api.Controllers;
 public class StocksController : Controller
 {
     private readonly IFinnhubService _finnhubService;
+    private readonly IAlphavantageService _alphavantageService;
 
-    public StocksController(IFinnhubService finnhubService)
+    public StocksController(IFinnhubService finnhubService, IAlphavantageService alphavantageService)
     {
         _finnhubService = finnhubService;
+        _alphavantageService = alphavantageService;
     }
 
     [HttpGet("GetStockQuote/{symbol}")]
@@ -30,6 +33,22 @@ public class StocksController : Controller
             var formattedQuote = BuildQuote(retrievedStockQuote);
 
             return Ok(formattedQuote);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("GetCompanyOverview/{symbol}")]
+    public async Task<ActionResult> GetCompanyOverviewBySymbol(string symbol)
+    {
+        //will want to make a builder that builds all requested quotes that user chooses
+        try
+        {
+            var retrievedStockQuote = await _alphavantageService.GetCompanyOverviewBySymbol(symbol);
+
+            return Ok(retrievedStockQuote);
         }
         catch (Exception ex)
         {
