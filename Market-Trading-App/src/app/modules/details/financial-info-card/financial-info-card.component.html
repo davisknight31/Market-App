@@ -1,26 +1,86 @@
 <div class="wrapper">
   <div class="container">
-    <div class="key-info-container">
-      <!-- info placeholder text is based on alpha company overview response -->
-      <h2 class="stock-name">
-        <!-- {{ stockData?.name }} -->
-        Financial Information
-        <span class="symbol">{{ stockData?.symbol }}</span>
-      </h2>
+    <div class="header-info-container">
+      <h2 class="stock-name">Financial Information</h2>
       <hr class="separator" />
-      <div class="general-info-container">
-        <ul class="general-info-list">
-          <li><span class="list-label">Currency: </span>USD</li>
-          <li><span class="list-label">Exchange: </span>NYSE</li>
-          <li>
-            <span class="list-label">Address: </span>1 NEW ORCHARD ROAD, ARMONK,
-            NY, US
-          </li>
-          <li><span class="list-label">Market Cap: </span>$180323746000</li>
-          <li><span class="list-label">Dividend Yield: </span>0.0338</li>
-          <li><span class="list-label">52-Week High: </span>$199.18</li>
-          <li><span class="list-label">52-Week High: </span>$116.36</li>
-        </ul>
+      <div class="financial-info-container">
+        <table class="info-table">
+          <tbody>
+            <tr>
+              <td>
+                <div class="label">Previous Close:</div>
+                <div>${{ stockData.previousClose }}</div>
+              </td>
+              <td>
+                <div class="label">Market Capitalization:</div>
+                <div>${{ stockData.marketCap }}</div>
+              </td>
+              <td>
+                <div class="label">Volume:</div>
+                <div>{{ stockData.volume }}</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="label">Day Open:</div>
+                <div>${{ stockData.open }}</div>
+              </td>
+              <td>
+                <div class="label">Day High:</div>
+                <div>${{ stockData.dayHigh }}</div>
+              </td>
+              <td>
+                <div class="label">Day Low:</div>
+                <div>${{ stockData.dayLow }}</div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="label">Year High:</div>
+                <div>${{ stockData.yearHigh }}</div>
+              </td>
+              <td>
+                <div class="label">Year Low:</div>
+                <div>${{ stockData.yearLow }}</div>
+              </td>
+              <td>
+                <div class="label">Year Target Estimation:</div>
+                <div>${{ stockData.yearTargetEstimate }}</div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="label">Dividend Yield:</div>
+                <div>{{ stockData.forwardAnnualDividendYield }}</div>
+              </td>
+              <td>
+                <div class="label">Dividend Amount:</div>
+                <div>{{ stockData.forwardDividend }}</div>
+              </td>
+              <td>
+                <div class="label">Dividend Payout Date:</div>
+                <div>{{ formatDate(stockData.exDividendDate) }}</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="label">Earnings Per Share:</div>
+                <div>${{ stockData.earningsPerShare }}</div>
+              </td>
+              <td>
+                <div class="label">Earnings Report Date:</div>
+                <div>{{ formatDate(stockData.earningsDate) }}</div>
+              </td>
+              <td>
+                <div class="label">Price-Earnings Ratio:</div>
+                <div>{{ stockData.priceEarningsRatio }}</div>
+              </td>
+            </tr>
+            <tr></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

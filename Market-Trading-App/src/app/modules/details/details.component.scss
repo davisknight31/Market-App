@@ -1,15 +1,11 @@
-* {
-  height: 100%;
-}
 .cards {
   display: flex;
+  font-size: 20px;
   margin: 2%;
-  //   height: 100%;
   gap: 2%;
 }
 
 .general-info-card {
-  //   height: 100%;
   flex-grow: 0;
 }
 

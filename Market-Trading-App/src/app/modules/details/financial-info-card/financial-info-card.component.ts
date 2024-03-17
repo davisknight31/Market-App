@@ -10,4 +10,8 @@ import { Data } from '../../../shared/interfaces/data';
 })
 export class FinancialInfoCardComponent {
   @Input() stockData?: Data;
+
+  formatDate(date: Date): string {
+    return new Date(date).toLocaleDateString();
+  }
 }

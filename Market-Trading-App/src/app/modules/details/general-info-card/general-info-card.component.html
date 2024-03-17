@@ -3,8 +3,7 @@
     <div class="key-info-container">
       <!-- info placeholder text is based on alpha company overview response -->
       <h2 class="stock-name">
-        <!-- {{ stockData?.name }} -->
-        Full Name
+        {{ stockData?.shortName }}
         <span class="symbol">{{ stockData?.symbol }}</span>
       </h2>
       <span class="price-percentage"
@@ -12,8 +11,8 @@
         <div
           class="percent"
           [ngClass]="{
-            'negative-change': stockQuote.dp.includes('-'),
-            'positive-change': !stockQuote.dp.includes('-')
+            'negative-change': stockQuote.dp?.includes('-'),
+            'positive-change': !stockQuote.dp?.includes('-')
           }"
         >
           {{ stockQuote?.dp }}%
