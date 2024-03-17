@@ -4,13 +4,14 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Stock } from '../../shared/interfaces/stock';
 import { Overview } from '../../shared/interfaces/overview';
+import { Data } from '../../shared/interfaces/data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   private apiUrl = 'http://localhost:5286/api';
-  private cachedData: Stock[] = [];
+  cachedData: Stock[] = [];
   private dataFetched: boolean = false;
 
   constructor(private http: HttpClient) {}
@@ -57,6 +58,17 @@ export class ApiService {
   getCompanyOverviewBySymbol(symbol: string): Observable<Overview> {
     return this.http
       .get<Overview>(`${this.apiUrl}/Stocks/GetCompanyOverview/${symbol}`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
+  getStockDataBySymbol(symbol: string): Observable<Data> {
+    return this.http
+      .get<Data>(`${this.apiUrl}/Stocks/GetStockData/${symbol}`)
       .pipe(
         catchError((error) => {
           console.error('Error:', error);

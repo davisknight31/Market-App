@@ -1,3 +1,16 @@
-<div>
-  <app-info-card [companyOverview]="companyOverview"></app-info-card>
+<div class="cards">
+  <app-general-info-card
+    class="general-info-card"
+    [stockQuote]="cachedStock"
+    [stockData]="stockData"
+  ></app-general-info-card>
+  <app-financial-info-card
+    class="financial-info-card"
+  ></app-financial-info-card>
+  <!-- <div class="item3">Test</div>
+  <div class="item3">Test</div>
+
+  <div class="item3">Test</div>
+
+  <div class="item3">Test</div> -->
 </div>

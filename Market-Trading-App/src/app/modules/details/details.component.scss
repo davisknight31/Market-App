@@ -1,0 +1,18 @@
+* {
+  height: 100%;
+}
+.cards {
+  display: flex;
+  margin: 2%;
+  //   height: 100%;
+  gap: 2%;
+}
+
+.general-info-card {
+  //   height: 100%;
+  flex-grow: 0;
+}
+
+.financial-info-card {
+  flex-grow: 1;
+}

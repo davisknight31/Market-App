@@ -1,0 +1,54 @@
+.wrapper {
+  //   margin: 2%;
+  //   padding: 2%;
+  //   height: 100%;
+}
+
+.container {
+  box-shadow: #d8d8d8 0px 4px 24px;
+  border-radius: 10px;
+  //   min-width: fit-content;
+  //   width: 60%;
+
+  overflow: hidden;
+}
+
+.key-info-container {
+  padding: 20px;
+}
+
+.symbol {
+  font-size: 14px;
+}
+
+.price-percentage {
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.percent {
+  font-size: 18px;
+  font-weight: 500;
+  padding-left: 10px;
+}
+
+.separator {
+  margin-top: 10px;
+}
+
+.general-info-list {
+  list-style-type: none;
+
+  li {
+    padding-top: 8px;
+
+    .list-label {
+      font-weight: bold;
+    }
+  }
+}

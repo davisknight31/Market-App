@@ -11,9 +11,7 @@
       (click)="navigateToDetails(data.name)"
     >
       <td class="stock-name">{{ data.name }}</td>
-      <td class="stock-price">
-        {{ data.c }}
-      </td>
+      <td class="stock-price">${{ data.c }}</td>
       <td
         class="stock-change"
         [ngClass]="{
@@ -21,7 +19,7 @@
           'positive-change': !data.d.includes('-')
         }"
       >
-        {{ data.d }}
+        ${{ data.d }}
       </td>
       <td
         class="stock-percent-change"
@@ -30,12 +28,12 @@
           'positive-change': !data.dp.includes('-')
         }"
       >
-        {{ data.dp }}
+        {{ data.dp }}%
       </td>
-      <td>{{ data.h }}</td>
-      <td>{{ data.l }}</td>
-      <td>{{ data.o }}</td>
-      <td>{{ data.pc }}</td>
+      <td>${{ data.h }}</td>
+      <td>${{ data.l }}</td>
+      <td>${{ data.o }}</td>
+      <td>${{ data.pc }}</td>
     </tr>
 
     <!-- The below commented block of code would make the table take in generic data types -->

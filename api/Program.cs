@@ -18,16 +18,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 builder.Services.AddCors();
 
-
-
-
 //register http client
 builder.Services.AddHttpClient();
 
 builder.Services.AddTransient<IFinnhubService, FinnhubService>();
 builder.Services.AddTransient<IAlphavantageService, AlphavantageService>();
-
-
+builder.Services.AddTransient<IAlpacaService, AlpacaService>();
+builder.Services.AddTransient<IAlethiaService, AlethiaService>();
 
 var app = builder.Build();
 
@@ -50,9 +47,6 @@ app.UseMvc();
 app.UseAuthorization();
 
 app.MapControllers();
-
-
-
 
 app.Run();
 
