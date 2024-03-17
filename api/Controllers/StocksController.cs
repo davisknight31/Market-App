@@ -31,7 +31,6 @@ public class StocksController : Controller
     [HttpGet("GetStockQuote/{symbol}")]
     public async Task<ActionResult> GetStockQuoteBySymbol(string symbol)
     {
-        //will want to make a builder that builds all requested quotes that user chooses
         try
         {
             var retrievedStockQuote = await _finnhubService.GetStockQuoteBySymbol(symbol);
@@ -91,6 +90,20 @@ public class StocksController : Controller
         }
     }
 
+    [HttpGet("GetCompanyProfile/{symbol}")]
+    public async Task<ActionResult> GetCompanyProfileBySymbol(string symbol)
+    {
+        try
+        {
+            var retrievedCompanyProfileResponse = await _finnhubService.GetCompanyProfileBySymbol(symbol);
+
+            return Ok(retrievedCompanyProfileResponse);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
 
     private StockQuote BuildQuote(FinnhubStockQuoteResponse retrievedStockQuote)

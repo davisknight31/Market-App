@@ -7,6 +7,8 @@
 
 .general-info-card {
   flex-grow: 0;
+  // this will adjust width of the card, but then creates a weird overlapping of cards when resizing window
+  //width: 25%;
 }
 
 .financial-info-card {

@@ -5,6 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Stock } from '../../shared/interfaces/stock';
 import { Overview } from '../../shared/interfaces/overview';
 import { Data } from '../../shared/interfaces/data';
+import { Profile } from '../../shared/interfaces/profile';
 
 @Injectable({
   providedIn: 'root',
@@ -69,6 +70,17 @@ export class ApiService {
   getStockDataBySymbol(symbol: string): Observable<Data> {
     return this.http
       .get<Data>(`${this.apiUrl}/Stocks/GetStockData/${symbol}`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
+  GetCompanyProfileBySymbol(symbol: string): Observable<Profile> {
+    return this.http
+      .get<Profile>(`${this.apiUrl}/Stocks/GetCompanyProfile/${symbol}`)
       .pipe(
         catchError((error) => {
           console.error('Error:', error);

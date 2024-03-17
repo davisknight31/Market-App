@@ -75,5 +75,23 @@ public class FinnhubService : IFinnhubService
         }
     }
 
- 
+    public async Task<FinnhubCompanyProfileResponse> GetCompanyProfileBySymbol(string stockSymbol)
+    {
+        try
+        {
+            var responseBody = await SendHttpRequestAsync(HttpMethod.Get, $"stock/profile2?symbol={stockSymbol}");
+
+            _logger.LogInformation($"Finnhub API response: {responseBody}");
+
+            var profileResponse = JsonConvert.DeserializeObject<FinnhubCompanyProfileResponse>(responseBody);
+
+            return profileResponse;
+        }
+        catch (HttpRequestException httpEx)
+        {
+            _logger.LogError($"An error occurred when calling Finnhub API: {httpEx.Message}");
+            throw;
+        }
+    }
+
 }

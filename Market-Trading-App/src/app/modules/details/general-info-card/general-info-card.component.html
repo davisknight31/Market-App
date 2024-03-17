@@ -1,8 +1,8 @@
 <div class="wrapper">
   <div class="container">
     <div class="key-info-container">
-      <!-- info placeholder text is based on alpha company overview response -->
       <h2 class="stock-name">
+        <img [src]="companyProfile.logo" class="logo" />
         {{ stockData?.shortName }}
         <span class="symbol">{{ stockData?.symbol }}</span>
       </h2>
@@ -11,8 +11,8 @@
         <div
           class="percent"
           [ngClass]="{
-            'negative-change': stockQuote.dp?.includes('-'),
-            'positive-change': !stockQuote.dp?.includes('-')
+            'negative-change': stockQuote?.dp.includes('-'),
+            'positive-change': !stockQuote?.dp.includes('-')
           }"
         >
           {{ stockQuote?.dp }}%
@@ -21,15 +21,36 @@
       <hr class="separator" />
       <div class="general-info-container">
         <ul class="general-info-list">
-          <li><span class="list-label">Currency: </span>USD</li>
-          <li><span class="list-label">Exchange: </span>NYSE</li>
           <li>
-            <span class="list-label">Address: </span>1 NEW ORCHARD ROAD, ARMONK,
-            NY, US
+            <span class="list-label">Country: </span
+            >{{ companyProfile.country }}
           </li>
-          <li><span class="list-label">Market Cap: </span>$180323746000</li>
-          <li><span class="list-label">Dividend Yield: </span>0.0338</li>
-          <li><span class="list-label">52-Week High: </span>$199.18</li>
+          <li>
+            <span class="list-label">Currency: </span
+            >{{ companyProfile.currency }}
+          </li>
+          <li>
+            <span class="list-label">Exchange: </span
+            >{{ companyProfile.exchange }}
+          </li>
+          <li>
+            <span class="list-label">Industry: </span
+            >{{ companyProfile.finnhubIndustry }}
+          </li>
+          <li>
+            <span class="list-label">Website: </span>
+            <a [href]="companyProfile.webUrl" target="_blank">{{
+              companyProfile.webUrl
+            }}</a>
+          </li>
+          <li>
+            <span class="list-label">Phone Number: </span
+            >{{ companyProfile.phone }}
+          </li>
+          <li>
+            <span class="list-label">Initial Public Offering: </span
+            >{{ formatDate(companyProfile.ipo) }}
+          </li>
           <li><span class="list-label">52-Week High: </span>$116.36</li>
         </ul>
       </div>

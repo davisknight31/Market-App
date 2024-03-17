@@ -9,73 +9,86 @@
             <tr>
               <td>
                 <div class="label">Previous Close:</div>
-                <div>${{ stockData.previousClose }}</div>
+                <div>${{ stockData?.previousClose }}</div>
               </td>
               <td>
                 <div class="label">Market Capitalization:</div>
-                <div>${{ stockData.marketCap }}</div>
+                <div>${{ stockData?.marketCap }}</div>
               </td>
               <td>
                 <div class="label">Volume:</div>
-                <div>{{ stockData.volume }}</div>
+                <div>{{ stockData?.volume }}</div>
               </td>
             </tr>
             <tr>
               <td>
                 <div class="label">Day Open:</div>
-                <div>${{ stockData.open }}</div>
+                <div>${{ stockData?.open }}</div>
               </td>
               <td>
                 <div class="label">Day High:</div>
-                <div>${{ stockData.dayHigh }}</div>
+                <div>${{ stockData?.dayHigh }}</div>
               </td>
               <td>
                 <div class="label">Day Low:</div>
-                <div>${{ stockData.dayLow }}</div>
+                <div>${{ stockData?.dayLow }}</div>
               </td>
             </tr>
 
             <tr>
               <td>
                 <div class="label">Year High:</div>
-                <div>${{ stockData.yearHigh }}</div>
+                <div>${{ stockData?.yearHigh }}</div>
               </td>
               <td>
                 <div class="label">Year Low:</div>
-                <div>${{ stockData.yearLow }}</div>
+                <div>${{ stockData?.yearLow }}</div>
               </td>
               <td>
                 <div class="label">Year Target Estimation:</div>
-                <div>${{ stockData.yearTargetEstimate }}</div>
+                <div>${{ stockData?.yearTargetEstimate }}</div>
               </td>
             </tr>
 
             <tr>
               <td>
                 <div class="label">Dividend Yield:</div>
-                <div>{{ stockData.forwardAnnualDividendYield }}</div>
+                <div *ngIf="stockData?.forwardAnnualDividendYield === 0">
+                  No Dividend
+                </div>
+                <div *ngIf="stockData?.forwardAnnualDividendYield !== 0">
+                  {{ stockData?.forwardAnnualDividendYield }}
+                </div>
               </td>
               <td>
                 <div class="label">Dividend Amount:</div>
-                <div>{{ stockData.forwardDividend }}</div>
+                <div *ngIf="stockData?.forwardDividend === 0">No Dividend</div>
+                <div *ngIf="stockData?.forwardDividend !== 0">
+                  {{ stockData?.forwardDividend }}
+                </div>
               </td>
               <td>
                 <div class="label">Dividend Payout Date:</div>
-                <div>{{ formatDate(stockData.exDividendDate) }}</div>
+                <div *ngIf="formatDate(stockData?.exDividendDate) !== '1/1/1'">
+                  {{ formatDate(stockData?.exDividendDate) }}
+                </div>
+                <div *ngIf="formatDate(stockData?.exDividendDate) === '1/1/1'">
+                  No Dividend
+                </div>
               </td>
             </tr>
             <tr>
               <td>
                 <div class="label">Earnings Per Share:</div>
-                <div>${{ stockData.earningsPerShare }}</div>
+                <div>${{ stockData?.earningsPerShare }}</div>
               </td>
               <td>
                 <div class="label">Earnings Report Date:</div>
-                <div>{{ formatDate(stockData.earningsDate) }}</div>
+                <div>{{ formatDate(stockData?.earningsDate) }}</div>
               </td>
               <td>
                 <div class="label">Price-Earnings Ratio:</div>
-                <div>{{ stockData.priceEarningsRatio }}</div>
+                <div>{{ stockData?.priceEarningsRatio }}</div>
               </td>
             </tr>
             <tr></tr>

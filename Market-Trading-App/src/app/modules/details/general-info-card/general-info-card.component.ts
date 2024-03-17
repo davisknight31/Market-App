@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Overview } from '../../../shared/interfaces/overview';
 import { Stock } from '../../../shared/interfaces/stock';
 import { Data } from '../../../shared/interfaces/data';
+import { Profile } from '../../../shared/interfaces/profile';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,4 +14,9 @@ import { CommonModule } from '@angular/common';
 export class GeneralInfoCardComponent {
   @Input() stockQuote?: Stock;
   @Input() stockData?: Data;
+  @Input() companyProfile: Profile;
+
+  formatDate(date: Date): string {
+    return new Date(date).toLocaleDateString();
+  }
 }
