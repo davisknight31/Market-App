@@ -6,6 +6,7 @@ import { Stock } from '../../shared/interfaces/stock';
 import { Overview } from '../../shared/interfaces/overview';
 import { Data } from '../../shared/interfaces/data';
 import { Profile } from '../../shared/interfaces/profile';
+import { NewsArticles } from '../../shared/interfaces/newsArticles';
 
 @Injectable({
   providedIn: 'root',
@@ -81,6 +82,17 @@ export class ApiService {
   GetCompanyProfileBySymbol(symbol: string): Observable<Profile> {
     return this.http
       .get<Profile>(`${this.apiUrl}/Stocks/GetCompanyProfile/${symbol}`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
+  GetNewsArticles(): Observable<NewsArticles> {
+    return this.http
+      .get<NewsArticles>(`${this.apiUrl}/Stocks/GetNewsArticles`)
       .pipe(
         catchError((error) => {
           console.error('Error:', error);

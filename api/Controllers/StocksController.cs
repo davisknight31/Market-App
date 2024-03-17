@@ -105,6 +105,21 @@ public class StocksController : Controller
         }
     }
 
+    [HttpGet("GetNewsArticles")]
+    public async Task<ActionResult> GetNewsArticles()
+    {
+        try
+        {
+            var retrievedNewsArticleResponse = await _alpacaService.GetNewsArticles();
+
+            return Ok(retrievedNewsArticleResponse);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
 
     private StockQuote BuildQuote(FinnhubStockQuoteResponse retrievedStockQuote)
     {

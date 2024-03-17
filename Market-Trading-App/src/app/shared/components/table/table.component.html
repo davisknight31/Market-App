@@ -1,54 +1,58 @@
-<table>
-  <thead>
-    <tr>
-      <th *ngFor="let header of columnHeaders">{{ header }}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      class="data-row"
-      *ngFor="let data of displayedData"
-      (click)="navigateToDetails(data.name)"
-    >
-      <td class="stock-name">{{ data.name }}</td>
-      <td class="stock-price">${{ data.c }}</td>
-      <td
-        class="stock-change"
-        [ngClass]="{
-          'negative-change': data.d.includes('-'),
-          'positive-change': !data.d.includes('-')
-        }"
-      >
-        ${{ data.d }}
-      </td>
-      <td
-        class="stock-percent-change"
-        [ngClass]="{
-          'negative-change': data.dp.includes('-'),
-          'positive-change': !data.dp.includes('-')
-        }"
-      >
-        {{ data.dp }}%
-      </td>
-      <td>${{ data.h }}</td>
-      <td>${{ data.l }}</td>
-      <td>${{ data.o }}</td>
-      <td>${{ data.pc }}</td>
-    </tr>
+<div class="main-list-wrapper">
+  <div class="main-list-container">
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let header of columnHeaders">{{ header }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="data-row"
+          *ngFor="let data of displayedData"
+          (click)="navigateToDetails(data.name)"
+        >
+          <td class="stock-name">{{ data.name }}</td>
+          <td class="stock-price">${{ data.c }}</td>
+          <td
+            class="stock-change"
+            [ngClass]="{
+              'negative-change': data.d.includes('-'),
+              'positive-change': !data.d.includes('-')
+            }"
+          >
+            ${{ data.d }}
+          </td>
+          <td
+            class="stock-percent-change"
+            [ngClass]="{
+              'negative-change': data.dp.includes('-'),
+              'positive-change': !data.dp.includes('-')
+            }"
+          >
+            {{ data.dp }}%
+          </td>
+          <td>${{ data.h }}</td>
+          <td>${{ data.l }}</td>
+          <td>${{ data.o }}</td>
+          <td>${{ data.pc }}</td>
+        </tr>
 
-    <!-- The below commented block of code would make the table take in generic data types -->
-    <!-- <tr *ngFor="let row of displayedData; let i = index">
+        <!-- The below commented block of code would make the table take in generic data types -->
+        <!-- <tr *ngFor="let row of displayedData; let i = index">
       <td *ngFor="let item of row | keyvalue : keepOrder">{{ item.value }}</td>
     </tr> -->
-  </tbody>
-</table>
-<!-- <hr class="separator" /> -->
+      </tbody>
+    </table>
+    <!-- <hr class="separator" /> -->
 
-<div class="pagination">
-  <button (click)="previousPage()" [disabled]="currentPage === 1">
-    Previous
-  </button>
-  <button (click)="nextPage()" [disabled]="currentPage === totalPages">
-    Next
-  </button>
+    <div class="pagination">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">
+        Previous
+      </button>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        Next
+      </button>
+    </div>
+  </div>
 </div>

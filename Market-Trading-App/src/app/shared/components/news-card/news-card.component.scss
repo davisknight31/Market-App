@@ -1,0 +1,21 @@
+.wrapper {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+}
+
+.news-articles-container {
+  //   box-shadow: #f5e0e0 0px 4px 24px;
+  display: flex;
+  border-radius: 10px;
+  width: 90%;
+}
+
+.article-container {
+}
+
+.separator {
+  margin: 2%;
+}

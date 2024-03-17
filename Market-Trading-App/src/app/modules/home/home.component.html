@@ -1,12 +1,9 @@
-<div class="main-list-wrapper">
-  <div class="main-list-container">
-    <div *ngIf="isLoading">Loading...</div>
-    <div *ngIf="!isLoading">
-      <app-table
-        [tableData]="stockDetails"
-        [columnHeaders]="tableColumnHeaders"
-        [rowsPerPage]="5"
-      ></app-table>
-    </div>
-  </div>
+<div *ngIf="isLoading">Loading...</div>
+<div *ngIf="!isLoading">
+  <app-news-card></app-news-card>
+  <app-table
+    [tableData]="stockDetails"
+    [columnHeaders]="tableColumnHeaders"
+    [rowsPerPage]="5"
+  ></app-table>
 </div>

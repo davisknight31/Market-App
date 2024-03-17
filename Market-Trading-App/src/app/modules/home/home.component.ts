@@ -5,11 +5,12 @@ import { Stock } from '../../shared/interfaces/stock';
 import { ApiService } from '../../core/services/api.service';
 import { NgIf } from '@angular/common';
 import { Observable, forkJoin } from 'rxjs';
+import { NewsCardComponent } from '../../shared/components/news-card/news-card.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, TableComponent, NgIf],
+  imports: [NavbarComponent, TableComponent, NgIf, NewsCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <div class="news-articles-container">
+    <div *ngFor="let article of newsArticles.news" class="article-container">
+      <div
+        class="article-image"
+        [style.background-image]="'url(' + article.images[0]?.url + ')'"
+      ></div>
+      <div class="article-headline"></div>
+
+      {{ article.headline }}
+    </div>
+  </div>
+</div>
+<hr class="separator" />
