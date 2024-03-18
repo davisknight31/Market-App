@@ -1,13 +1,27 @@
 <div class="wrapper">
   <div class="news-articles-container">
-    <div *ngFor="let article of newsArticles.news" class="article-container">
-      <div
+    <div
+      *ngFor="let article of newsArticles.news.slice(0, 4)"
+      class="article-container"
+    >
+      <!-- <div
         class="article-image"
         [style.background-image]="'url(' + article.images[0]?.url + ')'"
-      ></div>
-      <div class="article-headline"></div>
+      > -->
+      <a [href]="article.url" target="_blank">
+        <img
+          *ngIf="article.images[0]?.url.length > 0"
+          class="article-image"
+          [src]="article.images[0]?.url"
+        />
+        <img
+          *ngIf="article.images[0]?.url.length <= 0"
+          class="article-image"
+          src="assets/breakingNews.jpg"
+        />
 
-      {{ article.headline }}
+        <div class="article-headline">{{ truncateText(article.headline) }}</div>
+      </a>
     </div>
   </div>
 </div>

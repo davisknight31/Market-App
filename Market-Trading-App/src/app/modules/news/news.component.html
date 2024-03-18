@@ -1,0 +1,21 @@
+<div class="article-list-container">
+  <div class="article-list">
+    <div *ngFor="let article of newsArticles.news" class="article-container">
+      <a [href]="article.url" target="_blank" class="article-link">
+        <img
+          *ngIf="article.images[0]?.url.length > 0"
+          class="article-image"
+          [src]="article.images[0]?.url"
+        />
+        <img
+          *ngIf="article.images[0]?.url.length <= 0"
+          class="article-image"
+          src="assets/breakingNews.jpg"
+        />
+      </a>
+      <a class="article-headline" [href]="article.url" target="_blank">{{
+        article.headline
+      }}</a>
+    </div>
+  </div>
+</div>

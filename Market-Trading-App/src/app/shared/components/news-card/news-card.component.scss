@@ -1,21 +1,39 @@
 .wrapper {
   margin-top: 2%;
   display: flex;
+
   justify-content: center;
-  width: 100%;
-  height: fit-content;
 }
 
 .news-articles-container {
-  //   box-shadow: #f5e0e0 0px 4px 24px;
   display: flex;
+  justify-content: space-evenly;
   border-radius: 10px;
+  margin-right: 5%;
+  margin-left: 5%;
   width: 90%;
+  height: 80%;
 }
 
 .article-container {
+  background-size: cover;
+  width: 400px;
+  height: fit-content;
+  padding: 15px;
+}
+.article-image {
+  width: 100%;
+  border-radius: 10px;
 }
 
+.article-headline {
+  width: 100%;
+}
+
+a {
+  color: black;
+  font-weight: bold;
+}
 .separator {
   margin: 2%;
 }
