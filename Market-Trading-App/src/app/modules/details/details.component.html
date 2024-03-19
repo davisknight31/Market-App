@@ -1,11 +1,16 @@
 <div class="cards">
+  <div *ngIf="isLoading" class="spinner-container">
+    <app-spinner></app-spinner>
+  </div>
   <app-general-info-card
+    *ngIf="!isLoading"
     class="general-info-card"
     [stockQuote]="cachedStock"
     [stockData]="stockData"
     [companyProfile]="companyProfile"
   ></app-general-info-card>
   <app-financial-info-card
+    *ngIf="!isLoading"
     class="financial-info-card"
     [stockData]="stockData"
   ></app-financial-info-card>

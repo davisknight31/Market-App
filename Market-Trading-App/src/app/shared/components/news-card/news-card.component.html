@@ -1,13 +1,12 @@
-<div class="wrapper">
+<div *ngIf="isLoading" class="spinner-container">
+  <app-spinner></app-spinner>
+</div>
+<div *ngIf="!isLoading" class="wrapper">
   <div class="news-articles-container">
     <div
-      *ngFor="let article of newsArticles.news.slice(0, 4)"
+      *ngFor="let article of newsArticles?.news.slice(0, 4)"
       class="article-container"
     >
-      <!-- <div
-        class="article-image"
-        [style.background-image]="'url(' + article.images[0]?.url + ')'"
-      > -->
       <a [href]="article.url" target="_blank">
         <img
           *ngIf="article.images[0]?.url.length > 0"

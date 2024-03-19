@@ -2,7 +2,7 @@
   <div class="container">
     <div class="key-info-container">
       <h2 class="stock-name">
-        <img [src]="companyProfile.logo" class="logo" />
+        <img [src]="companyProfile?.logo" class="logo" />
         {{ stockData?.shortName }}
         <span class="symbol">{{ stockData?.symbol }}</span>
       </h2>
@@ -23,33 +23,33 @@
         <ul class="general-info-list">
           <li>
             <span class="list-label">Country: </span
-            >{{ companyProfile.country }}
+            >{{ companyProfile?.country }}
           </li>
           <li>
             <span class="list-label">Currency: </span
-            >{{ companyProfile.currency }}
+            >{{ companyProfile?.currency }}
           </li>
           <li>
             <span class="list-label">Exchange: </span
-            >{{ companyProfile.exchange }}
+            >{{ companyProfile?.exchange }}
           </li>
           <li>
             <span class="list-label">Industry: </span
-            >{{ companyProfile.finnhubIndustry }}
+            >{{ companyProfile?.finnhubIndustry }}
           </li>
           <li>
             <span class="list-label">Website: </span>
-            <a [href]="companyProfile.webUrl" target="_blank">{{
-              companyProfile.webUrl
+            <a [href]="companyProfile?.webUrl" target="_blank">{{
+              companyProfile?.webUrl
             }}</a>
           </li>
           <li>
             <span class="list-label">Phone Number: </span
-            >{{ companyProfile.phone }}
+            >{{ companyProfile?.phone }}
           </li>
           <li>
             <span class="list-label">Initial Public Offering: </span
-            >{{ formatDate(companyProfile.ipo) }}
+            >{{ formatDate(companyProfile?.ipo) }}
           </li>
         </ul>
       </div>

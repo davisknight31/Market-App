@@ -6,11 +6,18 @@ import { ApiService } from '../../core/services/api.service';
 import { NgIf } from '@angular/common';
 import { Observable, forkJoin } from 'rxjs';
 import { NewsCardComponent } from '../../shared/components/news-card/news-card.component';
+import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, TableComponent, NgIf, NewsCardComponent],
+  imports: [
+    NavbarComponent,
+    TableComponent,
+    NgIf,
+    NewsCardComponent,
+    SpinnerComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

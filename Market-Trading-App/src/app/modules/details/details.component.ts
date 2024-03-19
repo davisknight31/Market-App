@@ -6,11 +6,18 @@ import { ActivatedRoute } from '@angular/router';
 import { GeneralInfoCardComponent } from './general-info-card/general-info-card.component';
 import { ApiService } from '../../core/services/api.service';
 import { FinancialInfoCardComponent } from './financial-info-card/financial-info-card.component';
+import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [GeneralInfoCardComponent, FinancialInfoCardComponent],
+  imports: [
+    GeneralInfoCardComponent,
+    FinancialInfoCardComponent,
+    SpinnerComponent,
+    CommonModule,
+  ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
 })
@@ -21,6 +28,7 @@ export class DetailsComponent {
   stockData: Data;
   cachedStock: Stock;
   companyProfile: Profile;
+  isLoading: boolean = true;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {}
 
@@ -31,6 +39,8 @@ export class DetailsComponent {
     this.getStockData();
     this.getPriceInfoFromCachedData();
     this.getCompanyProfile();
+    window.scrollTo(0, 0);
+    this.isLoading = false;
   }
 
   getPriceInfoFromCachedData(): void {

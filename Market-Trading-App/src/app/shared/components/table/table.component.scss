@@ -76,11 +76,13 @@ table {
 }
 
 .positive-change {
-  color: green;
+  color: rgb(0, 167, 0);
+  font-weight: bold;
 }
 
 .negative-change {
   color: red;
+  font-weight: bold;
 }
 
 .pagination {

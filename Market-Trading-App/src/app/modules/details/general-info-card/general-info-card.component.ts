@@ -15,6 +15,7 @@ export class GeneralInfoCardComponent {
   @Input() stockQuote?: Stock;
   @Input() stockData?: Data;
   @Input() companyProfile: Profile;
+  // @Input() isLoading: boolean;
 
   formatDate(date: Date): string {
     return new Date(date).toLocaleDateString();
