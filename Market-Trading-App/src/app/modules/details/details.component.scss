@@ -5,6 +5,13 @@
   gap: 2%;
 }
 
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
 .general-info-card {
   flex-grow: 0;
   // this will adjust width of the card, but then creates a weird overlapping of cards when resizing window

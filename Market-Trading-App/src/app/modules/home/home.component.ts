@@ -36,7 +36,7 @@ export class HomeComponent {
     this.stockSymbols.push(
       'MSFT',
       'AMZN',
-      'TSLA',
+      'IBM',
       'AAPL',
       'NVDA',
       'META',

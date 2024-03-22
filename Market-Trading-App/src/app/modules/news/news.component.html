@@ -1,5 +1,6 @@
 <div class="article-list-container">
-  <div class="article-list">
+  <app-spinner *ngIf="isLoading"></app-spinner>
+  <div *ngIf="!isLoading" class="article-list">
     <div *ngFor="let article of newsArticles?.news" class="article-container">
       <a [href]="article.url" target="_blank" class="article-link">
         <img

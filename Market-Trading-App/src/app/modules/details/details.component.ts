@@ -8,6 +8,7 @@ import { ApiService } from '../../core/services/api.service';
 import { FinancialInfoCardComponent } from './financial-info-card/financial-info-card.component';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { CommonModule } from '@angular/common';
+import { Observable, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -29,6 +30,7 @@ export class DetailsComponent {
   cachedStock: Stock;
   companyProfile: Profile;
   isLoading: boolean = true;
+  // add is loading for each call, and use that to determine if spinner should disappear
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {}
 
@@ -36,11 +38,32 @@ export class DetailsComponent {
     this.stockSymbol = this.route.snapshot.paramMap.get('stock');
     // this.stock = JSON.parse(stockParameter!) as Stock;
     // this.getCompanyOverview();
-    this.getStockData();
     this.getPriceInfoFromCachedData();
-    this.getCompanyProfile();
+    // this.getStockData();
+    // this.getCompanyProfile();
+    this.combineApisAndLoad();
     window.scrollTo(0, 0);
-    this.isLoading = false;
+  }
+
+  combineApisAndLoad(): void {
+    this.isLoading = true;
+
+    const combinedObservables: Observable<any>[] = [
+      this.apiService.getStockDataBySymbol(this.stockSymbol),
+      this.apiService.GetCompanyProfileBySymbol(this.stockSymbol),
+    ];
+
+    forkJoin(combinedObservables).subscribe({
+      next: (responses) => {
+        console.log(responses);
+        this.stockData = responses[0];
+        this.companyProfile = responses[1];
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('error fetching', error);
+      },
+    });
   }
 
   getPriceInfoFromCachedData(): void {
