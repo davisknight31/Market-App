@@ -1,8 +1,17 @@
 <div *ngIf="!isLoading">
   <app-news-card></app-news-card>
-  <app-table
-    [tableData]="stockDetails"
-    [columnHeaders]="tableColumnHeaders"
-    [rowsPerPage]="5"
-  ></app-table>
+
+  <!-- <div class="sidebar-and-tables"> -->
+  <div class="table">
+    <h1 class="header">Current Prices</h1>
+    <app-sidebar></app-sidebar>
+
+    <app-table
+      *ngIf="tableFilterService.selectedStockList === 'tradesimChoice'"
+      [tableData]="stockDetails"
+      [columnHeaders]="tableColumnHeaders"
+      [rowsPerPage]="5"
+    ></app-table>
+  </div>
+  <!-- </div> -->
 </div>

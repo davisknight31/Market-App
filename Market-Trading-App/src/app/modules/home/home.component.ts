@@ -7,6 +7,8 @@ import { NgIf } from '@angular/common';
 import { Observable, forkJoin } from 'rxjs';
 import { NewsCardComponent } from '../../shared/components/news-card/news-card.component';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { TableFilterService } from '../../core/services/table-filter.service';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,7 @@ import { SpinnerComponent } from '../../shared/components/spinner/spinner.compon
     NgIf,
     NewsCardComponent,
     SpinnerComponent,
+    SidebarComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -30,7 +33,10 @@ export class HomeComponent {
 
   stockDetails: Stock[] = [];
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    public tableFilterService: TableFilterService
+  ) {}
 
   ngOnInit() {
     this.stockSymbols.push(

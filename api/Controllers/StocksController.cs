@@ -5,8 +5,8 @@ using api.Models.Alphavantage;
 using api.Models.Alpaca ;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-
-
+using Microsoft.AspNetCore.JsonPatch.Internal;
+using Alpaca.Markets;
 
 namespace api.Controllers;
 
@@ -105,6 +105,49 @@ public class StocksController : Controller
         }
     }
 
+    [HttpGet("GetMostActive")]
+    public async Task<ActionResult> GetMostActive()
+    {
+        try
+        {
+            var retrievedMostActiveStocks = await _alpacaService.GetMostActiveStocks();
+
+            var mostActiveSymbols = GetMostActiveSymbols(retrievedMostActiveStocks);
+
+            var retrievedStockBars = await _alpacaService.GetLatestStockBarsBySymbols(mostActiveSymbols);
+
+            var formattedStockInformation = FormatStockInformation(retrievedStockBars);
+
+            return Ok(retrievedMostActiveStocks);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("GetTopMovers")]
+    public async Task<ActionResult> GetTopMovers()
+    {
+        try
+        {
+            var retrievedTopMovers = await _alpacaService.GetTopMovers();
+
+            var moverSymbols = GetMoverSymbols(retrievedTopMovers);
+
+            var retrievedStockBars = await _alpacaService.GetLatestStockBarsBySymbols(moverSymbols);
+
+            var formattedStockInformation = FormatStockInformation(retrievedTopMovers, retrievedStockBars);
+
+
+            return Ok(formattedStockInformation);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     [HttpGet("GetNewsArticles")]
     public async Task<ActionResult> GetNewsArticles()
     {
@@ -134,6 +177,120 @@ public class StocksController : Controller
             PreviousClosePrice = retrievedStockQuote.PreviousClosePrice.ToString("N2")
         };
         return quote;
+    }
+
+    private List<string> GetMoverSymbols(AlpacaTopMoversResponse retrievedTopMovers)
+    {
+        List<string> moverSymbols = new List<string>();
+
+        foreach (TopMoverStock mover in retrievedTopMovers.Gainers)
+        {
+            moverSymbols.Add(mover.Symbol);
+        }
+
+        foreach (TopMoverStock mover in retrievedTopMovers.Losers)
+        {
+            moverSymbols.Add(mover.Symbol);
+        }
+
+        return moverSymbols;
+    }
+
+    private List<string> GetMostActiveSymbols(AlpacaMostActiveResponse retrievedMostActive)
+    {
+        List<string> mostActiveSymbols = new List<string>();
+        
+        foreach (ActiveStock stock in retrievedMostActive.MostActiveStocks)
+        {
+            mostActiveSymbols.Add(stock.Symbol);
+        }
+
+        return mostActiveSymbols;
+    }
+
+    private List<StockInformation> FormatStockInformation(AlpacaLatestBarResponse barsResponseInfo)
+    {
+        List<StockInformation> stockInformation = new List<StockInformation>();
+
+        foreach (var entry in barsResponseInfo.Bars)
+        {
+            stockInformation stock = new stockInformation()
+            {
+                Symbol = entry.Key,
+                //NEED TO ADD ENDPOINT TO GET RECENT TRADE TO SEE CURRENT PRICE
+                Price = mover.Price,
+          
+            }
+        }
+
+    }
+
+
+    private List<StockInformation> FormatStockInformation(AlpacaTopMoversResponse topMoversBaseInfo, AlpacaLatestBarResponse barsResponseInfo)
+    {
+        List<StockInformation> stockInformation = new List<StockInformation>();
+
+        foreach (TopMoverStock mover in topMoversBaseInfo.Gainers)
+        {
+            var correspondingBar = new Bar();
+            foreach (var entry in barsResponseInfo.Bars)
+            {
+                if (mover.Symbol == entry.Key)
+                {
+                    correspondingBar = entry.Value;
+                }
+            }
+
+            StockInformation stock = new StockInformation()
+            {
+                Symbol = mover.Symbol,
+                Price = mover.Price,
+                Change = mover.Change,
+                PercentChange = mover.PercentChange,
+                Close = correspondingBar.Close,
+                High = correspondingBar.High,
+                Low = correspondingBar.Low,
+                Count = correspondingBar.Count,
+                Open = correspondingBar.Open,
+                Time = correspondingBar.Time,
+                Volume = correspondingBar.Volume,
+                VolumeWeighted = correspondingBar.VolumeWeighted
+            };
+
+            stockInformation.Add(stock);
+        }
+
+        foreach (TopMoverStock mover in topMoversBaseInfo.Losers)
+        {
+            var correspondingBar = new Bar();
+            foreach (var entry in barsResponseInfo.Bars)
+            {
+                if (mover.Symbol == entry.Key)
+                {
+                    correspondingBar = entry.Value;
+                }
+            }
+
+            StockInformation stock = new StockInformation()
+            {
+                Symbol = mover.Symbol,
+                Price = mover.Price,
+                Change = mover.Change,
+                PercentChange = mover.PercentChange,
+                Close = correspondingBar.Close,
+                High = correspondingBar.High,
+                Low = correspondingBar.Low,
+                Count = correspondingBar.Count,
+                Open = correspondingBar.Open,
+                Time = correspondingBar.Time,
+                Volume = correspondingBar.Volume,
+                VolumeWeighted = correspondingBar.VolumeWeighted
+            };
+
+            stockInformation.Add(stock);
+        }
+
+        return stockInformation;
     }
 }
 

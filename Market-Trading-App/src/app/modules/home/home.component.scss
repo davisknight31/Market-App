@@ -4,3 +4,22 @@
   padding-top: 10%;
   padding-bottom: 10%;
 }
+
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  app-sidebar {
+    width: 25%;
+    margin-bottom: 2%;
+  }
+
+  app-table {
+  }
+}

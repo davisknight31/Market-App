@@ -100,6 +100,44 @@ public class AlpacaService : IAlpacaService
         }
     }
 
+    public async Task<AlpacaMostActiveResponse> GetMostActiveStocks()
+    {
+        try
+        {
+            var responseBody = await SendV1BetaHttpRequestAsync(HttpMethod.Get, $"screener/stocks/most-actives?by=trades&top=30");
+
+            _logger.LogInformation($"Alpaca API response: {responseBody}");
+
+            var mostActive = JsonConvert.DeserializeObject<AlpacaMostActiveResponse>(responseBody);
+
+            return mostActive;
+        }
+        catch (HttpRequestException httpEx)
+        {
+            _logger.LogError($"An error occurred when calling Alpaca API: {httpEx.Message}");
+            throw;
+        }
+    }
+
+    public async Task<AlpacaTopMoversResponse> GetTopMovers()
+    {
+        try
+        {
+            var responseBody = await SendV1BetaHttpRequestAsync(HttpMethod.Get, $"screener/stocks/movers?top=15");
+
+            _logger.LogInformation($"Alpaca API response: {responseBody}");
+
+            var topMovers = JsonConvert.DeserializeObject<AlpacaTopMoversResponse>(responseBody);
+
+            return topMovers;
+        }
+        catch (HttpRequestException httpEx)
+        {
+            _logger.LogError($"An error occurred when calling Alpaca API: {httpEx.Message}");
+            throw;
+        }
+    }
+
     public async Task<AlpacaNewsArticlesResponse> GetNewsArticles()
     {
         try
