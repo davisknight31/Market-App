@@ -1,4 +1,19 @@
 export interface Stock {
+  symbol: string;
+  price: number;
+  change: number;
+  percentChange: number;
+  close: number;
+  high: number;
+  low: number;
+  count?: number;
+  open: number;
+  time?: Date;
+  volume?: number;
+  volumeWeighted?: number;
+}
+
+export interface StockOld {
   name: string;
 
   //'current price'

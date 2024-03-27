@@ -22,7 +22,7 @@ export class NewsCardComponent {
   }
 
   getNewsArticles(): void {
-    this.apiService.GetNewsArticles().subscribe((response: NewsArticles) => {
+    this.apiService.getNewsArticles().subscribe((response: NewsArticles) => {
       this.newsArticles = response;
       this.isLoading = false;
     });

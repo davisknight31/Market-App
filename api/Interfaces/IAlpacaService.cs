@@ -9,5 +9,6 @@ public interface IAlpacaService
     Task<AlpacaLatestBarResponse> GetLatestStockBarsBySymbols(List<string> stockSymbols);
     Task<AlpacaMostActiveResponse> GetMostActiveStocks();
     Task<AlpacaTopMoversResponse> GetTopMovers();
+    Task<AlpacaLatestTradesResponse> GetLatestTrades(List<string> stockSymbols);
     Task<AlpacaNewsArticlesResponse> GetNewsArticles();
 }

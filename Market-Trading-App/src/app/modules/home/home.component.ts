@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { TableComponent } from '../../shared/components/table/table.component';
-import { Stock } from '../../shared/interfaces/stock';
+import { Stock, StockOld } from '../../shared/interfaces/stock';
 import { ApiService } from '../../core/services/api.service';
 import { NgIf } from '@angular/common';
 import { Observable, forkJoin } from 'rxjs';
@@ -25,13 +25,15 @@ import { TableFilterService } from '../../core/services/table-filter.service';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  responseData: Stock[] = [];
+  responseData: StockOld[] = [];
   stockSymbols: string[] = [];
   tableColumnHeaders: string[] = [];
   isLoading: boolean = true;
   isDataCached: boolean = false;
 
   stockDetails: Stock[] = [];
+  topMovers: Stock[] = [];
+  mostActive: Stock[] = [];
 
   constructor(
     private apiService: ApiService,
@@ -58,46 +60,70 @@ export class HomeComponent {
       'Open Price',
       'Previous Close'
     );
-    this.getStockQuotes(this.stockSymbols);
+    this.getTopMovers();
+    this.getMostActive();
+    this.getStocks(this.stockSymbols);
+    this.tableFilterService.selectedStockList = 'tradesimChoice';
   }
 
-  getStockQuotes(stockSymbols: string[]): void {
-    const observables: Observable<any>[] = [];
+  getStocks(stockSymbols: string[]): void {
+    // const observables: Observable<any>[] = [];
     this.responseData = [];
 
-    stockSymbols.forEach((symbol) => {
-      observables.push(this.apiService.getStockQuoteBySymbol(symbol));
+    this.apiService.getStocks(stockSymbols).subscribe((response: Stock[]) => {
+      this.stockDetails = response;
+      console.log('home hit', response);
+
+      this.isLoading = false;
     });
 
-    forkJoin(observables).subscribe({
-      next: (responses) => {
-        console.log('All data received', responses);
-        this.responseData = responses;
+    // stockSymbols.forEach((symbol) => {
+    //   observables.push(this.apiService.getStockQuoteBySymbol(symbol));
+    // });
 
-        let i = 0;
-        this.responseData.forEach((response) => {
-          //creating new object to guarantee property order
-          const object: Stock = {
-            name: response.name,
-            c: response.c,
-            d: response.d,
-            dp: response.dp,
-            h: response.h,
-            l: response.l,
-            o: response.o,
-            pc: response.pc,
-          };
-          i++;
-          this.stockDetails.push(object);
-        });
+    // forkJoin(observables).subscribe({
+    //   next: (responses) => {
+    //     console.log('All data received', responses);
+    //     this.responseData = responses;
 
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('error fetching', error);
-      },
+    //     let i = 0;
+    //     this.responseData.forEach((response) => {
+    //       //creating new object to guarantee property order
+    //       const object: Stock = {
+    //         symbol: response.name,
+    //         price: parseInt(response.c),
+    //         change: parseInt(response.d),
+    //         percentChange: parseInt(response.dp),
+    //         high: parseInt(response.h),
+    //         low: parseInt(response.l),
+    //         open: parseInt(response.o),
+    //         close: parseInt(response.pc),
+    //       };
+    //       i++;
+    //       this.stockDetails.push(object);
+    //     });
+
+    //     this.isLoading = false;
+    //   },
+    //   error: (error) => {
+    //     console.error('error fetching', error);
+    //   },
+    // });
+  }
+
+  getTopMovers(): void {
+    this.apiService.getTopMovers().subscribe((response: Stock[]) => {
+      this.topMovers = response;
+      console.log(response);
     });
   }
 
-  formatData() {}
+  getMostActive(): void {
+    this.apiService.getMostActive().subscribe((response: Stock[]) => {
+      this.mostActive = response;
+      console.log(response);
+    });
+  }
+
+  // formatData() {}
 }

@@ -10,32 +10,32 @@
         <tr
           class="data-row"
           *ngFor="let data of displayedData"
-          (click)="navigateToDetails(data.name)"
+          (click)="navigateToDetails(data.symbol)"
         >
-          <td class="stock-name">{{ data.name }}</td>
-          <td class="stock-price">${{ data.c }}</td>
+          <td class="stock-name">{{ data.symbol }}</td>
+          <td class="stock-price">${{ data.price }}</td>
           <td
             class="stock-change"
             [ngClass]="{
-              'negative-change': data.d.includes('-'),
-              'positive-change': !data.d.includes('-')
+              'negative-change': data.change.toString().includes('-'),
+              'positive-change': !data.change.toString().includes('-')
             }"
           >
-            ${{ data.d }}
+            ${{ data.change.toFixed(2) }}
           </td>
           <td
             class="stock-percent-change"
             [ngClass]="{
-              'negative-change': data.dp.includes('-'),
-              'positive-change': !data.dp.includes('-')
+              'negative-change': data.percentChange.toString().includes('-'),
+              'positive-change': !data.percentChange.toString().includes('-')
             }"
           >
-            {{ data.dp }}%
+            {{ data.percentChange.toFixed(2) }}%
           </td>
-          <td>${{ data.h }}</td>
-          <td>${{ data.l }}</td>
-          <td>${{ data.o }}</td>
-          <td>${{ data.pc }}</td>
+          <td>${{ data.high.toFixed(2) }}</td>
+          <td>${{ data.low.toFixed(2) }}</td>
+          <td>${{ data.open.toFixed(2) }}</td>
+          <td>${{ data.close.toFixed(2) }}</td>
         </tr>
 
         <!-- The below commented block of code would make the table take in generic data types -->

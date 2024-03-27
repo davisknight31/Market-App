@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Stock } from '../../shared/interfaces/stock';
+import { Stock, StockOld } from '../../shared/interfaces/stock';
 import { Data } from '../../shared/interfaces/data';
 import { Profile } from '../../shared/interfaces/profile';
 import { ActivatedRoute } from '@angular/router';
@@ -27,7 +27,7 @@ export class DetailsComponent {
   @Input() stockSymbol?: string;
 
   stockData: Data;
-  cachedStock: Stock;
+  chosenStock: Stock;
   companyProfile: Profile;
   isLoading: boolean = true;
   // add is loading for each call, and use that to determine if spinner should disappear
@@ -38,7 +38,7 @@ export class DetailsComponent {
     this.stockSymbol = this.route.snapshot.paramMap.get('stock');
     // this.stock = JSON.parse(stockParameter!) as Stock;
     // this.getCompanyOverview();
-    this.getPriceInfoFromCachedData();
+    this.getStockPrice(this.stockSymbol);
     // this.getStockData();
     // this.getCompanyProfile();
     this.combineApisAndLoad();
@@ -66,12 +66,23 @@ export class DetailsComponent {
     });
   }
 
-  getPriceInfoFromCachedData(): void {
-    this.apiService.cachedData.forEach((cache) => {
-      if (cache.name === this.stockSymbol) {
-        console.log(cache);
-        this.cachedStock = cache;
-      }
+  // getPriceInfoFromCachedData(): void {
+  //   this.apiService.cachedData.forEach((cache) => {
+  //     if (cache.name === this.stockSymbol) {
+  //       console.log(cache);
+  //       this.cachedStock = cache;
+  //     }
+  //   });
+  // }
+
+  getStockPrice(stockSymbol: string): void {
+    const symbolInList: string[] = [];
+    symbolInList.push(stockSymbol);
+    let responseData = [];
+
+    this.apiService.getStocks(symbolInList).subscribe((response: Stock[]) => {
+      responseData = response;
+      this.chosenStock = responseData[0];
     });
   }
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Stock } from '../../shared/interfaces/stock';
+import { Stock, StockOld } from '../../shared/interfaces/stock';
 import { Overview } from '../../shared/interfaces/overview';
 import { Data } from '../../shared/interfaces/data';
 import { Profile } from '../../shared/interfaces/profile';
@@ -13,12 +13,12 @@ import { NewsArticles } from '../../shared/interfaces/newsArticles';
 })
 export class ApiService {
   private apiUrl = 'http://localhost:5286/api';
-  cachedData: Stock[] = [];
+  cachedData: StockOld[] = [];
   private dataFetched: boolean = false;
 
   constructor(private http: HttpClient) {}
 
-  defaultStock: Stock = {
+  defaultStock: StockOld = {
     name: 'Cache Not Found',
     c: 'N/A',
     d: 'N/A',
@@ -30,32 +30,32 @@ export class ApiService {
   };
 
   //should probably create a stock quote type for this instead of using 'any'
-  getStockQuoteBySymbol(symbol: string): Observable<any> {
-    if (this.dataFetched) {
-      let foundStock;
-      console.log('cache returned');
-      this.cachedData.forEach((stock) => {
-        if (stock.name === symbol) {
-          foundStock = stock;
-        }
-      });
-      return of(foundStock);
-    } else {
-      return this.http
-        .get<Stock>(`${this.apiUrl}/Stocks/GetStockQuote/${symbol}`)
-        .pipe(
-          tap((data) => {
-            data.name = symbol;
-            this.cachedData.push(data);
-            this.dataFetched = true;
-          }),
-          catchError((error) => {
-            console.error('Error fetching data:', error);
-            throw error;
-          })
-        );
-    }
-  }
+  // getStockQuoteBySymbol(symbol: string): Observable<any> {
+  //   if (this.dataFetched) {
+  //     let foundStock;
+  //     console.log('cache returned');
+  //     this.cachedData.forEach((stock) => {
+  //       if (stock.name === symbol) {
+  //         foundStock = stock;
+  //       }
+  //     });
+  //     return of(foundStock);
+  //   } else {
+  //     return this.http
+  //       .get<StockOld>(`${this.apiUrl}/Stocks/GetStockQuote/${symbol}`)
+  //       .pipe(
+  //         tap((data) => {
+  //           data.name = symbol;
+  //           this.cachedData.push(data);
+  //           this.dataFetched = true;
+  //         }),
+  //         catchError((error) => {
+  //           console.error('Error fetching data:', error);
+  //           throw error;
+  //         })
+  //       );
+  //   }
+  // }
 
   getCompanyOverviewBySymbol(symbol: string): Observable<Overview> {
     return this.http
@@ -90,7 +90,7 @@ export class ApiService {
       );
   }
 
-  GetNewsArticles(): Observable<NewsArticles> {
+  getNewsArticles(): Observable<NewsArticles> {
     return this.http
       .get<NewsArticles>(`${this.apiUrl}/Stocks/GetNewsArticles`)
       .pipe(
@@ -99,5 +99,41 @@ export class ApiService {
           throw error;
         })
       );
+  }
+
+  getStocks(symbols: string[]): Observable<Stock[]> {
+    // let params = new HttpParams();
+    // symbols.forEach((symbol) => {
+    //   params.append('symbol', symbol);
+    // });
+
+    const params = new HttpParams().set('symbols', symbols.join(','));
+
+    return this.http
+      .get<Stock[]>(`${this.apiUrl}/Stocks/GetStocks`, { params })
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
+  getTopMovers(): Observable<Stock[]> {
+    return this.http.get<Stock[]>(`${this.apiUrl}/Stocks/GetTopMovers`).pipe(
+      catchError((error) => {
+        console.error('Error:', error);
+        throw error;
+      })
+    );
+  }
+
+  getMostActive(): Observable<Stock[]> {
+    return this.http.get<Stock[]>(`${this.apiUrl}/Stocks/GetMostActive`).pipe(
+      catchError((error) => {
+        console.error('Error:', error);
+        throw error;
+      })
+    );
   }
 }

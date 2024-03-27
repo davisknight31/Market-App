@@ -158,4 +158,24 @@ public class AlpacaService : IAlpacaService
         }
     }
 
+    public async Task<AlpacaLatestTradesResponse> GetLatestTrades(List<string> stockSymbols)
+    {
+        try
+        {
+
+            var responseBody = await SendV2HttpRequestAsync(HttpMethod.Get, $"stocks/trades/latest?symbols={Uri.EscapeDataString(string.Join(",", stockSymbols))}&feed=iex");
+
+            _logger.LogInformation($"Alpaca API response: {responseBody}");
+
+            var latestTrades = JsonConvert.DeserializeObject<AlpacaLatestTradesResponse>(responseBody);
+
+            return latestTrades;
+        }
+        catch (HttpRequestException httpEx)
+        {
+            _logger.LogError($"An error occurred when calling Alpaca API: {httpEx.Message}");
+            throw;
+        }
+    }
+
 }

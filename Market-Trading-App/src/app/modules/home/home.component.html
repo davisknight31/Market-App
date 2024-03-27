@@ -12,6 +12,18 @@
       [columnHeaders]="tableColumnHeaders"
       [rowsPerPage]="5"
     ></app-table>
+    <app-table
+      *ngIf="tableFilterService.selectedStockList === 'topMovers'"
+      [tableData]="topMovers"
+      [columnHeaders]="tableColumnHeaders"
+      [rowsPerPage]="5"
+    ></app-table>
+    <app-table
+      *ngIf="tableFilterService.selectedStockList === 'mostActive'"
+      [tableData]="mostActive"
+      [columnHeaders]="tableColumnHeaders"
+      [rowsPerPage]="5"
+    ></app-table>
   </div>
   <!-- </div> -->
 </div>

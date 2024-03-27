@@ -60,14 +60,19 @@ public class StocksController : Controller
         }
     }
 
-    [HttpGet("GetLatestBars")]
-    public async Task<ActionResult> GetLatestStockBarsBySymbols([FromQuery] List<string> symbols)
+    [HttpGet("GetStocks")]
+    public async Task<ActionResult> GetStocks([FromQuery] List<string> symbols)
     {
         try
         {
             var retrievedStockBars = await _alpacaService.GetLatestStockBarsBySymbols(symbols);
 
-            return Ok(retrievedStockBars);
+            var retrievedLatestTrades = await _alpacaService.GetLatestTrades(symbols);
+
+            var formattedStockInformation = FormatStocks(retrievedStockBars, retrievedLatestTrades);
+
+
+            return Ok(formattedStockInformation);
         }
         catch (Exception ex)
         {
@@ -116,9 +121,11 @@ public class StocksController : Controller
 
             var retrievedStockBars = await _alpacaService.GetLatestStockBarsBySymbols(mostActiveSymbols);
 
-            var formattedStockInformation = FormatStockInformation(retrievedStockBars);
+            var retrievedLatestTrades = await _alpacaService.GetLatestTrades(mostActiveSymbols);
 
-            return Ok(retrievedMostActiveStocks);
+            var formattedStockInformation = FormatStocks(retrievedStockBars, retrievedLatestTrades);
+
+            return Ok(formattedStockInformation);
         }
         catch (Exception ex)
         {
@@ -137,10 +144,25 @@ public class StocksController : Controller
 
             var retrievedStockBars = await _alpacaService.GetLatestStockBarsBySymbols(moverSymbols);
 
-            var formattedStockInformation = FormatStockInformation(retrievedTopMovers, retrievedStockBars);
+            var formattedStockInformation = FormatTopMoverInformation(retrievedTopMovers, retrievedStockBars);
 
 
             return Ok(formattedStockInformation);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("GetLatestTrades")]
+    public async Task<ActionResult> GetLatestTrades([FromQuery] List<string> symbols)
+    {
+        try
+        {
+            var retrievedTrades = await _alpacaService.GetLatestTrades(symbols);
+
+            return Ok(retrievedTrades);
         }
         catch (Exception ex)
         {
@@ -208,25 +230,46 @@ public class StocksController : Controller
         return mostActiveSymbols;
     }
 
-    private List<StockInformation> FormatStockInformation(AlpacaLatestBarResponse barsResponseInfo)
+    private List<StockInformation> FormatStocks(AlpacaLatestBarResponse barsResponseInfo, AlpacaLatestTradesResponse latestTradesResponseInfo)
     {
         List<StockInformation> stockInformation = new List<StockInformation>();
 
         foreach (var entry in barsResponseInfo.Bars)
         {
-            stockInformation stock = new stockInformation()
+        
+            var correspondingTrade = new Trade();
+            foreach(var trade in latestTradesResponseInfo.trades)
+            {
+                if (trade.Key == entry.Key)
+                {
+                    correspondingTrade = trade.Value;
+                }
+            }
+
+
+
+            StockInformation stock = new StockInformation()
             {
                 Symbol = entry.Key,
-                //NEED TO ADD ENDPOINT TO GET RECENT TRADE TO SEE CURRENT PRICE
-                Price = mover.Price,
-          
-            }
+                Price = correspondingTrade.p,
+                Change = correspondingTrade.p - entry.Value.Open,
+                PercentChange = ((correspondingTrade.p - entry.Value.Open) / entry.Value.Open) * 100,
+                Close = entry.Value.Close,
+                High = entry.Value.High,
+                Low = entry.Value.Low,
+                Count = entry.Value.Count,
+                Open = entry.Value.Open,
+                Time = entry.Value.Time,
+                Volume = entry.Value.Volume,
+                VolumeWeighted = entry.Value.VolumeWeighted
+            };
+            stockInformation.Add(stock);   
         }
-
+        return stockInformation;
     }
 
 
-    private List<StockInformation> FormatStockInformation(AlpacaTopMoversResponse topMoversBaseInfo, AlpacaLatestBarResponse barsResponseInfo)
+    private List<StockInformation> FormatTopMoverInformation(AlpacaTopMoversResponse topMoversBaseInfo, AlpacaLatestBarResponse barsResponseInfo)
     {
         List<StockInformation> stockInformation = new List<StockInformation>();
 
