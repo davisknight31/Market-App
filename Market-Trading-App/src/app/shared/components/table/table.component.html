@@ -13,7 +13,7 @@
           (click)="navigateToDetails(data.symbol)"
         >
           <td class="stock-name">{{ data.symbol }}</td>
-          <td class="stock-price">${{ data.price }}</td>
+          <td class="stock-price">${{ data.price.toFixed(2) }}</td>
           <td
             class="stock-change"
             [ngClass]="{

@@ -178,4 +178,24 @@ public class AlpacaService : IAlpacaService
         }
     }
 
+    public async Task<AlpacaSnapshotResponse> GetSnapshots(List<string> stockSymbols)
+    {
+        try
+        {
+
+            var responseBody = await SendV2HttpRequestAsync(HttpMethod.Get, $"stocks/snapshots?symbols={Uri.EscapeDataString(string.Join(",", stockSymbols))}&feed=iex");
+
+            _logger.LogInformation($"Alpaca API response: {responseBody}");
+
+            var snapshots = JsonConvert.DeserializeObject<AlpacaSnapshotResponse>(responseBody);
+
+            return snapshots;
+        }
+        catch (HttpRequestException httpEx)
+        {
+            _logger.LogError($"An error occurred when calling Alpaca API: {httpEx.Message}");
+            throw;
+        }
+    }
+
 }

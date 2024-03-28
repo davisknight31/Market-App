@@ -11,4 +11,5 @@ public interface IAlpacaService
     Task<AlpacaTopMoversResponse> GetTopMovers();
     Task<AlpacaLatestTradesResponse> GetLatestTrades(List<string> stockSymbols);
     Task<AlpacaNewsArticlesResponse> GetNewsArticles();
+    Task<AlpacaSnapshotResponse> GetSnapshots(List<string> stockSymbols);
 }
