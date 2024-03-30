@@ -43,6 +43,10 @@ export class TableComponent {
   }
 
   updateDisplayedData(): void {
+    this.tableData = this.tableData.sort((a, b) =>
+      a.symbol.localeCompare(b.symbol)
+    );
+
     const startIndex = (this.currentPage - 1) * this.rowsPerPage;
     const endIndex = startIndex + this.rowsPerPage;
     this.displayedData = this.tableData.slice(startIndex, endIndex);

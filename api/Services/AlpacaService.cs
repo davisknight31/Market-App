@@ -178,7 +178,7 @@ public class AlpacaService : IAlpacaService
         }
     }
 
-    public async Task<AlpacaSnapshotResponse> GetSnapshots(List<string> stockSymbols)
+    public async Task<Dictionary<string, Snapshot>> GetSnapshots(List<string> stockSymbols)
     {
         try
         {
@@ -187,7 +187,19 @@ public class AlpacaService : IAlpacaService
 
             _logger.LogInformation($"Alpaca API response: {responseBody}");
 
-            var snapshots = JsonConvert.DeserializeObject<AlpacaSnapshotResponse>(responseBody);
+            if (string.IsNullOrEmpty(responseBody))
+            {
+                _logger.LogWarning($"Alpaca API response body is null or empty.");
+                return null;
+            }
+
+            var snapshots = JsonConvert.DeserializeObject<Dictionary<string, Snapshot>>(responseBody);
+
+            //if (snapshots.Stocks == null)
+            //{
+            //    _logger.LogWarning($"Deserialized snapshots object is null. {snapshots}");
+            //    return null;
+            //}
 
             return snapshots;
         }

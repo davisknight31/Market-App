@@ -1,78 +1,80 @@
+using api.Models.Alpaca;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+
 
 namespace api.Models.Alpaca;
 
+    public class DailyBar
+    {
+        public double c { get; set; }
+        public double h { get; set; }
+        public double l { get; set; }
+        public int n { get; set; }
+        public double o { get; set; }
+        public DateTime t { get; set; }
+        public int v { get; set; }
+        public double vw { get; set; }
+    }
+
+public class LatestQuote
+{
+    public double ap { get; set; }
+    public int AS { get; set; }
+    public string ax { get; set; }
+    public double bp { get; set; }
+    public int bs { get; set; }
+    public string bx { get; set; }
+    public List<string> c { get; set; }
+    public DateTime t { get; set; }
+    public string z { get; set; }
+}
+
+public class LatestTrade
+{
+    public List<string> c { get; set; }
+    public long i { get; set; }
+    public double p { get; set; }
+    public int s { get; set; }
+    public DateTime t { get; set; }
+    public string x { get; set; }
+    public string z { get; set; }
+}
+
+public class MinuteBar
+{
+    public double c { get; set; }
+    public double h { get; set; }
+    public double l { get; set; }
+    public int n { get; set; }
+    public double o { get; set; }
+    public DateTime t { get; set; }
+    public int v { get; set; }
+    public double vw { get; set; }
+}
+
+public class PrevDailyBar
+{
+    public double c { get; set; }
+    public double h { get; set; }
+    public double l { get; set; }
+    public int n { get; set; }
+    public double o { get; set; }
+    public DateTime t { get; set; }
+    public int v { get; set; }
+    public double vw { get; set; }
+}
+
+public class Snapshot
+{
+    public DailyBar dailyBar { get; set; }
+    public LatestQuote latestQuote { get; set; }
+    public LatestTrade latestTrade { get; set; }
+    public MinuteBar minuteBar { get; set; }
+    public PrevDailyBar prevDailyBar { get; set; }
+}
 
 public class AlpacaSnapshotResponse
 {
-    public Dictionary<string, StockInfo> trades { get; set; }
-}
-
-public class StockInfo
-{
-    public StockDailyBar DailyBar { get; set; }
-    public StockLatestQuote LatestQuote { get; set; }
-    public StockLatestTrade LatestTrade { get; set; }
-    public StockMinuteBar MinuteBar { get; set; }
-    public StockPrevDailyBar PrevDailyBar { get; set; }
-}
-
-public class StockDailyBar
-{
-    public double ClosePrice { get; set; }
-    public double HighPrice { get; set; }
-    public double LowPrice { get; set; }
-    public int TradesCount { get; set; }
-    public double OpenPrice { get; set; }
-    public DateTime Timestamp { get; set; }
-    public int Volume { get; set; }
-    public double VolumeWeightedAverage { get; set; }
-}
-
-public class StockLatestQuote
-{
-    public double AskPrice { get; set; }
-    public int AskSize { get; set; }
-    public string AskExchange { get; set; }
-    public double BidPrice { get; set; }
-    public int BidSize { get; set; }
-    public string BidExchange { get; set; }
-    public List<string> Conditions { get; set; }
-    public DateTime Timestamp { get; set; }
-    public string QuoteType { get; set; }
-}
-
-public class StockLatestTrade
-{
-    public List<string> Conditions { get; set; }
-    public int TradeId { get; set; }
-    public double Price { get; set; }
-    public int Size { get; set; }
-    public DateTime Timestamp { get; set; }
-    public string ExchangeId { get; set; }
-    public string TradeType { get; set; }
-}
-
-public class StockMinuteBar
-{
-    public double ClosePrice { get; set; }
-    public double HighPrice { get; set; }
-    public double LowPrice { get; set; }
-    public int TradesCount { get; set; }
-    public double OpenPrice { get; set; }
-    public DateTime Timestamp { get; set; }
-    public int Volume { get; set; }
-    public double VolumeWeightedAverage { get; set; }
-}
-
-public class StockPrevDailyBar
-{
-    public double ClosePrice { get; set; }
-    public double HighPrice { get; set; }
-    public double LowPrice { get; set; }
-    public int TradesCount { get; set; }
-    public double OpenPrice { get; set; }
-    public DateTime Timestamp { get; set; }
-    public int Volume { get; set; }
-    public double VolumeWeightedAverage { get; set; }
+    public Dictionary<string, Snapshot> Snapshots { get; set; }
 }

@@ -67,9 +67,9 @@ public class StocksController : Controller
         {
             var retrievedStockBars = await _alpacaService.GetLatestStockBarsBySymbols(symbols);
 
-            var retrievedLatestTrades = await _alpacaService.GetLatestTrades(symbols);
+            var retrievedSnapshots = await _alpacaService.GetSnapshots(symbols);
 
-            var formattedStockInformation = FormatStocks(retrievedStockBars, retrievedLatestTrades);
+            var formattedStockInformation = FormatStocks(retrievedStockBars, retrievedSnapshots);
 
 
             return Ok(formattedStockInformation);
@@ -121,9 +121,9 @@ public class StocksController : Controller
 
             var retrievedStockBars = await _alpacaService.GetLatestStockBarsBySymbols(mostActiveSymbols);
 
-            var retrievedLatestTrades = await _alpacaService.GetLatestTrades(mostActiveSymbols);
+            var retrievedSnapshots = await _alpacaService.GetSnapshots(mostActiveSymbols);
 
-            var formattedStockInformation = FormatStocks(retrievedStockBars, retrievedLatestTrades);
+            var formattedStockInformation = FormatStocks(retrievedStockBars, retrievedSnapshots);
 
             return Ok(formattedStockInformation);
         }
@@ -230,19 +230,18 @@ public class StocksController : Controller
         return mostActiveSymbols;
     }
 
-    private List<StockInformation> FormatStocks(AlpacaLatestBarResponse barsResponseInfo, AlpacaLatestTradesResponse latestTradesResponseInfo)
+    private List<StockInformation> FormatStocks(AlpacaLatestBarResponse barsResponseInfo, Dictionary<string, Snapshot> snapshots)
     {
         List<StockInformation> stockInformation = new List<StockInformation>();
 
         foreach (var entry in barsResponseInfo.Bars)
         {
-        
-            var correspondingTrade = new Trade();
-            foreach(var trade in latestTradesResponseInfo.trades)
+            var correspondingSnapshot = new Snapshot();
+            foreach(var snapshot in snapshots)
             {
-                if (trade.Key == entry.Key)
+                if (snapshot.Key == entry.Key)
                 {
-                    correspondingTrade = trade.Value;
+                    correspondingSnapshot = snapshot.Value;
                 }
             }
 
@@ -251,15 +250,15 @@ public class StocksController : Controller
             StockInformation stock = new StockInformation()
             {
                 Symbol = entry.Key,
-                Price = correspondingTrade.p,
-                Change = correspondingTrade.p - entry.Value.Open,
-                PercentChange = ((correspondingTrade.p - entry.Value.Open) / entry.Value.Open) * 100,
-                Close = entry.Value.Close,
-                High = entry.Value.High,
-                Low = entry.Value.Low,
+                Price = correspondingSnapshot.latestTrade.p,
+                Change = correspondingSnapshot.prevDailyBar.c - correspondingSnapshot.dailyBar.o,
+                PercentChange = ((correspondingSnapshot.prevDailyBar.c - correspondingSnapshot.dailyBar.o) / correspondingSnapshot.dailyBar.o) * 100,
+                Close = correspondingSnapshot.prevDailyBar.c,
+                High = correspondingSnapshot.dailyBar.h,
+                Low = correspondingSnapshot.dailyBar.l,
                 Count = entry.Value.Count,
-                Open = entry.Value.Open,
-                Time = entry.Value.Time,
+                Open = correspondingSnapshot.dailyBar.o,
+                Time = correspondingSnapshot.dailyBar.t,
                 Volume = entry.Value.Volume,
                 VolumeWeighted = entry.Value.VolumeWeighted
             };
