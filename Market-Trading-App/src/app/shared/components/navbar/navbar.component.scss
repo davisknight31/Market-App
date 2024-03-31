@@ -7,7 +7,7 @@
 
 nav {
   background: #ffffff;
-  height: 80px;
+  height: 5%;
   width: 100%;
 }
 label.logo {
@@ -66,4 +66,14 @@ a:hover {
   margin-bottom: 0.5em;
   margin-left: 1vw;
   margin-right: 1vw;
+}
+
+.profile-button {
+  float: right;
+  height: 20px;
+  .profile-icon {
+    width: 50px;
+    padding-top: 15px;
+    // height: 10px;
+  }
 }

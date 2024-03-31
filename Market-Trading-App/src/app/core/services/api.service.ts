@@ -68,6 +68,7 @@ export class ApiService {
   //     );
   // }
 
+  //in use
   getStockDataBySymbol(symbol: string): Observable<Data> {
     return this.http
       .get<Data>(`${this.apiUrl}/Stocks/GetStockData/${symbol}`)
@@ -79,6 +80,7 @@ export class ApiService {
       );
   }
 
+  //in use
   GetCompanyProfileBySymbol(symbol: string): Observable<Profile> {
     return this.http
       .get<Profile>(`${this.apiUrl}/Stocks/GetCompanyProfile/${symbol}`)
@@ -90,6 +92,7 @@ export class ApiService {
       );
   }
 
+  //in use
   getNewsArticles(): Observable<NewsArticles> {
     return this.http
       .get<NewsArticles>(`${this.apiUrl}/Stocks/GetNewsArticles`)
@@ -101,6 +104,7 @@ export class ApiService {
       );
   }
 
+  //in use
   getStocks(symbols: string[]): Observable<Stock[]> {
     // let params = new HttpParams();
     // symbols.forEach((symbol) => {
@@ -119,6 +123,7 @@ export class ApiService {
       );
   }
 
+  //in use
   getTopMovers(): Observable<Stock[]> {
     return this.http.get<Stock[]>(`${this.apiUrl}/Stocks/GetTopMovers`).pipe(
       catchError((error) => {
@@ -128,6 +133,7 @@ export class ApiService {
     );
   }
 
+  //in use
   getMostActive(): Observable<Stock[]> {
     return this.http.get<Stock[]>(`${this.apiUrl}/Stocks/GetMostActive`).pipe(
       catchError((error) => {

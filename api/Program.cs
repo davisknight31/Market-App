@@ -1,9 +1,12 @@
 using System.Text.Json;
 using api.Interfaces;
 using api.Services;
+using api.Data;
 using Newtonsoft.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +24,14 @@ builder.Services.AddCors();
 //register http client
 builder.Services.AddHttpClient();
 
+//add database context
+builder.Services.AddDbContext<MarketAppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.WebHost.UseUrls("http://localhost:5286");
+
+//register api services
 builder.Services.AddTransient<IFinnhubService, FinnhubService>();
 builder.Services.AddTransient<IAlphavantageService, AlphavantageService>();
 builder.Services.AddTransient<IAlpacaService, AlpacaService>();
@@ -40,7 +51,7 @@ app.UseCors(builder => builder
      .AllowAnyMethod()
      .AllowAnyHeader());
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseMvc();
 

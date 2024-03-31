@@ -28,37 +28,37 @@ public class StocksController : Controller
         _alethiaService = alethiaService;
     }
 
-    [HttpGet("GetStockQuote/{symbol}")]
-    public async Task<ActionResult> GetStockQuoteBySymbol(string symbol)
-    {
-        try
-        {
-            var retrievedStockQuote = await _finnhubService.GetStockQuoteBySymbol(symbol);
+    //[HttpGet("GetStockQuote/{symbol}")]
+    //public async Task<ActionResult> GetStockQuoteBySymbol(string symbol)
+    //{
+    //    try
+    //    {
+    //        var retrievedStockQuote = await _finnhubService.GetStockQuoteBySymbol(symbol);
 
-            var formattedQuote = BuildQuote(retrievedStockQuote);
+    //        var formattedQuote = BuildQuote(retrievedStockQuote);
 
-            return Ok(formattedQuote);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
+    //        return Ok(formattedQuote);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return BadRequest(ex.Message);
+    //    }
+    //}
 
-    [HttpGet("GetCompanyOverview/{symbol}")]
-    public async Task<ActionResult> GetCompanyOverviewBySymbol(string symbol)
-    {
-        try
-        {
-            var retrievedStockQuote = await _alphavantageService.GetCompanyOverviewBySymbol(symbol);
+    //[HttpGet("GetCompanyOverview/{symbol}")]
+    //public async Task<ActionResult> GetCompanyOverviewBySymbol(string symbol)
+    //{
+    //    try
+    //    {
+    //        var retrievedStockQuote = await _alphavantageService.GetCompanyOverviewBySymbol(symbol);
 
-            return Ok(retrievedStockQuote);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
+    //        return Ok(retrievedStockQuote);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return BadRequest(ex.Message);
+    //    }
+    //}
 
     [HttpGet("GetStocks")]
     public async Task<ActionResult> GetStocks([FromQuery] List<string> symbols)
@@ -155,20 +155,20 @@ public class StocksController : Controller
         }
     }
 
-    [HttpGet("GetLatestTrades")]
-    public async Task<ActionResult> GetLatestTrades([FromQuery] List<string> symbols)
-    {
-        try
-        {
-            var retrievedTrades = await _alpacaService.GetLatestTrades(symbols);
+    //[HttpGet("GetLatestTrades")]
+    //public async Task<ActionResult> GetLatestTrades([FromQuery] List<string> symbols)
+    //{
+    //    try
+    //    {
+    //        var retrievedTrades = await _alpacaService.GetLatestTrades(symbols);
 
-            return Ok(retrievedTrades);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
+    //        return Ok(retrievedTrades);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return BadRequest(ex.Message);
+    //    }
+    //}
 
     [HttpGet("GetNewsArticles")]
     public async Task<ActionResult> GetNewsArticles()
