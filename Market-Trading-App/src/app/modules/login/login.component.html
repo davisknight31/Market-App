@@ -1,0 +1,21 @@
+<div class="login-container">
+  <div class="login-window">
+    <h1 class="header">Login</h1>
+    <input class="info-input" type="text" placeholder="Username..." />
+    <div class="info-input">
+      <input
+        class="password-input"
+        [type]="passwordType"
+        placeholder="Password..."
+      />
+      <button
+        class="toggle-password-visibility-button"
+        (click)="togglePasswordVisibility()"
+      >
+        {{ buttonLabel }}
+      </button>
+    </div>
+
+    <button class="login-button">Previous</button>
+  </div>
+</div>
