@@ -2,11 +2,12 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Stock } from '../../interfaces/stock';
 import { Router, RouterModule } from '@angular/router';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ModalComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
@@ -19,6 +20,7 @@ export class TableComponent {
 
   displayedData: Stock[];
   totalPages: number;
+  isModalShown: boolean = false;
 
   constructor(private router: Router) {}
   ngOnInit() {
@@ -69,4 +71,12 @@ export class TableComponent {
   keepOrder = (a) => {
     return a;
   };
+
+  addToWatchList(symbol: string) {
+    console.log(symbol);
+  }
+
+  showModal() {
+    this.isModalShown = true;
+  }
 }

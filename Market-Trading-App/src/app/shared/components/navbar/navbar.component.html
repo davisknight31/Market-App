@@ -2,12 +2,15 @@
   <ul>
     <li><label class="logo">TradeSim</label></li>
     <li class="nav-link"><a routerLink="/home">Home</a></li>
-    <li class="nav-link"><a routerLink="/watchlist">Watchlist</a></li>
+    <li class="nav-link"><a routerLink="/watchlist">Watchlists</a></li>
     <li class="nav-link"><a routerLink="/news">News</a></li>
     <li class="nav-link"><a routerLink="/about">About</a></li>
     <li class="nav-link"><a routerLink="/contact">Contact</a></li>
     <li class="profile-button">
-      <a routerLink="/login"
+      <a *ngIf="!checkIfLoggedIn()" routerLink="/login"
+        ><img src="assets/profileIcon.png" class="profile-icon"
+      /></a>
+      <a *ngIf="checkIfLoggedIn()" routerLink="/profile"
         ><img src="assets/profileIcon.png" class="profile-icon"
       /></a>
     </li>

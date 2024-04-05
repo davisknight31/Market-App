@@ -110,6 +110,25 @@ table {
   background-color: #6858ff;
 }
 
+.watchlist-button {
+  width: 15px;
+  cursor: pointer;
+}
+
+.watchlist-button:hover {
+  background-color: red;
+}
+
+.app-modal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999; /* Adjust the z-index to make sure it appears above other elements */
+}
+
 // .separator {
 //   display: block;
 //   margin-top: 0.5em;

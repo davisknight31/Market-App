@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using api.Models;
 using api.Data;
+using BCrypt.Net;
+
 
 namespace api.Controllers;
 
@@ -14,44 +16,76 @@ namespace api.Controllers;
 [ApiController]
 public class UserController : ControllerBase
 {
-    //private readonly IWatchlistService _watchlistService;
     private readonly MarketAppDbContext _marketAppDbContext;
 
-    public UserController(/*IWatchlistService watchlistService,*/ MarketAppDbContext marketAppDbContext)
+    public UserController(MarketAppDbContext marketAppDbContext)
     {
-        //_watchlistService = watchlistService;
         _marketAppDbContext = marketAppDbContext;
     }
 
-    [HttpGet("GetUser/{username}/{password}")]
-    public async Task<IActionResult> GetUser(string username, string password)
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
-        var user = await _marketAppDbContext.users.FirstOrDefaultAsync(u => u.username == username && u.password == password);
-        await _marketAppDbContext.SaveChangesAsync();
+        var user = await _marketAppDbContext.users.FirstOrDefaultAsync(u => u.username == model.username);
 
         if (user == null)
         {
-            return NotFound(); // Or return an appropriate error response
+            return NotFound(); 
         }
 
-        return Ok(user);
+        bool passwordMatches = BCrypt.Net.BCrypt.Verify(model.password, user.password);
+
+
+        if (passwordMatches)
+        {
+            await _marketAppDbContext.SaveChangesAsync();
+            user.password = null;
+            return Ok(user);
+        }
+        else
+        {
+            return BadRequest("Invalid username or password.");
+        }
     }
 
+    [HttpPost("CreateUser")]
+    public async Task<IActionResult> CreateUser([FromBody] LoginModel model)
+    {
 
-    //public async Task<IActionResult> CreateUser(User newUser)
-    //{
-    //    _context.Users.Add(newUser);
-    //    await _context.SaveChangesAsync();
+        bool usernameExists = await _marketAppDbContext.users.AnyAsync(u => u.username == model.username);
 
-    //    return Ok(newUser);
-    //}
+        if (usernameExists)
+        {
+            return BadRequest("Username already exists.");
+        }
+
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.password);
 
 
-    //[HttpGet("GetUser/{username}/{password}")]
-    //public ActionResult GetUser()
-    //{
-    //    User user = _watchlistService.GetUser(username, password);
-    //    return View(users);
-    //}
+        User newUser = new User
+        {
+            username = model.username,
+            password = hashedPassword,
+        };
+
+        try
+        {
+            var createdUser = _marketAppDbContext.users.Add(newUser);
+
+            await _marketAppDbContext.SaveChangesAsync();
+            
+            return Ok(createdUser);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while creating the user: " + ex.Message);
+        }
+    }
+
+    public class LoginModel
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+    }
 
 }

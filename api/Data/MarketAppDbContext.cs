@@ -8,8 +8,8 @@ public class MarketAppDbContext : DbContext
     public MarketAppDbContext(DbContextOptions<MarketAppDbContext> options) : base(options) {}
 
     public DbSet<User> users { get; set; }
-    public DbSet<Watchlist> Watchlists { get; set; }
-    public DbSet<WatchlistEntry> WatchlistEntries { get; set; }
+    public DbSet<Watchlist> watchlists { get; set; }
+    public DbSet<WatchlistEntry> watchlistentries { get; set; }
 
 
 }

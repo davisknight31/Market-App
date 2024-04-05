@@ -3,23 +3,28 @@
     <table>
       <thead>
         <tr>
+          <th></th>
           <th *ngFor="let header of columnHeaders">{{ header }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          class="data-row"
-          *ngFor="let data of displayedData"
-          (click)="navigateToDetails(data.symbol)"
-        >
-          <td class="stock-name">{{ data.symbol }}</td>
-          <td class="stock-price">${{ data.price.toFixed(2) }}</td>
+        <tr class="data-row" *ngFor="let data of displayedData">
+          <td>
+            <div class="watchlist-button" (click)="showModal()">+</div>
+          </td>
+          <td class="stock-name" (click)="navigateToDetails(data.symbol)">
+            {{ data.symbol }}
+          </td>
+          <td class="stock-price" (click)="navigateToDetails(data.symbol)">
+            ${{ data.price.toFixed(2) }}
+          </td>
           <td
             class="stock-change"
             [ngClass]="{
               'negative-change': data.change.toString().includes('-'),
               'positive-change': !data.change.toString().includes('-')
             }"
+            (click)="navigateToDetails(data.symbol)"
           >
             ${{ data.change.toFixed(2) }}
           </td>
@@ -29,13 +34,22 @@
               'negative-change': data.percentChange.toString().includes('-'),
               'positive-change': !data.percentChange.toString().includes('-')
             }"
+            (click)="navigateToDetails(data.symbol)"
           >
             {{ data.percentChange.toFixed(2) }}%
           </td>
-          <td>${{ data.high.toFixed(2) }}</td>
-          <td>${{ data.low.toFixed(2) }}</td>
-          <td>${{ data.open.toFixed(2) }}</td>
-          <td>${{ data.close.toFixed(2) }}</td>
+          <td (click)="navigateToDetails(data.symbol)">
+            ${{ data.high.toFixed(2) }}
+          </td>
+          <td (click)="navigateToDetails(data.symbol)">
+            ${{ data.low.toFixed(2) }}
+          </td>
+          <td (click)="navigateToDetails(data.symbol)">
+            ${{ data.open.toFixed(2) }}
+          </td>
+          <td (click)="navigateToDetails(data.symbol)">
+            ${{ data.close.toFixed(2) }}
+          </td>
         </tr>
 
         <!-- The below commented block of code would make the table take in generic data types -->
@@ -56,3 +70,8 @@
     </div>
   </div>
 </div>
+<app-modal
+  [(isModalOpen)]="isModalShown"
+  class="app-modal"
+  *ngIf="isModalShown"
+></app-modal>
