@@ -5,6 +5,7 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using api.Models;
+using api.Models.UserModels;
 using api.Data;
 using BCrypt.Net;
 
@@ -82,10 +83,6 @@ public class UserController : ControllerBase
         }
     }
 
-    public class LoginModel
-    {
-        public string username { get; set; }
-        public string password { get; set; }
-    }
+
 
 }
