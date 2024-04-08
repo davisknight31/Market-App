@@ -1,0 +1,10 @@
+<div class="list-container">
+  <app-table
+    *ngIf="watchlistStockDetails.length > 0"
+    [tableData]="watchlistStockDetails"
+    [columnHeaders]="headers"
+    [rowsPerPage]="5"
+    [inHomeView]="false"
+  ></app-table>
+  <app-spinner *ngIf="isLoading"></app-spinner>
+</div>

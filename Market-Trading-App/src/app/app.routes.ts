@@ -11,7 +11,7 @@ import { LoginComponent } from './modules/login/login.component';
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'details/:stock', component: DetailsComponent },
-  { path: 'watchlist', component: WatchlistComponent },
+  { path: 'watchlists', component: WatchlistComponent },
   { path: 'news', component: NewsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },

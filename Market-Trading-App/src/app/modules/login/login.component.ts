@@ -39,7 +39,11 @@ export class LoginComponent {
     this.userService.loginUser(username, password).subscribe({
       next: (data) => {
         if (data) {
-          this.navigateToProfile();
+          this.userService.getWatchlists().subscribe({
+            next: () => {
+              this.navigateToProfile();
+            },
+          });
         }
       },
       error: (errorMessage) => {
@@ -50,13 +54,23 @@ export class LoginComponent {
 
   signup(username: string, password: string, confirmedPassword: string) {
     console.log(username, password, confirmedPassword);
-    //need to check for username already existing in database
-    if (
-      /*username does not exist &&*/ this.checkForUppercase(password) &&
-      password === confirmedPassword
-    ) {
-      //create account
+    if (password !== confirmedPassword) {
+      this.errorMessage = 'The passwords must match!';
+    } else if (!this.checkForUppercase(password)) {
+      this.errorMessage = 'The password must contain at least one uppercase!';
+    } else {
+      this.userService.createUser(username, password).subscribe({
+        next: (data) => {
+          if (data) {
+            this.navigateToProfile();
+          }
+        },
+        error: (errorMessage) => {
+          this.errorMessage = errorMessage;
+        },
+      });
     }
+    //backend returns 400 if user exists
   }
 
   checkForUppercase(password: string): boolean {

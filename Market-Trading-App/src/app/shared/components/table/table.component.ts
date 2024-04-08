@@ -17,6 +17,7 @@ export class TableComponent {
   @Input() currentPage: number;
   @Input() rowsPerPage: number;
   @Input() totalRows: number;
+  @Input() inHomeView: boolean;
 
   displayedData: Stock[];
   totalPages: number;

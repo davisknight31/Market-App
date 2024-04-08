@@ -3,13 +3,13 @@
     <table>
       <thead>
         <tr>
-          <th></th>
+          <th *ngIf="inHomeView"></th>
           <th *ngFor="let header of columnHeaders">{{ header }}</th>
         </tr>
       </thead>
       <tbody>
         <tr class="data-row" *ngFor="let data of displayedData">
-          <td>
+          <td *ngIf="inHomeView">
             <div class="watchlist-button" (click)="showModal()">+</div>
           </td>
           <td class="stock-name" (click)="navigateToDetails(data.symbol)">

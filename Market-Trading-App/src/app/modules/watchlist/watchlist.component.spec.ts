@@ -8,10 +8,9 @@ describe('WatchlistComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WatchlistComponent]
-    })
-    .compileComponents();
-    
+      imports: [WatchlistComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(WatchlistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

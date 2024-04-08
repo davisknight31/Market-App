@@ -1,1 +1,21 @@
-<p>watchlist works!</p>
+<div class="container">
+  <div class="wrapper">
+    <h1>Watchlists</h1>
+    <select
+      #watchlists
+      class="watchlist-dropdown"
+      (change)="switchList(watchlists.value)"
+    >
+      <option default>Choose a watchlist</option>
+      <option *ngFor="let watchlist of userWatchlists" [value]="watchlist.name">
+        {{ watchlist.name }}
+      </option>
+    </select>
+
+    <app-list
+      class="watchlist-list"
+      [selectedWatchlist]="selectedWatchlist"
+      [headers]="watchlistColumnHeaders"
+    ></app-list>
+  </div>
+</div>
