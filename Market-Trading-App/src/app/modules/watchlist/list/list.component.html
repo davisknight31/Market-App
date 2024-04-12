@@ -5,6 +5,16 @@
     [columnHeaders]="headers"
     [rowsPerPage]="5"
     [inHomeView]="false"
+    (isListUpdatedChange)="refreshWatchlists()"
   ></app-table>
+  <!-- <div
+    class="no-watchlist"
+    *ngIf="
+      watchlistStockDetails.length <= 0 &&
+      selectedWatchlistName !== 'Choose a watchlist'
+    "
+  >
+    This watchlist has no entries Add?
+  </div> -->
   <app-spinner *ngIf="isLoading"></app-spinner>
 </div>

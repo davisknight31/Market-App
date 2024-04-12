@@ -145,12 +145,12 @@ public class WatchlistController : ControllerBase
     }
 
 
-    [HttpDelete("RemoveWatchlistEntry")]
-    public async Task<IActionResult> RemoveWatchlistEntry([FromBody] WatchlistEntryRemovalModel model)
+    [HttpDelete("RemoveWatchlistEntry/{watchlistEntryId}")]
+    public async Task<IActionResult> RemoveWatchlistEntry(int watchlistEntryId)
     {
         try
         {
-            var entryToRemove = _marketAppDbContext.watchlistentries.FirstOrDefault(w => w.watchlistentryid == model.watchlistentryid);
+            var entryToRemove = _marketAppDbContext.watchlistentries.FirstOrDefault(w => w.watchlistentryid == watchlistEntryId);
 
             if (entryToRemove != null)
             {
@@ -168,14 +168,14 @@ public class WatchlistController : ControllerBase
         }
     }
 
-    [HttpDelete("RemoveWatchlist")]
-    public async Task<IActionResult> RemoveWatchlist([FromBody] WatchlistRemovalModel model)
+    [HttpDelete("RemoveWatchlist/{watchlistId}")]
+    public async Task<IActionResult> RemoveWatchlist(int watchlistId)
     {
         try
         {
-            var watchlistToRemove = _marketAppDbContext.watchlists.FirstOrDefault(w => w.watchlistid == model.watchlistid);
+            var watchlistToRemove = _marketAppDbContext.watchlists.FirstOrDefault(w => w.watchlistid == watchlistId);
 
-            var watchlistEntries = _marketAppDbContext.watchlistentries.Where(e => e.watchlistid == model.watchlistid).ToList();
+            var watchlistEntries = _marketAppDbContext.watchlistentries.Where(e => e.watchlistid == watchlistId).ToList();
 
             foreach(var entry in watchlistEntries)
             {

@@ -12,10 +12,10 @@
           <td *ngIf="inHomeView">
             <div class="watchlist-button" (click)="showModal()">+</div>
           </td>
-          <td class="stock-name" (click)="navigateToDetails(data.symbol)">
+          <td class="stock-name" (click)="handleClick(data.symbol)">
             {{ data.symbol }}
           </td>
-          <td class="stock-price" (click)="navigateToDetails(data.symbol)">
+          <td class="stock-price" (click)="handleClick(data.symbol)">
             ${{ data.price.toFixed(2) }}
           </td>
           <td
@@ -24,7 +24,7 @@
               'negative-change': data.change.toString().includes('-'),
               'positive-change': !data.change.toString().includes('-')
             }"
-            (click)="navigateToDetails(data.symbol)"
+            (click)="handleClick(data.symbol)"
           >
             ${{ data.change.toFixed(2) }}
           </td>
@@ -34,20 +34,18 @@
               'negative-change': data.percentChange.toString().includes('-'),
               'positive-change': !data.percentChange.toString().includes('-')
             }"
-            (click)="navigateToDetails(data.symbol)"
+            (click)="handleClick(data.symbol)"
           >
             {{ data.percentChange.toFixed(2) }}%
           </td>
-          <td (click)="navigateToDetails(data.symbol)">
+          <td (click)="handleClick(data.symbol)">
             ${{ data.high.toFixed(2) }}
           </td>
-          <td (click)="navigateToDetails(data.symbol)">
-            ${{ data.low.toFixed(2) }}
-          </td>
-          <td (click)="navigateToDetails(data.symbol)">
+          <td (click)="handleClick(data.symbol)">${{ data.low.toFixed(2) }}</td>
+          <td (click)="handleClick(data.symbol)">
             ${{ data.open.toFixed(2) }}
           </td>
-          <td (click)="navigateToDetails(data.symbol)">
+          <td (click)="handleClick(data.symbol)">
             ${{ data.close.toFixed(2) }}
           </td>
         </tr>
@@ -72,6 +70,9 @@
 </div>
 <app-modal
   [(isModalOpen)]="isModalShown"
+  (isModalOpenChange)="closeModalAndRefresh()"
+  [inHomeView]="inHomeView"
+  [selectedSymbol]="selectedSymbol"
   class="app-modal"
   *ngIf="isModalShown"
 ></app-modal>

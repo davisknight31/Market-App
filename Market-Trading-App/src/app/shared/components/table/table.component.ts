@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Stock } from '../../interfaces/stock';
 import { Router, RouterModule } from '@angular/router';
@@ -18,10 +18,13 @@ export class TableComponent {
   @Input() rowsPerPage: number;
   @Input() totalRows: number;
   @Input() inHomeView: boolean;
+  @Input() isListUpdated: boolean = false;
+  @Output() isListUpdatedChange = new EventEmitter<boolean>();
 
   displayedData: Stock[];
   totalPages: number;
   isModalShown: boolean = false;
+  selectedSymbol: string;
 
   constructor(private router: Router) {}
   ngOnInit() {
@@ -32,9 +35,14 @@ export class TableComponent {
     console.log(this.tableData);
   }
 
-  navigateToDetails(stockSymbol: string) {
-    console.log(stockSymbol);
-    this.router.navigate(['/details', stockSymbol]);
+  handleClick(stockSymbol: string) {
+    if (this.inHomeView) {
+      this.router.navigate(['/details', stockSymbol]);
+    } else {
+      this.selectedSymbol = stockSymbol;
+      console.log(this.selectedSymbol);
+      this.showModal();
+    }
   }
 
   calculateTotalRows(): void {
@@ -79,5 +87,11 @@ export class TableComponent {
 
   showModal() {
     this.isModalShown = true;
+  }
+
+  closeModalAndRefresh() {
+    if (!this.inHomeView) {
+      this.isListUpdatedChange.emit(!this.isListUpdatedChange);
+    }
   }
 }

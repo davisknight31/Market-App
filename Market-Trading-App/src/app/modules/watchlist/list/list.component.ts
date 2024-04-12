@@ -1,4 +1,10 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Watchlist } from '../../../shared/interfaces/watchlists';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../core/services/api.service';
@@ -17,6 +23,10 @@ export class ListComponent {
   @Input() selectedWatchlist: Watchlist;
   @Input() headers: string[];
   @Input() stockDetails: Stock[];
+  @Input() refreshList: boolean = false;
+  @Input() selectedWatchlistName: string;
+  @Output() refreshListChange = new EventEmitter<boolean>();
+  isListUpdated: boolean = false;
   watchlistSymbols: string[] = [];
   watchlistStockDetails: Stock[] = [];
   isLoading: boolean = false;
@@ -25,15 +35,19 @@ export class ListComponent {
 
   ngOnChanges() {
     this.isLoading = true;
+    this.resetList();
+
+    //calling api each time because if a user updates their watchlist we want to recall the api
+    this.getStockData();
+    this.isLoading = false;
+  }
+
+  resetList() {
     this.watchlistStockDetails = [];
     this.watchlistSymbols = [];
     this.selectedWatchlist?.entries.forEach((entry) => {
       this.watchlistSymbols.push(entry.stocksymbol);
     });
-
-    //calling api each time because if a user updates their watchlist we want to recall the api
-    this.getStockData();
-    this.isLoading = false;
   }
 
   getStockData() {
@@ -42,8 +56,6 @@ export class ListComponent {
         next: (data) => {
           this.watchlistStockDetails = data;
           console.log(this.watchlistStockDetails);
-          if (data === this.watchlistStockDetails) {
-          }
         },
         error: (error) => {
           console.error('Error:', error);
@@ -53,9 +65,7 @@ export class ListComponent {
     }
   }
 
-  setStockSymbols() {
-    this.selectedWatchlist?.entries.forEach((entry) => {
-      this.watchlistSymbols.push(entry.stocksymbol);
-    });
+  refreshWatchlists() {
+    this.refreshListChange.emit(!this.refreshListChange);
   }
 }

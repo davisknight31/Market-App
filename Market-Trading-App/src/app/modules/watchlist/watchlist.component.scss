@@ -23,3 +23,14 @@
   width: 100%;
   margin: 25px;
 }
+
+a {
+  color: #1e1e1e;
+  transition: 0.5s;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #4c3ce0;
+}

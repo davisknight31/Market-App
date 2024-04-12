@@ -1,8 +1,9 @@
 <div class="container">
-  <div class="wrapper">
+  <div *ngIf="loggedIn && !isRefreshing" class="wrapper">
     <h1>Watchlists</h1>
     <select
       #watchlists
+      [(ngModel)]="selectedWatchlistName"
       class="watchlist-dropdown"
       (change)="switchList(watchlists.value)"
     >
@@ -13,9 +14,25 @@
     </select>
 
     <app-list
+      *ngIf="selectedWatchlist"
       class="watchlist-list"
       [selectedWatchlist]="selectedWatchlist"
+      [selectedWatchlistName]="selectedWatchlistName"
       [headers]="watchlistColumnHeaders"
+      (refreshListChange)="refresh()"
     ></app-list>
+    <div
+      *ngIf="
+        selectedWatchlist?.entries.length <= 0 &&
+        selectedWatchlistName !== 'Choose a watchlist'
+      "
+    >
+      This watchlist is empty... Add?
+    </div>
+  </div>
+
+  <div *ngIf="!loggedIn" class="wrapper">
+    <h1>Watchlists</h1>
+    <div>Please <a routerLink="/login">login</a> to see your watchlists!</div>
   </div>
 </div>

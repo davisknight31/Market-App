@@ -18,3 +18,20 @@
   padding: 20px;
   z-index: 100;
 }
+
+.remove-from-watchlist {
+  font-size: 18px;
+}
+.remove-from-watchlist:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.delete-watchlist {
+  font-size: 18px;
+}
+
+.delete-watchlist:hover {
+  color: red;
+  cursor: pointer;
+}

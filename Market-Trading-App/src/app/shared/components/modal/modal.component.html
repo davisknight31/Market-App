@@ -1,10 +1,22 @@
 <div class="background">
   <div class="dialog">
-    <div><h1>Add To Watchlist</h1></div>
-    <div>This Watchlist</div>
-    <div>This Watchlist</div>
-    <div>This Watchlist</div>
-    <div>Create Watchlist</div>
+    <div *ngIf="inHomeView">
+      <div *ngFor="let watchlist of watchlists">
+        <div>{{ watchlist.name }}</div>
+      </div>
+    </div>
+
+    <div *ngIf="!inHomeView">
+      <div>
+        <h1>{{ selectedWatchlist.name }}</h1>
+        <div class="remove-from-watchlist" (click)="removeFromWatchlist()">
+          Remove {{ selectedSymbol }} from {{ selectedWatchlist.name }}
+        </div>
+        <div class="delete-watchlist" (click)="deleteWatchlist()">
+          Delete {{ selectedWatchlist.name }}
+        </div>
+      </div>
+    </div>
     <button (click)="closeModal()">Close</button>
   </div>
 </div>

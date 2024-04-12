@@ -75,6 +75,7 @@ export class UserService {
       .get<Watchlists>(`${this.apiUrl}/Watchlist/GetWatchlists/${this.userId}`)
       .pipe(
         tap((data) => {
+          console.log('data', data);
           this.watchlists = data.watchlists;
           console.log(this.watchlists);
         }),
@@ -83,6 +84,18 @@ export class UserService {
           throw error;
         })
       );
+  }
+
+  removeStockFromWatchlist(watchlistEntryId: number) {
+    return this.http.delete<Watchlists>(
+      `${this.apiUrl}/Watchlist/RemoveWatchlistEntry/${watchlistEntryId}`
+    );
+  }
+
+  deleteWatchlist(watchlistId: number) {
+    return this.http.delete<Watchlists>(
+      `${this.apiUrl}/Watchlist/RemoveWatchlist/${watchlistId}`
+    );
   }
 
   resetUser(): void {
