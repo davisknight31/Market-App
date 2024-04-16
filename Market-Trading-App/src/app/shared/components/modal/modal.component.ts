@@ -3,11 +3,12 @@ import { UserService } from '../../../core/services/user.service';
 import { Watchlist } from '../../interfaces/watchlists';
 import { CommonModule } from '@angular/common';
 import { concatMap, forkJoin } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
 })
@@ -18,12 +19,14 @@ export class ModalComponent {
   @Output() isModalOpenChange = new EventEmitter<boolean>();
   watchlists: Watchlist[] = [];
   selectedWatchlist: Watchlist;
+  loggedIn: boolean;
 
   constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.watchlists = this.userService.watchlists;
     this.selectedWatchlist = this.userService.selectedWatchlist;
+    this.loggedIn = this.userService.loggedIn;
   }
 
   removeFromWatchlist() {

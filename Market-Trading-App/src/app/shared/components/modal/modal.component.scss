@@ -19,8 +19,14 @@
   z-index: 100;
 }
 
+h1 {
+  text-align: center;
+}
+
 .remove-from-watchlist {
   font-size: 18px;
+  padding-top: 5px;
+  font-weight: bold;
 }
 .remove-from-watchlist:hover {
   color: red;
@@ -29,9 +35,40 @@
 
 .delete-watchlist {
   font-size: 18px;
+  padding-top: 5px;
+  font-weight: bold;
 }
 
 .delete-watchlist:hover {
   color: red;
   cursor: pointer;
+}
+
+.bottom-separator {
+  margin-top: 5px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #4c3ce0;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc !important;
+  cursor: not-allowed;
+}
+
+button:hover {
+  background-color: #6858ff;
+}
+
+a {
+  color: #4c3ce0;
+  text-decoration: none;
+  font-weight: bold;
 }

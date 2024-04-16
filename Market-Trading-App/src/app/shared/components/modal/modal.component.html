@@ -1,14 +1,24 @@
 <div class="background">
   <div class="dialog">
     <div *ngIf="inHomeView">
-      <div *ngFor="let watchlist of watchlists">
-        <div>{{ watchlist.name }}</div>
+      <div *ngIf="!loggedIn">
+        <h1>
+          Please <a routerLink="/login">login</a> to add <br />to your
+          watchlists
+        </h1>
+      </div>
+      <div *ngIf="loggedIn">
+        <h1>Add {{ selectedSymbol }} to...</h1>
+        <div *ngFor="let watchlist of watchlists">
+          <div>{{ watchlist.name }}</div>
+        </div>
       </div>
     </div>
 
     <div *ngIf="!inHomeView">
       <div>
         <h1>{{ selectedWatchlist.name }}</h1>
+        <hr />
         <div class="remove-from-watchlist" (click)="removeFromWatchlist()">
           Remove {{ selectedSymbol }} from {{ selectedWatchlist.name }}
         </div>
@@ -17,6 +27,8 @@
         </div>
       </div>
     </div>
+    <hr class="bottom-separator" />
+
     <button (click)="closeModal()">Close</button>
   </div>
 </div>
