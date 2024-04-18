@@ -20,6 +20,8 @@ export class ModalComponent {
   watchlists: Watchlist[] = [];
   selectedWatchlist: Watchlist;
   loggedIn: boolean;
+  successMessage: string;
+  errorMessage: string;
 
   constructor(private userService: UserService) {}
 
@@ -27,6 +29,45 @@ export class ModalComponent {
     this.watchlists = this.userService.watchlists;
     this.selectedWatchlist = this.userService.selectedWatchlist;
     this.loggedIn = this.userService.loggedIn;
+  }
+
+  createWatchlist(watchlistName: string) {
+    console.log(watchlistName, this.userService.userId, this.selectedSymbol);
+    this.userService
+      .createNewWatchlist(
+        this.selectedSymbol,
+        watchlistName,
+        this.userService.userId
+      )
+      .subscribe({
+        next: (data) => {
+          if (data) {
+            this.successMessage = `Watchlist with name "${watchlistName}" created successfully`;
+            console.log(this.successMessage);
+          }
+        },
+        error: (errorMessage) => {
+          this.errorMessage = errorMessage;
+          console.log(this.errorMessage);
+        },
+      });
+  }
+
+  addToWatchlist(watchlistId: number) {
+    this.userService
+      .addStockToWatchlist(watchlistId, this.selectedSymbol)
+      .subscribe({
+        next: (data) => {
+          if (data) {
+            this.successMessage = `Successfully added ${this.selectedSymbol}!`;
+            console.log(this.successMessage);
+          }
+        },
+        error: (errorMessage) => {
+          this.errorMessage = errorMessage;
+          console.log(this.errorMessage);
+        },
+      });
   }
 
   removeFromWatchlist() {

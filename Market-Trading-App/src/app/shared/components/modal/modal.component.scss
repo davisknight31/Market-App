@@ -23,6 +23,42 @@ h1 {
   text-align: center;
 }
 
+.watchlist {
+  font-size: 18px;
+  font-weight: bold;
+  padding-top: 10px;
+}
+
+.watchlist:hover {
+  cursor: pointer;
+  color: #4c3ce0;
+}
+.new-watchlist {
+  font-size: 18px;
+  font-weight: bold;
+  padding-top: 10px;
+}
+
+.info-input {
+  display: flex;
+  border-radius: 5px;
+  border-style: hidden;
+  background-color: rgb(243, 243, 243);
+  padding: 10px;
+  height: 20px;
+}
+
+.info-input:focus {
+  outline: none !important;
+  //   border: solid #4c3ce0;
+}
+
+.watchlist-name-submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
 .remove-from-watchlist {
   font-size: 18px;
   padding-top: 5px;

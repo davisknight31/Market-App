@@ -86,6 +86,53 @@ export class UserService {
       );
   }
 
+  addStockToWatchlist(watchlistid: number, symbol: string) {
+    return this.http
+      .put<Watchlist>(`${this.apiUrl}/Watchlist/AddToWatchlist`, {
+        watchlistid,
+        symbol,
+      })
+      .pipe(
+        tap((data) => {
+          console.log(data);
+        }),
+        catchError((error) => {
+          console.error('Error:', error);
+          let errorMessage: string;
+          if (error.status === 400) {
+            errorMessage = 'This watchlist already contains this symbol.';
+          } else {
+            errorMessage = 'An error occurred. Please try again later.';
+          }
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
+
+  createNewWatchlist(symbol: string, name: string, userid: string) {
+    return this.http
+      .post<Watchlist>(`${this.apiUrl}/Watchlist/CreateAndAddToWatchlist`, {
+        userid,
+        name,
+        symbol,
+      })
+      .pipe(
+        tap((data) => {
+          console.log(data);
+        }),
+        catchError((error) => {
+          console.error('Error:', error);
+          let errorMessage: string;
+          if (error.status === 400) {
+            errorMessage = 'A watchlist already exists with that name.';
+          } else {
+            errorMessage = 'An error occurred. Please try again later.';
+          }
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
+
   removeStockFromWatchlist(watchlistEntryId: number) {
     return this.http.delete<Watchlists>(
       `${this.apiUrl}/Watchlist/RemoveWatchlistEntry/${watchlistEntryId}`

@@ -10,7 +10,9 @@
       <tbody>
         <tr class="data-row" *ngFor="let data of displayedData">
           <td *ngIf="inHomeView">
-            <div class="watchlist-button" (click)="showModal()">+</div>
+            <div class="watchlist-button" (click)="addToWatchList(data.symbol)">
+              +
+            </div>
           </td>
           <td class="stock-name" (click)="handleClick(data.symbol)">
             {{ data.symbol }}

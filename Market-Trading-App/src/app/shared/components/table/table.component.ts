@@ -82,7 +82,8 @@ export class TableComponent {
   };
 
   addToWatchList(symbol: string) {
-    console.log(symbol);
+    this.selectedSymbol = symbol;
+    this.showModal();
   }
 
   showModal() {
