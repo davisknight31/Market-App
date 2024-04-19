@@ -108,3 +108,17 @@ a {
   text-decoration: none;
   font-weight: bold;
 }
+
+.error-message {
+  padding-top: 2%;
+  padding-bottom: 2%;
+  color: red;
+  text-align: center;
+}
+
+.success-message {
+  padding-top: 2%;
+  padding-bottom: 2%;
+  color: rgb(0, 212, 0);
+  text-align: center;
+}

@@ -44,6 +44,11 @@ export class ModalComponent {
           if (data) {
             this.successMessage = `Watchlist with name "${watchlistName}" created successfully`;
             console.log(this.successMessage);
+            this.watchlists = [];
+            this.userService.getWatchlists().subscribe((response) => {
+              console.log(response);
+            });
+            this.closeModal();
           }
         },
         error: (errorMessage) => {
@@ -60,6 +65,9 @@ export class ModalComponent {
         next: (data) => {
           if (data) {
             this.successMessage = `Successfully added ${this.selectedSymbol}!`;
+            this.userService.getWatchlists().subscribe((response) => {
+              console.log(response);
+            });
             console.log(this.successMessage);
           }
         },

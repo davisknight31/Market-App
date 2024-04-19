@@ -94,5 +94,6 @@ export class TableComponent {
     if (!this.inHomeView) {
       this.isListUpdatedChange.emit(!this.isListUpdatedChange);
     }
+    // if(this.inHomeView) {}
   }
 }

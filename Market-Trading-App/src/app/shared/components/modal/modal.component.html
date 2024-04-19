@@ -31,6 +31,10 @@
             Create
           </button>
         </div>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        <div *ngIf="successMessage" class="success-message">
+          {{ successMessage }}
+        </div>
       </div>
     </div>
 
@@ -46,6 +50,7 @@
         </div>
       </div>
     </div>
+
     <hr class="bottom-separator" />
 
     <button (click)="closeModal()">Close</button>
