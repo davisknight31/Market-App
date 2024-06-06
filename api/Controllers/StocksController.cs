@@ -2,11 +2,14 @@ using api.Interfaces;
 using api.Models;
 using api.Models.Finnhub;
 using api.Models.Alphavantage;
-using api.Models.Alpaca ;
+using api.Models.Alpaca;
+using api.Models.CompanyModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.JsonPatch.Internal;
 using Alpaca.Markets;
+
+using api.Data;
 
 namespace api.Controllers;
 
@@ -18,14 +21,16 @@ public class StocksController : Controller
     private readonly IAlphavantageService _alphavantageService;
     private readonly IAlpacaService _alpacaService;
     private readonly IAlethiaService _alethiaService;
+    private readonly MarketAppDbContext _marketAppDbContext;
 
 
-    public StocksController(IFinnhubService finnhubService, IAlphavantageService alphavantageService, IAlpacaService alpacaService, IAlethiaService alethiaService)
+    public StocksController(IFinnhubService finnhubService, IAlphavantageService alphavantageService, IAlpacaService alpacaService, IAlethiaService alethiaService, MarketAppDbContext marketAppDbContext)
     {
         _finnhubService = finnhubService;
         _alphavantageService = alphavantageService;
         _alpacaService = alpacaService;
         _alethiaService = alethiaService;
+        _marketAppDbContext = marketAppDbContext;
     }
 
     //[HttpGet("GetStockQuote/{symbol}")]
@@ -184,6 +189,51 @@ public class StocksController : Controller
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpGet("GetCompanyDescription/{symbol}")]
+    public async Task<IActionResult> GetCompanyDescription(string symbol)
+    {
+        try
+        {
+            var retrievedEntry = _marketAppDbContext.tradesimschoice.FirstOrDefault(s => s.symbol == symbol);
+
+
+            TradesimsChoiceModel formattedEntry = new TradesimsChoiceModel
+            {
+                symbolid = retrievedEntry.symbolid,
+                symbol = retrievedEntry.symbol,
+                description = retrievedEntry.description,
+            };
+
+            return Ok(formattedEntry);
+
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving the description: " + ex.Message);
+
+        }
+    }
+
+    [HttpGet("GetHistoricalBars/{symbol}")]
+    public async Task<IActionResult> GetHistoricalBars(string symbol)
+    {
+        try
+        {
+            var retrievedResponse = await _alpacaService.GetHistoricalBars(symbol);
+
+            return Ok(retrievedResponse);
+
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving the historical bars: " + ex.Message);
+
+        }
+    }
+
+
+
 
 
     private StockQuote BuildQuote(FinnhubStockQuoteResponse retrievedStockQuote)

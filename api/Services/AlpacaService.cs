@@ -210,4 +210,32 @@ public class AlpacaService : IAlpacaService
         }
     }
 
+    public async Task<AlpacaHistoricalBarsResponse> GetHistoricalBars(string symbol)
+    {
+        try
+        {
+            //var responseBody = await SendV2HttpRequestAsync(HttpMethod.Get, $"stocks/snapshots?symbols={Uri.EscapeDataString(string.Join(",", stockSymbols))}&feed=iex");
+
+            //?timeframe=1Day&start=2022-01-03T00%3A00%3A00Z&end=2022-05-04T00%3A00%3A00Z&limit=1000&adjustment=raw&feed=sip&sort=asc'
+
+            string timeframe = "1Week";
+            string start = DateTime.UtcNow.AddYears(-1).ToString("yyyy-MM-ddTHH:mm:ssZ");
+            string end = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ");
+
+            //52 week response
+            var responseBody = await SendV2HttpRequestAsync(HttpMethod.Get, $"stocks/{symbol}/bars?timeframe={timeframe}&start={start}&end={end}&limit=1000&adjustment=raw&feed=iex&sort=asc");
+
+            _logger.LogInformation($"Alpaca API response: {responseBody}");
+
+            var historicalBars = JsonConvert.DeserializeObject<AlpacaHistoricalBarsResponse>(responseBody);
+
+
+            return historicalBars;
+        }
+        catch (HttpRequestException httpEx)
+        {
+            _logger.LogError($"An error occurred when calling Alpaca API: {httpEx.Message}");
+            throw;
+        }
+    }
 }

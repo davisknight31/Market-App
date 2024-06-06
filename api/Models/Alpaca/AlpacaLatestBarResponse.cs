@@ -9,6 +9,13 @@ namespace api.Models.Alpaca;
         public Dictionary<string, Bar> Bars { get; set; }
     }
 
+    public class AlpacaHistoricalBarsResponse
+    {
+        [JsonProperty("bars")]
+        public List<Bar> Bars { get; set; }
+
+    }
+
     public class Bar
     {
         [JsonProperty("c")]

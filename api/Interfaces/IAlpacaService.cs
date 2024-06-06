@@ -12,4 +12,6 @@ public interface IAlpacaService
     Task<AlpacaLatestTradesResponse> GetLatestTrades(List<string> stockSymbols);
     Task<AlpacaNewsArticlesResponse> GetNewsArticles();
     Task<Dictionary<string, Snapshot>> GetSnapshots(List<string> stockSymbols);
+    Task<AlpacaHistoricalBarsResponse> GetHistoricalBars(string symbol);
+
 }

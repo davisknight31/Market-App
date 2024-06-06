@@ -9,6 +9,9 @@ import { FinancialInfoCardComponent } from './financial-info-card/financial-info
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { CommonModule } from '@angular/common';
 import { Observable, forkJoin } from 'rxjs';
+import { CompanyDescription } from '../../shared/interfaces/CompanyDescription';
+import { DescriptionCardComponent } from './description-card/description-card.component';
+import { ChartCardComponent } from './chart-card/chart-card.component';
 
 @Component({
   selector: 'app-details',
@@ -18,6 +21,8 @@ import { Observable, forkJoin } from 'rxjs';
     FinancialInfoCardComponent,
     SpinnerComponent,
     CommonModule,
+    DescriptionCardComponent,
+    ChartCardComponent,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
@@ -29,6 +34,7 @@ export class DetailsComponent {
   stockData: Data;
   chosenStock: Stock;
   companyProfile: Profile;
+  companyDescription: CompanyDescription;
   isLoading: boolean = true;
   // add is loading for each call, and use that to determine if spinner should disappear
 
@@ -51,6 +57,8 @@ export class DetailsComponent {
     const combinedObservables: Observable<any>[] = [
       this.apiService.getStockDataBySymbol(this.stockSymbol),
       this.apiService.GetCompanyProfileBySymbol(this.stockSymbol),
+      this.apiService.getCompanyDescription(this.stockSymbol),
+      this.apiService.getHistoricalBars(this.stockSymbol),
     ];
 
     forkJoin(combinedObservables).subscribe({
@@ -58,6 +66,7 @@ export class DetailsComponent {
         console.log(responses);
         this.stockData = responses[0];
         this.companyProfile = responses[1];
+        this.companyDescription = responses[2];
         this.isLoading = false;
       },
       error: (error) => {
@@ -103,6 +112,15 @@ export class DetailsComponent {
         console.log(response);
       });
   }
+
+  // getCompanyDescription(): void {
+  //   this.apiService
+  //     .getCompanyDescription(this.stockSymbol)
+  //     .subscribe((response: CompanyDescription) => {
+  //       this.companyDescription = response;
+  //       console.log(response);
+  //     });
+  // }
 
   // ngOnDestroy(): void {
   //   this.companyOverview.unsubscribe();

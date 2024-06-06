@@ -47,7 +47,7 @@ export class HomeComponent {
       'IBM',
       'AAPL',
       'NVDA',
-      'META',
+      'BRK.B',
       'PEP'
     );
     this.tableColumnHeaders.push(

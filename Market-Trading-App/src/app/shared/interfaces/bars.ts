@@ -2,6 +2,10 @@ export interface Bars {
   bars: { [key: string]: Bar };
 }
 
+export interface HistoricalBars {
+  bars: Bar[];
+}
+
 interface Bar {
   c: number; // Close
   h: number; // High

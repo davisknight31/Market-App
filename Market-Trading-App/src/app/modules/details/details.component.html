@@ -2,16 +2,28 @@
   <div *ngIf="isLoading" class="spinner-container">
     <app-spinner></app-spinner>
   </div>
-  <app-general-info-card
-    *ngIf="!isLoading"
-    class="general-info-card"
-    [stockQuote]="chosenStock"
-    [stockData]="stockData"
-    [companyProfile]="companyProfile"
-  ></app-general-info-card>
-  <app-financial-info-card
-    *ngIf="!isLoading"
-    class="financial-info-card"
-    [stockData]="stockData"
-  ></app-financial-info-card>
+  <div class="cards-wrapper">
+    <div class="first-column">
+      <app-general-info-card
+        *ngIf="!isLoading"
+        class="general-info-card"
+        [stockQuote]="chosenStock"
+        [stockData]="stockData"
+        [companyProfile]="companyProfile"
+      ></app-general-info-card>
+      <app-financial-info-card
+        *ngIf="!isLoading"
+        class="financial-info-card"
+        [stockData]="stockData"
+      ></app-financial-info-card>
+    </div>
+    <div class="second-column">
+      <app-chart-card class="chart-card"></app-chart-card>
+      <app-description-card
+        class="description-card"
+        *ngIf="!isLoading"
+        [companyDescription]="companyDescription"
+      ></app-description-card>
+    </div>
+  </div>
 </div>

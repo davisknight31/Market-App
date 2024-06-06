@@ -3,10 +3,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Stock, StockOld } from '../../shared/interfaces/stock';
+import { CompanyDescription } from '../../shared/interfaces/CompanyDescription';
 import { Overview } from '../../shared/interfaces/overview';
 import { Data } from '../../shared/interfaces/data';
 import { Profile } from '../../shared/interfaces/profile';
 import { NewsArticles } from '../../shared/interfaces/newsArticles';
+import { HistoricalBars } from '../../shared/interfaces/bars';
 
 @Injectable({
   providedIn: 'root',
@@ -141,5 +143,29 @@ export class ApiService {
         throw error;
       })
     );
+  }
+
+  getCompanyDescription(symbol: string): Observable<CompanyDescription> {
+    return this.http
+      .get<CompanyDescription>(
+        `${this.apiUrl}/Stocks/GetCompanyDescription/${symbol}`
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
+  getHistoricalBars(symbol: string): Observable<HistoricalBars> {
+    return this.http
+      .get<HistoricalBars>(`${this.apiUrl}/Stocks/GetHistoricalBars/${symbol}`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
   }
 }
