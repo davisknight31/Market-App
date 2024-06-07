@@ -12,6 +12,10 @@ import { Observable, forkJoin } from 'rxjs';
 import { CompanyDescription } from '../../shared/interfaces/CompanyDescription';
 import { DescriptionCardComponent } from './description-card/description-card.component';
 import { ChartCardComponent } from './chart-card/chart-card.component';
+import {
+  FormattedHistoricalBar,
+  HistoricalBars,
+} from '../../shared/interfaces/bars';
 
 @Component({
   selector: 'app-details',
@@ -35,6 +39,8 @@ export class DetailsComponent {
   chosenStock: Stock;
   companyProfile: Profile;
   companyDescription: CompanyDescription;
+  historicalBars: HistoricalBars;
+  formattedHistoricalBars: FormattedHistoricalBar[] = [];
   isLoading: boolean = true;
   // add is loading for each call, and use that to determine if spinner should disappear
 
@@ -67,6 +73,14 @@ export class DetailsComponent {
         this.stockData = responses[0];
         this.companyProfile = responses[1];
         this.companyDescription = responses[2];
+        this.historicalBars = responses[3];
+        this.historicalBars.bars.forEach((bar) => {
+          let formattedBar: FormattedHistoricalBar = {
+            time: bar.t.toString().split('T')[0],
+            value: bar.c,
+          };
+          this.formattedHistoricalBars.push(formattedBar);
+        });
         this.isLoading = false;
       },
       error: (error) => {

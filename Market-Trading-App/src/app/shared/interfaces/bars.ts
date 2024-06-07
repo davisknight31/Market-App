@@ -6,6 +6,11 @@ export interface HistoricalBars {
   bars: Bar[];
 }
 
+export interface FormattedHistoricalBar {
+  time: string;
+  value: number;
+}
+
 interface Bar {
   c: number; // Close
   h: number; // High

@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { ColorType, IChartApi, createChart } from 'lightweight-charts';
-import { HistoricalBars } from '../../../shared/interfaces/bars';
+import {
+  ColorType,
+  IChartApi,
+  UTCTimestamp,
+  createChart,
+} from 'lightweight-charts';
+import { FormattedHistoricalBar } from '../../../shared/interfaces/bars';
 
 @Component({
   selector: 'app-chart-card',
@@ -10,7 +15,7 @@ import { HistoricalBars } from '../../../shared/interfaces/bars';
   styleUrl: './chart-card.component.scss',
 })
 export class ChartCardComponent {
-  @Input() HistoricalBars?: HistoricalBars;
+  @Input() historicalBars?: FormattedHistoricalBar[];
 
   private chart: IChartApi;
 
@@ -35,24 +40,29 @@ export class ChartCardComponent {
       },
     });
 
+    let barsLength: number = this.historicalBars.length;
+    let chartStart = new Date(this.historicalBars[0].time);
+    let chartEnd = new Date(this.historicalBars[barsLength - 1].time);
+
+    let startUtcTimestamp = Math.floor(
+      chartStart.getTime() / 1000
+    ) as UTCTimestamp;
+    let endUtcTimestamp = Math.floor(chartEnd.getTime() / 1000) as UTCTimestamp;
+
+    console.log(startUtcTimestamp, endUtcTimestamp);
+
     const areaSeries = this.chart.addAreaSeries({
       lineColor: '#2962FF',
       topColor: '#2962FF',
       bottomColor: 'rgba(41, 98, 255, 0.28)',
     });
 
-    areaSeries.setData([
-      { time: '2018-12-22', value: 32.51 },
-      { time: '2018-12-23', value: 31.11 },
-      { time: '2018-12-24', value: 27.02 },
-      { time: '2018-12-25', value: 27.32 },
-      { time: '2018-12-26', value: 25.17 },
-      { time: '2018-12-27', value: 28.89 },
-      { time: '2018-12-28', value: 25.46 },
-      { time: '2018-12-29', value: 23.92 },
-      { time: '2018-12-30', value: 22.68 },
-      { time: '2018-12-31', value: 22.67 },
-    ]);
+    console.log(this.historicalBars);
+    areaSeries.setData(this.historicalBars);
+
+    this.chart
+      .timeScale()
+      .setVisibleRange({ from: startUtcTimestamp, to: endUtcTimestamp });
 
     // const lineSeries = this.chart.addLineSeries();
 

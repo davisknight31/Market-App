@@ -42,3 +42,5 @@ namespace api.Models.Alpaca;
         [JsonProperty("vw")]
         public double VolumeWeighted { get; set; }
     }
+
+

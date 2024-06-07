@@ -18,7 +18,11 @@
       ></app-financial-info-card>
     </div>
     <div class="second-column">
-      <app-chart-card class="chart-card"></app-chart-card>
+      <app-chart-card
+        class="chart-card"
+        *ngIf="!isLoading"
+        [historicalBars]="formattedHistoricalBars"
+      ></app-chart-card>
       <app-description-card
         class="description-card"
         *ngIf="!isLoading"
