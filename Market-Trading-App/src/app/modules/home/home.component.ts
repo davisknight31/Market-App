@@ -30,7 +30,7 @@ export class HomeComponent {
   tableColumnHeaders: string[] = [];
   isLoading: boolean = true;
   isDataCached: boolean = false;
-
+  tradesimsChoices: string[];
   stockDetails: Stock[] = [];
   topMovers: Stock[] = [];
   mostActive: Stock[] = [];
@@ -70,11 +70,16 @@ export class HomeComponent {
     // const observables: Observable<any>[] = [];
     this.responseData = [];
 
-    this.apiService.getStocks(stockSymbols).subscribe((response: Stock[]) => {
-      this.stockDetails = response;
-      console.log('home hit', response);
+    this.apiService.getTradesimsChoices().subscribe((response: string[]) => {
+      this.tradesimsChoices = response;
+      this.apiService
+        .getStocks(this.tradesimsChoices)
+        .subscribe((response: Stock[]) => {
+          this.stockDetails = response;
+          console.log('home hit', response);
 
-      this.isLoading = false;
+          this.isLoading = false;
+        });
     });
 
     // stockSymbols.forEach((symbol) => {

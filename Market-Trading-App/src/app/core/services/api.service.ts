@@ -145,6 +145,17 @@ export class ApiService {
     );
   }
 
+  getTradesimsChoices(): Observable<string[]> {
+    return this.http
+      .get<string[]>(`${this.apiUrl}/Stocks/GetTradesimsChoices`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
   getCompanyDescription(symbol: string): Observable<CompanyDescription> {
     return this.http
       .get<CompanyDescription>(

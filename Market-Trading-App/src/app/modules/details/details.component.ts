@@ -39,6 +39,7 @@ export class DetailsComponent {
   chosenStock: Stock;
   companyProfile: Profile;
   companyDescription: CompanyDescription;
+  tradesimsChoices: string[];
   historicalBars: HistoricalBars;
   formattedHistoricalBars: FormattedHistoricalBar[] = [];
   isLoading: boolean = true;

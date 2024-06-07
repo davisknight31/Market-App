@@ -190,6 +190,31 @@ public class StocksController : Controller
         }
     }
 
+    [HttpGet("GetTradesimsChoices")]
+    public async Task<IActionResult> GetTradesimsChoices()
+    {
+        try
+        {
+            List<string> symbols = new List<string>();
+
+            var retrievedList = _marketAppDbContext.tradesimschoice.ToList();
+
+            foreach (var entry in retrievedList)
+            {
+                symbols.Add(entry.symbol);
+            }
+          
+            return Ok(symbols);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
+
+
+
     [HttpGet("GetCompanyDescription/{symbol}")]
     public async Task<IActionResult> GetCompanyDescription(string symbol)
     {
