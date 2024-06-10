@@ -1,6 +1,9 @@
 <nav>
-  <ul>
-    <li><label class="logo">TradeSim</label></li>
+  <label class="logo">TradeSim</label>
+  <div class="menu-btn" (click)="toggleMenu()">
+    <div class="menu-btn__burger"></div>
+  </div>
+  <ul [class.active]="menuActive">
     <li class="nav-link"><a routerLink="/home">Home</a></li>
     <li class="nav-link"><a routerLink="/watchlists">Watchlists</a></li>
     <li class="nav-link"><a routerLink="/news">News</a></li>
@@ -14,9 +17,9 @@
         ><img src="assets/profileIcon.png" class="profile-icon"
       /></a>
     </li>
-    <li class="search-bar"><input type="text" placeholder="Search..." /></li>
+    <!-- <li class="search-bar"><input type="text" placeholder="Search..." /></li> -->
   </ul>
 </nav>
-<hr class="separator" />
+<!-- <hr class="separator" /> -->
 
 <router-outlet />

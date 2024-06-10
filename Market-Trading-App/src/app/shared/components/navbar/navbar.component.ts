@@ -11,7 +11,13 @@ import { UserService } from '../../../core/services/user.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+  menuActive: boolean = false;
+
   constructor(private userService: UserService) {}
+
+  toggleMenu() {
+    this.menuActive = !this.menuActive;
+  }
 
   checkIfLoggedIn(): boolean {
     if (this.userService.loggedIn) {

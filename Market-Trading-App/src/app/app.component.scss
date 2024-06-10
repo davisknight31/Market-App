@@ -9,9 +9,6 @@
   font-size: var(--c-font-size-600);
 }
 
-.main-content {
-}
-
 //could make this only apply if the size of the window hits a certain height
 // .footer {
 //   position: fixed;
@@ -21,3 +18,7 @@
 //   font-size: 16px;
 //   z-index: 9999;
 // }
+
+.main-content {
+  margin-top: 80px;
+}

@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  // width: 100%;
   height: fit-content;
+  // margin: 25px;
 }
 
 .header {
@@ -11,24 +12,30 @@
 }
 
 .main-list-container {
-  box-shadow: #d8d8d8 0px 4px 24px;
-  border-radius: 10px;
+  // box-shadow: #d8d8d8 0px 4px 24px;
+  // border-radius: 10px;
+  // width: fit-content;
   width: 100%;
-
-  overflow: overlay;
 }
 
 table {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  width: 100%;
+  // width: 100%;
+  // width: 100vw - 1vw;
   border-collapse: collapse;
-  border: 1px solid #ddd;
+  // border: 1px solid #ddd;
   font-size: 14px;
+  // margin: 50px;
+  margin-top: 0px;
+  // overflow: hidden;
+  // padding: 25px;
+  // overflow-x: scroll;
 }
 
 th,
 td {
+  height: 2.5em;
   padding: 24px;
   text-align: left;
 
@@ -44,11 +51,13 @@ td {
 }
 
 thead tr {
-  height: 10px;
+  // height: 10px;
+  border-bottom: 2px solid #c0c0c0;
 }
 
-tbody tr {
-  height: 120px;
+tr {
+  // height: 120px;
+  background-color: #ffffff;
 }
 
 /* Hover Effect */
@@ -68,10 +77,16 @@ tr:nth-child(even) {
 /* Border Radius */
 table {
   border-radius: 6px;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .stock-name {
+  // background-color: red;
+  // position: sticky;
+  // left: 65px;
+  // z-index: 99;
+  // width: 70px;
+  margin-left: 50px;
   font-weight: bold;
   font-style: italic;
 }
@@ -110,8 +125,20 @@ table {
   background-color: #6858ff;
 }
 
+.watchlist-button-container {
+  background-color: inherit;
+
+  // width: 50px;
+}
 .watchlist-button {
-  width: 15px;
+  display: flex;
+  width: 25px;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  background-color: #c0c0c0;
+  border-radius: 3px;
   cursor: pointer;
 }
 
@@ -140,13 +167,89 @@ table {
 // }
 
 /* Responsive Table */
-@media (max-width: 768px) {
-  table {
-    font-size: 12px;
+@media (max-width: 1100px) {
+  th {
+    font-size: 18px;
   }
 
   th,
   td {
-    padding: 8px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 900px) {
+  th,
+  td {
+    padding: 13px;
+    height: 2em;
+
+    // font-size: 13px;
+  }
+}
+
+@media (max-width: 770px) {
+  th {
+    font-size: 16px;
+  }
+
+  th,
+  td {
+    padding: 12px;
+    // font-size: 12px;
+  }
+}
+
+@media (max-width: 730px) {
+  .daily-high {
+    display: none;
+  }
+  .daily-high-header {
+    display: none;
+  }
+
+  .daily-low {
+    display: none;
+  }
+  .daily-low-header {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  td {
+    font-size: 14px;
+  }
+
+  th {
+    // font-size: 16px;
+  }
+
+  th,
+  td {
+    padding: 11px;
+  }
+}
+
+@media (max-width: 520px) {
+  .open-price {
+    display: none;
+  }
+  .open-price-header {
+    display: none;
+  }
+
+  .previous-close {
+    display: none;
+  }
+  .previous-close-header {
+    display: none;
+  }
+}
+
+@media (max-width: 350px) {
+  th,
+  td {
+    font-size: 13px;
   }
 }

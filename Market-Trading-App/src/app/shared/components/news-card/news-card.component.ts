@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ApiService } from '../../../core/services/api.service';
 import { NewsArticles } from '../../interfaces/newsArticles';
 import { CommonModule } from '@angular/common';
@@ -14,11 +14,13 @@ import { SpinnerComponent } from '../spinner/spinner.component';
 export class NewsCardComponent {
   newsArticles: NewsArticles;
   isLoading: boolean = true;
+  articlesToShow: number = 6;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getNewsArticles();
+    this.updateArticlesToShow(window.innerWidth);
   }
 
   getNewsArticles(): void {
@@ -28,8 +30,29 @@ export class NewsCardComponent {
     });
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.updateArticlesToShow(event.target.innerWidth);
+  }
+
+  updateArticlesToShow(width: number) {
+    if (width >= 1800) {
+      this.articlesToShow = 7;
+    } else if (width >= 1200) {
+      this.articlesToShow = 6;
+    } else if (width >= 992) {
+      this.articlesToShow = 5;
+    } else if (width >= 768) {
+      this.articlesToShow = 4;
+    } else if (width >= 500) {
+      this.articlesToShow = 3;
+    } else {
+      this.articlesToShow = 2;
+    }
+  }
+
   truncateText(text: string) {
-    length = 75;
+    length = 40;
     if (text.length <= length) {
       return text;
     }

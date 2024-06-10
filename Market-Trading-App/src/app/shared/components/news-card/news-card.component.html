@@ -4,7 +4,7 @@
 <div *ngIf="!isLoading" class="wrapper">
   <div class="news-articles-container">
     <div
-      *ngFor="let article of newsArticles?.news.slice(0, 4)"
+      *ngFor="let article of newsArticles?.news.slice(0, articlesToShow)"
       class="article-container"
     >
       <a [href]="article.url" target="_blank">

@@ -11,15 +11,24 @@
   padding: 20px;
 }
 
+.tab-switcher {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+app-sidebar {
+  width: fit-content;
+  margin-bottom: 2%;
+}
+
 .table {
   display: flex;
   flex-direction: column;
   align-items: center;
-  app-sidebar {
-    width: 25%;
-    margin-bottom: 2%;
-  }
+  overflow-x: overlay;
+  // padding: 50px;
 
   app-table {
+    // width: 100%;
   }
 }
