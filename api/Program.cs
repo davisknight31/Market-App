@@ -26,7 +26,7 @@ builder.Services.AddHttpClient();
 
 //add database context
 builder.Services.AddDbContext<MarketAppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("SupabaseConnection")));
 
 
 builder.WebHost.UseUrls("http://localhost:5286");
