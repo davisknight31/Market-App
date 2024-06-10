@@ -28,6 +28,17 @@ builder.Services.AddHttpClient();
 builder.Services.AddDbContext<MarketAppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("SupabaseConnection")));
 
+//builder.Services.AddDbContext<MarketAppDbContext>(options =>
+//{
+//    options.UseNpgsql(builder.Configuration.GetConnectionString("SupabaseConnection"), npgsqlOptions =>
+//    {
+//        npgsqlOptions.EnableRetryOnFailure(); // Enable retry on failure
+//        npgsqlOptions.MaxBatchSize(100);       // Maximum number of connections in the pool
+//        npgsqlOptions.MinBatchSize(10); 
+//        npgsqlOptions.ConnectionIdleLifetime = TimeSpan.FromSeconds(30); // Connection idle lifetime
+//    });
+//});
+
 
 builder.WebHost.UseUrls("http://localhost:5286");
 
