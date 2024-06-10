@@ -18,6 +18,7 @@ export class ChartCardComponent {
   @Input() historicalBars?: FormattedHistoricalBar[];
 
   private chart: IChartApi;
+  private initialRange;
 
   ngOnInit(): void {}
 
@@ -60,9 +61,20 @@ export class ChartCardComponent {
     console.log(this.historicalBars);
     areaSeries.setData(this.historicalBars);
 
-    this.chart
-      .timeScale()
-      .setVisibleRange({ from: startUtcTimestamp, to: endUtcTimestamp });
+    this.initialRange = { from: startUtcTimestamp, to: endUtcTimestamp };
+
+    this.chart.timeScale().setVisibleRange(this.initialRange);
+
+    this.chart.timeScale().subscribeVisibleTimeRangeChange((newRange) => {
+      const minDate = new Date(this.initialRange.from as string).getTime();
+      const maxDate = new Date(this.initialRange.to as string).getTime();
+      const newFrom = new Date(newRange.from as string).getTime();
+      const newTo = new Date(newRange.to as string).getTime();
+
+      if (newFrom < minDate || newTo > maxDate) {
+        this.chart.timeScale().setVisibleRange(this.initialRange);
+      }
+    });
 
     // const lineSeries = this.chart.addLineSeries();
 

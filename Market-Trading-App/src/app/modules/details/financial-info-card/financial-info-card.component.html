@@ -13,13 +13,13 @@
               </td>
               <td>
                 <div class="label">Market Capitalization:</div>
-                <div>${{ stockData?.marketCap }}</div>
+                <div>${{ stockData?.marketCap.toLocaleString("en-US") }}</div>
               </td>
             </tr>
             <tr>
               <td>
                 <div class="label">Volume:</div>
-                <div>{{ stockData?.volume }}</div>
+                <div>{{ stockData?.volume.toLocaleString("en-US") }}</div>
               </td>
               <td>
                 <div class="label">Day Open:</div>
@@ -59,7 +59,7 @@
                   No Dividend
                 </div>
                 <div *ngIf="stockData?.forwardAnnualDividendYield !== 0">
-                  {{ stockData?.forwardAnnualDividendYield }}
+                  {{ stockData?.forwardAnnualDividendYield.toFixed(2) }}
                 </div>
               </td>
             </tr>
@@ -69,7 +69,7 @@
                 <div class="label">Dividend Amount:</div>
                 <div *ngIf="stockData?.forwardDividend === 0">No Dividend</div>
                 <div *ngIf="stockData?.forwardDividend !== 0">
-                  {{ stockData?.forwardDividend }}
+                  ${{ stockData?.forwardDividend.toFixed(2) }}
                 </div>
               </td>
               <td>

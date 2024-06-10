@@ -3,7 +3,6 @@ import { Stock } from '../../../shared/interfaces/stock';
 import { Data } from '../../../shared/interfaces/data';
 import { Profile } from '../../../shared/interfaces/profile';
 import { CommonModule } from '@angular/common';
-
 @Component({
   selector: 'app-general-info-card',
   standalone: true,

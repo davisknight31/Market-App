@@ -219,7 +219,7 @@ public class AlpacaService : IAlpacaService
             //?timeframe=1Day&start=2022-01-03T00%3A00%3A00Z&end=2022-05-04T00%3A00%3A00Z&limit=1000&adjustment=raw&feed=sip&sort=asc'
 
             string timeframe = "1Week";
-            string start = DateTime.UtcNow.AddYears(-1).ToString("yyyy-MM-ddTHH:mm:ssZ");
+            string start = DateTime.UtcNow.AddYears(-2).ToString("yyyy-MM-ddTHH:mm:ssZ");
             string end = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ");
 
             //52 week response
