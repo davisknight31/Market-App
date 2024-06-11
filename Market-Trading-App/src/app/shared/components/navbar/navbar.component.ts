@@ -26,4 +26,11 @@ export class NavbarComponent {
       return false;
     }
   }
+
+  closeMenu(): void {
+    console.log('hit');
+    if (this.menuActive) {
+      this.menuActive = !this.menuActive;
+    }
+  }
 }

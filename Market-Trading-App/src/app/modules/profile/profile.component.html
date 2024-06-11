@@ -1,4 +1,13 @@
-<p>Welcome {{ username }}</p>
-<div class="watchlist-button" (click)="navigateToWatchlists()">Watchlists</div>
+<div class="container">
+  <div class="welcome-card">
+    <h1 class="header">Welcome {{ username }}</h1>
+    <div class="select-option">What would you like to do?</div>
+    <div>
+      <div class="watchlist-button" (click)="navigateToWatchlists()">
+        View Watchlists
+      </div>
+    </div>
 
-<div class="logout-button" (click)="logout()">Logout</div>
+    <div class="logout-button" (click)="logout()">Logout</div>
+  </div>
+</div>

@@ -4,16 +4,26 @@
     <div class="menu-btn__burger"></div>
   </div>
   <ul [class.active]="menuActive">
-    <li class="nav-link"><a routerLink="/home">Home</a></li>
-    <li class="nav-link"><a routerLink="/watchlists">Watchlists</a></li>
-    <li class="nav-link"><a routerLink="/news">News</a></li>
-    <li class="nav-link"><a routerLink="/about">About</a></li>
-    <li class="nav-link"><a routerLink="/contact">Contact</a></li>
+    <li class="nav-link">
+      <a routerLink="/home" (click)="closeMenu()">Home</a>
+    </li>
+    <li class="nav-link">
+      <a routerLink="/watchlists" (click)="closeMenu()">Watchlists</a>
+    </li>
+    <li class="nav-link">
+      <a routerLink="/news" (click)="closeMenu()">News</a>
+    </li>
+    <li class="nav-link">
+      <a routerLink="/about" (click)="closeMenu()">About</a>
+    </li>
+    <li class="nav-link">
+      <a routerLink="/contact" (click)="closeMenu()">Contact</a>
+    </li>
     <li class="profile-button">
-      <a *ngIf="!checkIfLoggedIn()" routerLink="/login"
+      <a *ngIf="!checkIfLoggedIn()" routerLink="/login" (click)="closeMenu()"
         ><img src="assets/profileIcon.png" class="profile-icon"
       /></a>
-      <a *ngIf="checkIfLoggedIn()" routerLink="/profile"
+      <a *ngIf="checkIfLoggedIn()" routerLink="/profile" (click)="closeMenu()"
         ><img src="assets/profileIcon.png" class="profile-icon"
       /></a>
     </li>

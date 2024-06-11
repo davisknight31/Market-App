@@ -4,6 +4,249 @@
       <h2 class="stock-name">Financial Information</h2>
       <hr class="separator" />
       <div class="financial-info-container">
+        <!-- <div class="row">
+          <div class="item">
+            <div class="label">Previous Close:</div>
+            <div class="info">${{ stockData?.previousClose }}</div>
+          </div>
+          <div class="item">
+            <div class="label">Market Capitalization:</div>
+            <div class="info">
+              ${{ stockData?.marketCap.toLocaleString("en-US") }}
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="item">
+            <div class="label">Volume:</div>
+            <div class="info">
+              {{ stockData?.volume.toLocaleString("en-US") }}
+            </div>
+          </div>
+          <div class="item">
+            <div class="label">Day Open:</div>
+            <div class="info">${{ stockData?.open.toFixed(2) }}</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="item">
+            <div class="label">Day High:</div>
+            <div class="info">${{ stockData?.dayHigh.toFixed(2) }}</div>
+          </div>
+          <div class="item">
+            <div class="label">Day Low:</div>
+            <div class="info">${{ stockData?.dayLow.toFixed(2) }}</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="item">
+            <div class="label">Year High:</div>
+            <div class="info">${{ stockData?.yearHigh.toFixed(2) }}</div>
+          </div>
+          <div class="item">
+            <div class="label">Year Low:</div>
+            <div class="info">${{ stockData?.yearLow.toFixed(2) }}</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="item">
+            <div class="label">Year Target Estimation:</div>
+            <div class="info">
+              ${{ stockData?.yearTargetEstimate.toFixed(2) }}
+            </div>
+          </div>
+          <div class="item">
+            <div class="label">Dividend Yield:</div>
+            <div *ngIf="stockData?.forwardAnnualDividendYield === 0">
+              No Dividend
+            </div>
+            <div *ngIf="stockData?.forwardAnnualDividendYield !== 0">
+              {{ stockData?.forwardAnnualDividendYield.toFixed(2) }}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="label">Dividend Amount:</div>
+              <div *ngIf="stockData?.forwardDividend === 0">No Dividend</div>
+              <div *ngIf="stockData?.forwardDividend !== 0">
+                ${{ stockData?.forwardDividend.toFixed(2) }}
+              </div>
+            </div>
+            <div class="item">
+              <div class="label">Dividend Payout Date:</div>
+              <div *ngIf="formatDate(stockData?.exDividendDate) !== '1/1/1'">
+                {{ formatDate(stockData?.exDividendDate) }}
+              </div>
+              <div *ngIf="formatDate(stockData?.exDividendDate) === '1/1/1'">
+                No Dividend
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="label">Earnings Per Share:</div>
+              <div class="info">
+                ${{ stockData?.earningsPerShare.toFixed(2) }}
+              </div>
+            </div>
+            <div class="item">
+              <div class="label">Earnings Report Date:</div>
+              <div class="info">{{ formatDate(stockData?.earningsDate) }}</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="item">
+              <div class="label">Price-Earnings Ratio:</div>
+              <div class="info">{{ stockData?.priceEarningsRatio }}</div>
+            </div>
+          </div> -->
+
+        <!----------------------->
+
+        <!-- <div class="column-one">
+          <div class="item">
+            <span class="label">Previous Close: </span>${{
+              stockData?.previousClose
+            }}
+          </div>
+          <div class="item">
+            <span class="label">Market Capitalization: </span>${{
+              stockData?.marketCap.toLocaleString("en-US")
+            }}
+          </div>
+          <div class="item">
+            <span class="label">Volume: </span
+            >{{ stockData?.volume.toLocaleString("en-US") }}
+          </div>
+          <div class="item">
+            <span class="label">Day Open: </span>${{
+              stockData?.open.toFixed(2)
+            }}
+          </div>
+          <div class="item">
+            <span class="label">Day High: </span>${{
+              stockData?.dayHigh.toFixed(2)
+            }}
+          </div>
+          <div class="item">
+            <span class="label">Day Low: </span>${{
+              stockData?.dayLow.toFixed(2)
+            }}
+          </div>
+          <div class="item">
+            <span class="label">Year High: </span>${{
+              stockData?.yearHigh.toFixed(2)
+            }}
+          </div>
+          <div class="item">
+            <span class="label">Year Low: </span>${{
+              stockData?.yearLow.toFixed(2)
+            }}
+          </div>
+        </div>
+
+        <div class="column-two">
+          <div class="item">
+            <span class="label">Year Target Estimation: </span>${{
+              stockData?.yearTargetEstimate.toFixed(2)
+            }}
+          </div>
+          <div class="item">
+            <span class="label">Dividend Yield: </span>
+            <span *ngIf="stockData?.forwardAnnualDividendYield === 0">
+              No Dividend
+            </span>
+            <span *ngIf="stockData?.forwardAnnualDividendYield !== 0">
+              {{ stockData?.forwardAnnualDividendYield.toFixed(2) }}
+            </span>
+          </div>
+          <div class="item">
+            <span class="label">Dividend Amount: </span>
+            <span *ngIf="stockData?.forwardDividend === 0">No Dividend</span>
+            <span *ngIf="stockData?.forwardDividend !== 0">
+              ${{ stockData?.forwardDividend.toFixed(2) }}
+            </span>
+          </div>
+          <div class="item">
+            <span class="label">Dividend Payout Date: </span>
+            <span *ngIf="formatDate(stockData?.exDividendDate) !== '1/1/1'">
+              {{ formatDate(stockData?.exDividendDate) }}
+            </span>
+            <span *ngIf="formatDate(stockData?.exDividendDate) === '1/1/1'">
+              No Dividend
+            </span>
+          </div>
+          <div class="item">
+            <span class="label">Earnings Per Share: </span>${{
+              stockData?.earningsPerShare.toFixed(2)
+            }}
+          </div>
+          <div class="item">
+            <span class="label">Earnings Report Date: </span
+            >{{ formatDate(stockData?.earningsDate) }}
+          </div>
+          <div class="item">
+            <span class="label">Price-Earnings Ratio: </span
+            >{{ stockData?.priceEarningsRatio }}
+          </div>
+        </div> -->
+
+        <!------------------>
+        <!-- <div class="row">
+          <div class="item">
+            <span class="label">Previous Close: </span>${{
+              stockData?.previousClose
+            }}
+          </div>
+          <div class="item">
+            <span class="label">Market Capitalization: </span>${{
+              stockData?.marketCap.toLocaleString("en-US")
+            }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="item">
+            <span class="label">Volume: </span
+            >{{ stockData?.volume.toLocaleString("en-US") }}
+          </div>
+          <div class="item">
+            <span class="label">Day Open: </span>${{
+              stockData?.open.toFixed(2)
+            }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="item">
+            <span class="label">Day High: </span>${{
+              stockData?.dayHigh.toFixed(2)
+            }}
+          </div>
+          <div class="item">
+            <span class="label">Day Low: </span>${{
+              stockData?.dayLow.toFixed(2)
+            }}
+          </div>
+        </div> -->
+
+        <!-- <div class="row">
+          <div class="item">
+            <span class="label"></span>
+          </div>
+          <div class="item">
+            <span class="label"></span>
+          </div>
+        </div> -->
+
+        <!-- ------------------- -->
         <table class="info-table">
           <tbody>
             <tr>
@@ -15,18 +258,16 @@
                 <div class="label">Market Capitalization:</div>
                 <div>${{ stockData?.marketCap.toLocaleString("en-US") }}</div>
               </td>
-            </tr>
-            <tr>
               <td>
                 <div class="label">Volume:</div>
                 <div>{{ stockData?.volume.toLocaleString("en-US") }}</div>
               </td>
+            </tr>
+            <tr>
               <td>
                 <div class="label">Day Open:</div>
                 <div>${{ stockData?.open.toFixed(2) }}</div>
               </td>
-            </tr>
-            <tr>
               <td>
                 <div class="label">Day High:</div>
                 <div>${{ stockData?.dayHigh.toFixed(2) }}</div>
@@ -46,13 +287,13 @@
                 <div class="label">Year Low:</div>
                 <div>${{ stockData?.yearLow.toFixed(2) }}</div>
               </td>
-            </tr>
-
-            <tr>
               <td>
                 <div class="label">Year Target Estimation:</div>
                 <div>${{ stockData?.yearTargetEstimate.toFixed(2) }}</div>
               </td>
+            </tr>
+
+            <tr>
               <td>
                 <div class="label">Dividend Yield:</div>
                 <div *ngIf="stockData?.forwardAnnualDividendYield === 0">
@@ -62,9 +303,6 @@
                   {{ stockData?.forwardAnnualDividendYield.toFixed(2) }}
                 </div>
               </td>
-            </tr>
-
-            <tr>
               <td>
                 <div class="label">Dividend Amount:</div>
                 <div *ngIf="stockData?.forwardDividend === 0">No Dividend</div>
@@ -92,8 +330,6 @@
                 <div class="label">Earnings Report Date:</div>
                 <div>{{ formatDate(stockData?.earningsDate) }}</div>
               </td>
-            </tr>
-            <tr>
               <td>
                 <div class="label">Price-Earnings Ratio:</div>
                 <div>{{ stockData?.priceEarningsRatio }}</div>
@@ -105,3 +341,4 @@
     </div>
   </div>
 </div>
+<!-- </div> -->

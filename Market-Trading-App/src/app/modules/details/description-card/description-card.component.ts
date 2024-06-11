@@ -6,14 +6,16 @@ import {
   LineData,
   createChart,
 } from 'lightweight-charts';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-description-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './description-card.component.html',
   styleUrl: './description-card.component.scss',
 })
 export class DescriptionCardComponent {
   @Input() companyDescription?: CompanyDescription;
+  @Input() companyName?: string;
 }

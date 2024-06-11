@@ -1,7 +1,8 @@
 .container {
   display: flex;
   justify-content: center;
-  width: 100%;
+  height: 50vh;
+  padding-top: 10vh;
 }
 
 .wrapper {
@@ -20,7 +21,7 @@
 }
 
 .watchlist-list {
-  width: 100%;
+  // width: 100%;
   margin: 25px;
 }
 
@@ -33,4 +34,10 @@ a {
 
 a:hover {
   color: #4c3ce0;
+}
+
+.login-text {
+  text-align: center;
+  font-size: 18px;
+  padding-top: 10px;
 }

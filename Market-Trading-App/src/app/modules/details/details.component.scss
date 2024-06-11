@@ -16,6 +16,7 @@
 .cards-wrapper {
   display: flex;
   gap: 50px;
+  justify-content: center;
   // flex-wrap: wrap;
 }
 
@@ -35,23 +36,19 @@
 }
 
 .general-info-card {
-  flex-grow: 0;
   // this will adjust width of the card, but then creates a weird overlapping of cards when resizing window
   //width: 25%;
 }
 
 .financial-info-card {
-  flex-grow: 1;
 }
 
 .chart-card {
   min-width: 200px;
-  width: 75vw;
   max-width: 1200px;
 }
 
 .description-card {
   min-width: 200px;
-  width: 75vw;
   max-width: 1200px;
 }

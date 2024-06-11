@@ -218,11 +218,12 @@ public class StocksController : Controller
     [HttpGet("GetCompanyDescription/{symbol}")]
     public async Task<IActionResult> GetCompanyDescription(string symbol)
     {
-        try
+        //try
+        //{
+        var retrievedEntry = _marketAppDbContext.tradesimschoice.FirstOrDefault(s => s.symbol == symbol);
+
+        if (retrievedEntry != null)
         {
-            var retrievedEntry = _marketAppDbContext.tradesimschoice.FirstOrDefault(s => s.symbol == symbol);
-
-
             TradesimsChoiceModel formattedEntry = new TradesimsChoiceModel
             {
                 symbolid = retrievedEntry.symbolid,
@@ -231,13 +232,18 @@ public class StocksController : Controller
             };
 
             return Ok(formattedEntry);
-
         }
-        catch (Exception ex)
+        else
         {
-            return StatusCode(500, "An error occurred while retrieving the description: " + ex.Message);
-
+            return Ok();
         }
+
+        //}
+        //catch (Exception ex)
+        //{
+            //return StatusCode(500, "An error occurred while retrieving the description: " + ex.Message);
+
+        //}
     }
 
     [HttpGet("GetHistoricalBars/{symbol}")]

@@ -1,20 +1,50 @@
-.watchlist-button {
+.container {
+  min-height: 50vh;
+  min-width: 500px;
+  width: fit-content;
+  max-width: 800px;
+  margin: auto;
+  margin-top: 10vh;
+}
+
+.welcome-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: #d8d8d8 0px 4px 24px;
+  border-radius: 10px;
+  padding: 25px;
+  gap: 15px;
+}
+
+.header {
+  color: #4c3ce0;
+}
+
+.select-option {
+  // font-weight: bold;
   font-size: 24px;
-  width: 25px;
-  padding: 5px;
+}
+
+.watchlist-button {
+  font-size: 20px;
+  font-weight: bold;
+  width: fit-content;
 }
 
 .watchlist-button:hover {
-  color: red;
+  color: #4c3ce0;
   cursor: pointer;
 }
 
 .logout-button {
-  width: 25px;
-  padding: 5px;
+  margin-top: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  width: fit-content;
 }
 
 .logout-button:hover {
-  color: red;
+  color: #4c3ce0;
   cursor: pointer;
 }

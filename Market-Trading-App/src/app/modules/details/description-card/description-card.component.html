@@ -1,5 +1,10 @@
 <div class="container">
   <h2 class="stock-name">Company Description</h2>
   <hr class="separator" />
-  <div class="description">{{ companyDescription.description }}</div>
+  <div class="description" *ngIf="companyDescription">
+    {{ companyDescription?.description }}
+  </div>
+  <div class="description" *ngIf="!companyDescription">
+    TradeSim does not have any information on {{ companyName }}
+  </div>
 </div>

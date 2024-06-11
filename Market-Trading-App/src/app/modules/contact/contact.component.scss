@@ -1,13 +1,13 @@
 .contact {
   font-size: 18px;
-  height: 50vh;
+  min-height: 50vh;
 }
 .contact-info-container {
   display: flex;
   flex-direction: column;
   width: 65%;
   height: 100%;
-  padding: 3%;
+  padding: 15px;
 }
 
 .disclaimer {
