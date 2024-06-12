@@ -10,15 +10,29 @@
   //   min-width: fit-content;
   //   width: 60%;
 
-  overflow: scroll;
+  // overflow: scroll;
   // height: 50vh;
-  min-width: 200px;
-  max-width: 400px;
+  // min-width: 200px;
+  // max-width: 400px;
   font-size: 16px;
+  margin-bottom: 50px;
 }
 
 .header-info-container {
   padding: 20px;
+}
+
+.info-list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+
+  li {
+    .list-label {
+      font-weight: bold;
+    }
+  }
 }
 
 .info-table {
@@ -34,6 +48,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  padding-top: 15px;
   // flex-direction: column;
 }
 
@@ -87,16 +102,4 @@
 
 .separator {
   margin-top: 10px;
-}
-
-.general-info-list {
-  list-style-type: none;
-
-  li {
-    padding-top: 8px;
-
-    .list-label {
-      font-weight: bold;
-    }
-  }
 }

@@ -3,32 +3,28 @@
     <app-spinner></app-spinner>
   </div>
   <div class="cards-wrapper">
-    <div class="first-column">
-      <app-general-info-card
-        *ngIf="!isLoading"
-        class="general-info-card"
-        [stockQuote]="chosenStock"
-        [stockData]="stockData"
-        [companyProfile]="companyProfile"
-      ></app-general-info-card>
-      <app-financial-info-card
-        *ngIf="!isLoading"
-        class="financial-info-card"
-        [stockData]="stockData"
-      ></app-financial-info-card>
-    </div>
-    <div class="second-column">
-      <app-chart-card
-        class="chart-card"
-        *ngIf="!isLoading"
-        [historicalBars]="formattedHistoricalBars"
-      ></app-chart-card>
-      <app-description-card
-        class="description-card"
-        *ngIf="!isLoading"
-        [companyDescription]="companyDescription"
-        [companyName]="stockData.shortName"
-      ></app-description-card>
-    </div>
+    <app-general-info-card
+      *ngIf="!isLoading"
+      class="general-info-card"
+      [stockQuote]="chosenStock"
+      [stockData]="stockData"
+      [companyProfile]="companyProfile"
+    ></app-general-info-card>
+    <app-chart-card
+      class="chart-card"
+      *ngIf="!isLoading"
+      [historicalBars]="formattedHistoricalBars"
+    ></app-chart-card>
+    <app-financial-info-card
+      *ngIf="!isLoading"
+      class="financial-info-card"
+      [stockData]="stockData"
+    ></app-financial-info-card>
+    <app-description-card
+      class="description-card"
+      *ngIf="!isLoading"
+      [companyDescription]="companyDescription"
+      [companyName]="stockData.shortName"
+    ></app-description-card>
   </div>
 </div>

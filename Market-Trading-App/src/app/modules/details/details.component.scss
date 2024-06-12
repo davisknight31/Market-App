@@ -14,10 +14,14 @@
 }
 
 .cards-wrapper {
-  display: flex;
-  gap: 50px;
-  justify-content: center;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  // gap: 50px;
   // flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .first-column {

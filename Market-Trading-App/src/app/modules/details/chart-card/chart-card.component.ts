@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import {
   ColorType,
   IChartApi,
@@ -23,23 +23,7 @@ export class ChartCardComponent {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.chart = createChart(document.getElementById('chart') as HTMLElement, {
-      // width: 600,
-      // height: 300,
-      autoSize: true,
-      layout: {
-        background: { type: ColorType.Solid, color: 'white' },
-        textColor: '#333',
-      },
-      grid: {
-        vertLines: {
-          color: '#eee',
-        },
-        horzLines: {
-          color: '#eee',
-        },
-      },
-    });
+    this.createChart(window.innerWidth >= 500);
 
     let barsLength: number = this.historicalBars.length;
     let chartStart = new Date(this.historicalBars[0].time);
@@ -87,5 +71,33 @@ export class ChartCardComponent {
     // ];
 
     // lineSeries.setData(data);
+  }
+
+  private createChart(showPriceScale: boolean): void {
+    if (this.chart) {
+      this.chart.remove();
+    }
+    this.chart = createChart(document.getElementById('chart') as HTMLElement, {
+      autoSize: true,
+      layout: {
+        background: { type: ColorType.Solid, color: 'white' },
+        textColor: '#333',
+      },
+      grid: {
+        vertLines: {
+          color: '#eee',
+        },
+        horzLines: {
+          color: '#eee',
+        },
+      },
+      rightPriceScale: {
+        visible: showPriceScale, // Show or hide the Y-axis based on the parameter
+        borderVisible: false,
+      },
+      leftPriceScale: {
+        visible: false, // Hide the Y-axis on the left side (if you are using it)
+      },
+    });
   }
 }
