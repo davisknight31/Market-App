@@ -16,3 +16,15 @@
 .description {
   padding-top: 16px;
 }
+
+@media (max-width: 1000px) {
+  .description {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 750px) {
+  .description {
+    font-size: 14px;
+  }
+}

@@ -70,3 +70,15 @@
 .general-info-container {
   padding-top: 15px;
 }
+
+@media (max-width: 1000px) {
+  .info-list {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 750px) {
+  li {
+    font-size: 14px;
+  }
+}

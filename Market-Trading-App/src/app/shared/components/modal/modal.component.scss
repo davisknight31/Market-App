@@ -21,6 +21,8 @@
 
 h1 {
   text-align: center;
+  font-size: 24px;
+  padding: 20px;
 }
 
 .watchlist {
@@ -35,8 +37,7 @@ h1 {
 }
 .new-watchlist {
   font-size: 18px;
-  font-weight: bold;
-  padding-top: 10px;
+  padding-top: 20px;
 }
 
 .info-input {
@@ -107,6 +108,10 @@ a {
   color: #4c3ce0;
   text-decoration: none;
   font-weight: bold;
+}
+
+a:hover {
+  color: #6858ff;
 }
 
 .error-message {

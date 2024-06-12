@@ -1,7 +1,7 @@
 .container {
   display: flex;
   justify-content: center;
-  height: 50vh;
+  min-height: 50vh;
   padding-top: 10vh;
 }
 
@@ -23,6 +23,10 @@
 .watchlist-list {
   // width: 100%;
   margin: 25px;
+}
+
+.no-watchlists {
+  margin-top: 25px;
 }
 
 a {

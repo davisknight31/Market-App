@@ -75,7 +75,7 @@ public class UserController : ControllerBase
 
             await _marketAppDbContext.SaveChangesAsync();
             
-            return Ok(createdUser);
+            return Ok(newUser);
         }
         catch (Exception ex)
         {

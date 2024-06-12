@@ -19,7 +19,7 @@
       <tr class="data-row" *ngFor="let data of displayedData">
         <td *ngIf="inHomeView" class="watchlist-button-container">
           <div class="watchlist-button" (click)="addToWatchList(data.symbol)">
-            +
+            <img class="plus-icon" src="../../../../assets/plus.png" />
           </div>
         </td>
         <td class="stock-name" (click)="handleClick(data.symbol)">

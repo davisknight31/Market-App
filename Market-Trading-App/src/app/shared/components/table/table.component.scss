@@ -132,18 +132,24 @@ table {
 }
 .watchlist-button {
   display: flex;
-  width: 25px;
+  width: fit-content;
   justify-content: center;
   align-items: center;
-
   color: white;
-  background-color: #c0c0c0;
+  background-color: #4c3ce0;
   border-radius: 3px;
   cursor: pointer;
 }
 
 .watchlist-button:hover {
-  background-color: red;
+  background-color: #6858ff;
+}
+
+.plus-icon {
+  display: block;
+  width: 10px;
+  height: 10px;
+  padding: 5px;
 }
 
 .app-modal {

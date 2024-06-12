@@ -13,6 +13,16 @@
       </option>
     </select>
 
+    <div
+      class="no-watchlists"
+      *ngIf="
+        userWatchlists.length <= 0 &&
+        selectedWatchlistName === 'Choose a watchlist'
+      "
+    >
+      It seems you have no watchlists... <a routerLink="/home">Add?</a>
+    </div>
+
     <app-list
       *ngIf="selectedWatchlist"
       class="watchlist-list"
@@ -27,7 +37,8 @@
         selectedWatchlistName !== 'Choose a watchlist'
       "
     >
-      This watchlist is empty... <a routerLink="/home">Add?</a>
+      This watchlist is empty... <a routerLink="/home">Add?</a> Or
+      <span class="delete-button" (click)="deleteWatchlist()">delete?</span>
     </div>
   </div>
 

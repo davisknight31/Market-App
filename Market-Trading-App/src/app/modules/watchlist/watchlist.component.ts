@@ -19,6 +19,7 @@ export class WatchlistComponent {
   @Input() refreshLists: boolean;
   isRefreshing: boolean = false;
   userWatchlists: Watchlist[] = [];
+  emptyWatchlist: Watchlist;
   selectedWatchlist: Watchlist;
   selectedWatchlistName: string;
   stockDetails: Stock[] = [];
@@ -38,6 +39,12 @@ export class WatchlistComponent {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
+    this.emptyWatchlist = {
+      watchlistid: 0,
+      userid: 0,
+      name: '',
+      entries: [],
+    };
     this.selectedWatchlistName = 'Choose a watchlist';
 
     this.userWatchlists = this.userService.watchlists;
@@ -79,18 +86,35 @@ export class WatchlistComponent {
   refresh() {
     this.isRefreshing = true;
     this.userWatchlists = this.userService.watchlists;
-    this.userWatchlists.forEach((watchlist) => {
-      if (watchlist.name === this.selectedWatchlistName) {
-        this.userService.selectedWatchlist = watchlist;
-        this.selectedWatchlist = watchlist;
-      } else {
-        this.selectedWatchlist = this.userWatchlists[0];
-        this.selectedWatchlistName = this.userWatchlists[0].name;
-        // this.selectedWatchlist = null;
-        // this.selectedWatchlistName = 'Choose a watchlist';
-      }
-    });
-
+    if (this.userWatchlists.length > 0) {
+      this.userWatchlists.forEach((watchlist) => {
+        if (watchlist.name === this.selectedWatchlistName) {
+          this.userService.selectedWatchlist = watchlist;
+          this.selectedWatchlist = watchlist;
+        } else {
+          this.selectedWatchlist = this.userWatchlists[0];
+          this.userService.selectedWatchlist = this.userWatchlists[0];
+          this.selectedWatchlistName = this.userWatchlists[0].name;
+          // this.selectedWatchlist = null;
+          // this.selectedWatchlistName = 'Choose a watchlist';
+        }
+      });
+    } else {
+      this.selectedWatchlistName = 'Choose a watchlist';
+      this.selectedWatchlist = this.emptyWatchlist;
+      this.userService.selectedWatchlist = this.emptyWatchlist;
+    }
     this.isRefreshing = false;
+  }
+
+  deleteWatchlist() {
+    const deleteWatchlist$ = this.userService.deleteWatchlist(
+      this.selectedWatchlist.watchlistid
+    );
+    deleteWatchlist$.subscribe(() => {
+      this.userService.getWatchlists().subscribe(() => {
+        this.refresh();
+      });
+    });
   }
 }

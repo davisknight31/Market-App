@@ -35,6 +35,17 @@ export class TableComponent {
     console.log(this.tableData);
   }
 
+  // [
+  //   'Name',
+  //   'Current Price',
+  //   'Change',
+  //   '% Change',
+  //   'Daily High',
+  //   'Daily Low',
+  //   'Open Price',
+  //   'Previous Close',
+  // ];
+
   handleClick(stockSymbol: string) {
     if (this.inHomeView) {
       this.router.navigate(['/details', stockSymbol]);

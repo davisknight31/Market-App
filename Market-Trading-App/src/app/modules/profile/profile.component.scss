@@ -1,10 +1,12 @@
 .container {
   min-height: 50vh;
-  min-width: 500px;
+  // min-width: 500px;
   width: fit-content;
   max-width: 800px;
   margin: auto;
   margin-top: 10vh;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .welcome-card {
@@ -19,11 +21,13 @@
 
 .header {
   color: #4c3ce0;
+  text-align: center;
 }
 
 .select-option {
   // font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
+  text-align: center;
 }
 
 .watchlist-button {

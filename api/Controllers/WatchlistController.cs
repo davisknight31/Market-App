@@ -70,11 +70,16 @@ public class WatchlistController : ControllerBase
     [HttpPost("CreateAndAddToWatchlist")]
     public async Task<IActionResult> CreateAndAddToWatchlist([FromBody] WatchlistCreationModel model)
     {
-        bool nameExists = await _marketAppDbContext.watchlists.AnyAsync(w => w.name == model.name);
+        var userWatchlists = _marketAppDbContext.watchlists.Where(w => w.userid == model.userid).ToList();
 
-        if (nameExists)
+        //bool nameExists = await _marketAppDbContext.watchlists.AnyAsync(w => w.name == model.name);
+
+        foreach (var userWatchlist in userWatchlists)
         {
-            return BadRequest("A watchlist already exists with that name.");
+            if (userWatchlist.name == model.name)
+            {
+                return BadRequest("A watchlist already exists with that name.");
+            }
         }
 
         Watchlist watchlist = new Watchlist
