@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Microsoft.AspNetCore.HttpsPolicy;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,28 +25,29 @@ builder.Services.AddCors();
 //register http client
 builder.Services.AddHttpClient();
 
+//builder.Services.AddHttpsRedirection(options =>
+//{
+//    options.HttpsPort = 5286; // Specify the HTTPS port
+//});
+
+
 //add database context
 builder.Services.AddDbContext<MarketAppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("SupabaseConnection")));
 
-//builder.Services.AddDbContext<MarketAppDbContext>(options =>
-//{
-//    options.UseNpgsql(builder.Configuration.GetConnectionString("SupabaseConnection"), npgsqlOptions =>
-//    {
-//        npgsqlOptions.EnableRetryOnFailure(); // Enable retry on failure
-//        npgsqlOptions.MaxBatchSize(100);       // Maximum number of connections in the pool
-//        npgsqlOptions.MinBatchSize(10); 
-//        npgsqlOptions.ConnectionIdleLifetime = TimeSpan.FromSeconds(30); // Connection idle lifetime
-//    });
-//});
 
 
-//builder.WebHost.UseUrls("http://localhost:5286");
-
-builder.WebHost.ConfigureKestrel(options =>
+builder.WebHost.UseKestrel(options =>
 {
-    options.ListenAnyIP(5286);
+    options.ListenAnyIP(5286, listenOptions =>
+    {
+        listenOptions.UseHttps(); // Enable HTTPS
+    });
 });
+
+
+
+
 
 
 //register api services
@@ -63,12 +65,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
+
+
 app.UseCors(builder => builder
      .AllowAnyOrigin()
      .AllowAnyMethod()
      .AllowAnyHeader());
 
-//app.UseHttpsRedirection();
 
 app.UseMvc();
 
@@ -78,4 +82,5 @@ app.MapControllers();
 
 
 app.Run();
+
 
