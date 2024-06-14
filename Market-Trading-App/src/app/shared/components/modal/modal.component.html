@@ -8,17 +8,19 @@
         </h1>
       </div>
       <div *ngIf="loggedIn">
-        <h1>Add {{ selectedSymbol }} to...</h1>
-        <div *ngFor="let watchlist of watchlists">
-          <div
-            class="watchlist"
-            (click)="addToWatchlist(watchlist.watchlistid)"
-          >
-            {{ watchlist.name }}
+        <div *ngIf="watchlists.length > 0">
+          <h1>Add {{ selectedSymbol }} to...</h1>
+          <div *ngFor="let watchlist of watchlists">
+            <div
+              class="watchlist"
+              (click)="addToWatchlist(watchlist.watchlistid)"
+            >
+              {{ watchlist.name }}
+            </div>
           </div>
         </div>
         <div class="new-watchlist">
-          Or create a new watchlist using {{ selectedSymbol }}
+          Create a new watchlist using {{ selectedSymbol }}
         </div>
         <div class="watchlist-name-submit">
           <input

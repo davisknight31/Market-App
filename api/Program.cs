@@ -40,7 +40,13 @@ builder.Services.AddDbContext<MarketAppDbContext>(options =>
 //});
 
 
-builder.WebHost.UseUrls("http://localhost:5286");
+//builder.WebHost.UseUrls("http://localhost:5286");
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5286);
+});
+
 
 //register api services
 builder.Services.AddTransient<IFinnhubService, FinnhubService>();
@@ -69,6 +75,7 @@ app.UseMvc();
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();
 
