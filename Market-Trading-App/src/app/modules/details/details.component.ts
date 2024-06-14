@@ -9,7 +9,7 @@ import { FinancialInfoCardComponent } from './financial-info-card/financial-info
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { CommonModule } from '@angular/common';
 import { Observable, forkJoin } from 'rxjs';
-import { CompanyDescription } from '../../shared/interfaces/CompanyDescription';
+import { CompanyDescription } from '../../shared/interfaces/companyDescription';
 import { DescriptionCardComponent } from './description-card/description-card.component';
 import { ChartCardComponent } from './chart-card/chart-card.component';
 import {
@@ -39,7 +39,6 @@ export class DetailsComponent {
   chosenStock: Stock;
   companyProfile: Profile;
   companyDescription: CompanyDescription;
-  tradesimsChoices: string[];
   historicalBars: HistoricalBars;
   formattedHistoricalBars: FormattedHistoricalBar[] = [];
   isLoading: boolean = true;

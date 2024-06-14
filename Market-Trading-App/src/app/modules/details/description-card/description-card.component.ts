@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CompanyDescription } from '../../../shared/interfaces/CompanyDescription';
+import { CompanyDescription } from '../../../shared/interfaces/companyDescription';
 import {
   ColorType,
   IChartApi,

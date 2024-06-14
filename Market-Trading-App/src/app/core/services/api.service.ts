@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Stock, StockOld } from '../../shared/interfaces/stock';
-import { CompanyDescription } from '../../shared/interfaces/CompanyDescription';
+import { CompanyDescription } from '../../shared/interfaces/companyDescription';
 import { Overview } from '../../shared/interfaces/overview';
 import { Data } from '../../shared/interfaces/data';
 import { Profile } from '../../shared/interfaces/profile';
