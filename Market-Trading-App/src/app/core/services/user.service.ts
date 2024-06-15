@@ -8,7 +8,7 @@ import { Watchlist, Watchlists } from '../../shared/interfaces/watchlists';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:5286/api';
+  private apiUrl = 'https://market-trading-app-davis.com/api';
   username: string;
   userId: string;
   watchlists: Watchlist[] = [];
