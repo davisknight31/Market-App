@@ -9,6 +9,8 @@ import { NewsCardComponent } from '../../shared/components/news-card/news-card.c
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TableFilterService } from '../../core/services/table-filter.service';
+import { CardComponent } from '../../shared/components/card/card.component';
+import { MainListComponent } from './main-list/main-list.component';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +22,8 @@ import { TableFilterService } from '../../core/services/table-filter.service';
     NewsCardComponent,
     SpinnerComponent,
     SidebarComponent,
+    CardComponent,
+    MainListComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

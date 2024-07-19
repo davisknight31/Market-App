@@ -1,0 +1,46 @@
+<div class="title-and-search">
+  <h1 class="title">Prices</h1>
+  <input class="search-bar" type="search" placeholder="Search" />
+</div>
+<div class="table-container">
+  <table class="main-list">
+    <thead>
+      <tr class="headers">
+        <th class="watchlist-label"></th>
+        <th class="symbol-label">Name</th>
+        <th>Price</th>
+        <th>% 24hr</th>
+        <th>$ 24hr</th>
+        <th>Open</th>
+        <th>Market Cap</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="data-row" *ngFor="let data of tableData">
+        <td class="watchlist">★</td>
+        <td class="symbol">{{ data.symbol }}</td>
+        <td class="price">${{ data.price.toFixed(2) }}</td>
+        <td class="percent-change">
+          <span
+            [ngClass]="{
+              'negative-change': data.percentChange.toString().includes('-'),
+              'positive-change': !data.percentChange.toString().includes('-')
+            }"
+            >{{ data.percentChange.toFixed(2) }}%</span
+          >
+        </td>
+        <td class="dollar-change">
+          <span
+            [ngClass]="{
+              'negative-change': data.change.toString().includes('-'),
+              'positive-change': !data.change.toString().includes('-')
+            }"
+            >{{ formatDollarChange(data.change.toFixed(2)) }}</span
+          >
+        </td>
+        <td class="open">${{ data.open.toFixed(2) }}</td>
+        <td class="market-cap">$1,234,567,890.12</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

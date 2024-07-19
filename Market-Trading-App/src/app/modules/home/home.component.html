@@ -1,5 +1,8 @@
 <div *ngIf="!isLoading">
   <app-news-card></app-news-card>
+  <app-card
+    ><app-main-list [tableData]="stockDetails"></app-main-list
+  ></app-card>
 
   <div class="tab-switcher">
     <h1 class="header">Current Prices</h1>
