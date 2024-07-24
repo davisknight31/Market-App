@@ -1,21 +1,60 @@
 .container {
-  box-shadow: #d8d8d8 0px 4px 24px;
-  border-radius: 10px;
+  // box-shadow: #d8d8d8 0px 4px 24px;
+  // border-radius: 10px;
   //   min-width: 200px;
   //   width: 75vw;
   //   max-width: 1200px;
-  padding: 20px;
-  margin-bottom: 50px;
-  font-size: 16px;
+  // padding: 20px;
+  // margin-bottom: 50px;
+  // font-size: 16px;
 }
 
 #chart {
   // min-height: 400px;
   // max-height: 1200px;
-  height: 350px;
+  height: 450px;
+  width: 99%;
 }
 
-.label {
-  font-size: 32px;
+.name-and-price {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+}
+
+.stock-name {
+  font-size: 36px;
+}
+
+.symbol {
+  font-size: 14px;
+}
+
+.price-percentage {
+  // display: flex;
+  // align-items: center;
+}
+
+.price {
+  font-size: 36px;
   font-weight: bold;
+}
+
+.percent {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.positive-change {
+  color: green;
+}
+
+.negative-change {
+  color: red;
 }

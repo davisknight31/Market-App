@@ -6,16 +6,22 @@ import {
   createChart,
 } from 'lightweight-charts';
 import { FormattedHistoricalBar } from '../../../shared/interfaces/bars';
+import { Stock } from '../../../shared/interfaces/stock';
+import { Data } from '../../../shared/interfaces/data';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-chart-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './chart-card.component.html',
   styleUrl: './chart-card.component.scss',
 })
 export class ChartCardComponent {
   @Input() historicalBars?: FormattedHistoricalBar[];
+  @Input() stockQuote?: Stock;
+  @Input() stockData?: Data;
+  @Input() logo?: string;
 
   private chart: IChartApi;
   private initialRange;

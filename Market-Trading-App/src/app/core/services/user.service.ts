@@ -8,9 +8,12 @@ import { Watchlist, Watchlists } from '../../shared/interfaces/watchlists';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'https://market-trading-app-davis.com/api';
+  // private apiUrl = 'https://market-trading-app-davis.com/api';
+  private apiUrl = 'https://localhost:5286/api';
+
   username: string;
   userId: string;
+  balance: number;
   watchlists: Watchlist[] = [];
   selectedWatchlist: Watchlist;
   loggedIn: boolean = false;
@@ -28,8 +31,10 @@ export class UserService {
         tap((data) => {
           this.userId = data.userid;
           this.username = data.username;
+          this.balance = data.balance;
           this.loggedIn = true;
           console.log(this.userId, this.username);
+          console.log(this.balance);
         }),
         catchError((error) => {
           console.error('Error:', error);

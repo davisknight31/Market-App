@@ -16,6 +16,9 @@ import {
   FormattedHistoricalBar,
   HistoricalBars,
 } from '../../shared/interfaces/bars';
+import { CardComponent } from '../../shared/components/card/card.component';
+import { TradeComponent } from './trade/trade.component';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-details',
@@ -27,6 +30,9 @@ import {
     CommonModule,
     DescriptionCardComponent,
     ChartCardComponent,
+    CardComponent,
+    TradeComponent,
+    TradeComponent,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
@@ -42,12 +48,19 @@ export class DetailsComponent {
   historicalBars: HistoricalBars;
   formattedHistoricalBars: FormattedHistoricalBar[] = [];
   isLoading: boolean = true;
+  balance: number;
   // add is loading for each call, and use that to determine if spinner should disappear
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.stockSymbol = this.route.snapshot.paramMap.get('stock');
+    this.balance = this.userService.balance;
+
     // this.stock = JSON.parse(stockParameter!) as Stock;
     // this.getCompanyOverview();
     this.getStockPrice(this.stockSymbol);

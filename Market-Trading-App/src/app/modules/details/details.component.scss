@@ -1,9 +1,9 @@
 .cards {
-  // display: flex;
-  font-size: 20px;
-  margin: 25px;
-  // justify-content: center;
-  // gap: 2%;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 
 .spinner-container {
@@ -13,16 +13,24 @@
   height: 100%;
 }
 
-.cards-wrapper {
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
-  // gap: 50px;
-  // flex-wrap: wrap;
-  max-width: 1200px;
-  margin: auto;
+.chart-and {
+  flex-grow: 1;
+  width: 750px;
 }
+
+.trade-and {
+  width: 400px;
+}
+
+// .chard-and-trade {
+//   display: flex;
+//   width: 100%;
+//   gap: 30px;
+// }
+
+// .chart-card-wrapper {
+//   flex-grow: 1;
+// }
 
 .first-column {
   display: flex;

@@ -14,7 +14,8 @@ import { HistoricalBars } from '../../shared/interfaces/bars';
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'https://market-trading-app-davis.com/api';
+  // private apiUrl = 'https://market-trading-app-davis.com/api';
+  private apiUrl = 'https://localhost:5286/api';
   cachedData: StockOld[] = [];
   private dataFetched: boolean = false;
 

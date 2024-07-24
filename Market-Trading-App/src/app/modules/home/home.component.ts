@@ -11,6 +11,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { TableFilterService } from '../../core/services/table-filter.service';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { MainListComponent } from './main-list/main-list.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { PortfolioOverviewComponent } from './portfolio-overview/portfolio-overview.component';
+import { CurrentAssetsComponent } from './current-assets/current-assets.component';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +28,9 @@ import { MainListComponent } from './main-list/main-list.component';
     SidebarComponent,
     CardComponent,
     MainListComponent,
+    WelcomeComponent,
+    PortfolioOverviewComponent,
+    CurrentAssetsComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -38,22 +45,16 @@ export class HomeComponent {
   stockDetails: Stock[] = [];
   topMovers: Stock[] = [];
   mostActive: Stock[] = [];
+  balance: number;
+  loggedIn: boolean;
 
   constructor(
     private apiService: ApiService,
-    public tableFilterService: TableFilterService
+    public tableFilterService: TableFilterService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
-    this.stockSymbols.push(
-      'MSFT',
-      'AMZN',
-      'IBM',
-      'AAPL',
-      'NVDA',
-      'BRK.B',
-      'PEP'
-    );
     this.tableColumnHeaders.push(
       'Name',
       'Current Price',
@@ -68,6 +69,8 @@ export class HomeComponent {
     this.getMostActive();
     this.getStocks(this.stockSymbols);
     this.tableFilterService.selectedStockList = 'tradesimChoice';
+    this.balance = this.userService.balance;
+    this.loggedIn = this.userService.loggedIn;
   }
 
   getStocks(stockSymbols: string[]): void {

@@ -67,6 +67,7 @@ public class UserController : ControllerBase
         {
             username = model.username,
             password = hashedPassword,
+            balance = 10000
         };
 
         try

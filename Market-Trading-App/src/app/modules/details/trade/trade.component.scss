@@ -1,0 +1,78 @@
+.trade-header {
+  font-size: 36px;
+}
+
+.shares-input {
+  //   width: 35%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: none;
+  background-color: var(--subtle-bg-color);
+  border-radius: 15px;
+  font-weight: 800;
+  font-family: inherit;
+  outline: none;
+  appearance: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.shares-input::placeholder {
+  color: #b7b7b7;
+}
+
+.label {
+  color: #b7b7b7;
+  font-weight: bold;
+}
+
+.your-balance {
+  color: black;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.transaction-value {
+  color: black;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.buy-button {
+  width: 45%;
+  font-family: inherit;
+  padding: 10px 10px;
+  background-color: #efceff;
+  color: #bc2dff;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.buy-button:hover {
+  background-color: #f5dfff;
+}
+
+.sell-button {
+  width: 45%;
+  font-family: inherit;
+  padding: 10px 10px;
+  background-color: #ffd4d4;
+  color: #ff3636;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sell-button:hover {
+  background-color: #ffe1e1;
+}

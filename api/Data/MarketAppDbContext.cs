@@ -12,5 +12,6 @@ public class MarketAppDbContext : DbContext
     public DbSet<Watchlist> watchlists { get; set; }
     public DbSet<WatchlistEntry> watchlistentries { get; set; }
     public DbSet<TradesimsChoiceModel> tradesimschoice { get; set; }
+    public DbSet<Shares> shares { get; set; }
 
 }

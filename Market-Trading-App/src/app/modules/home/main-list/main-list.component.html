@@ -18,9 +18,16 @@
     <tbody>
       <tr class="data-row" *ngFor="let data of tableData">
         <td class="watchlist">★</td>
-        <td class="symbol">{{ data.symbol }}</td>
-        <td class="price">${{ data.price.toFixed(2) }}</td>
-        <td class="percent-change">
+        <td class="symbol" (click)="navigateToStockDetails(data.symbol)">
+          {{ data.symbol }}
+        </td>
+        <td class="price" (click)="navigateToStockDetails(data.symbol)">
+          ${{ data.price.toFixed(2) }}
+        </td>
+        <td
+          class="percent-change"
+          (click)="navigateToStockDetails(data.symbol)"
+        >
           <span
             [ngClass]="{
               'negative-change': data.percentChange.toString().includes('-'),
@@ -29,7 +36,7 @@
             >{{ data.percentChange.toFixed(2) }}%</span
           >
         </td>
-        <td class="dollar-change">
+        <td class="dollar-change" (click)="navigateToStockDetails(data.symbol)">
           <span
             [ngClass]="{
               'negative-change': data.change.toString().includes('-'),
@@ -38,8 +45,12 @@
             >{{ formatDollarChange(data.change.toFixed(2)) }}</span
           >
         </td>
-        <td class="open">${{ data.open.toFixed(2) }}</td>
-        <td class="market-cap">$1,234,567,890.12</td>
+        <td class="open" (click)="navigateToStockDetails(data.symbol)">
+          ${{ data.open.toFixed(2) }}
+        </td>
+        <td class="market-cap" (click)="navigateToStockDetails(data.symbol)">
+          $1,234,567,890.12
+        </td>
       </tr>
     </tbody>
   </table>

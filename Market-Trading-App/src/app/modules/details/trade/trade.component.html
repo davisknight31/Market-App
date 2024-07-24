@@ -1,0 +1,18 @@
+<div class="trade-wrapper">
+  <h1 class="trade-header">Trade</h1>
+  <input
+    class="shares-input"
+    type="number"
+    placeholder="Shares"
+    [(ngModel)]="sharesInput"
+    (input)="calculatePrice()"
+  />
+  <div class="label">Your Balance:</div>
+  <div class="your-balance">{{ formatNumber(balance) }}</div>
+  <div class="label">Transaction Value:</div>
+  <div class="transaction-value">{{ transactionString }}</div>
+  <div class="action-buttons">
+    <button class="buy-button">Buy</button
+    ><button class="sell-button">Sell</button>
+  </div>
+</div>

@@ -13,6 +13,16 @@
   --subtle-bg-color: #f7f7f7;
 }
 
+.app-wrapper {
+  display: flex;
+  height: 100vh;
+  // gap: 30px;
+}
+
+.main-content {
+  width: 100%;
+}
+
 //could make this only apply if the size of the window hits a certain height
 // .footer {
 //   position: fixed;

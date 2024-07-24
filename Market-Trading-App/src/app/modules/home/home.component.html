@@ -1,34 +1,51 @@
-<div *ngIf="!isLoading">
-  <app-news-card></app-news-card>
-  <app-card
-    ><app-main-list [tableData]="stockDetails"></app-main-list
-  ></app-card>
+<div *ngIf="!isLoading" class="home-wrapper">
+  <!-- <app-news-card></app-news-card> -->
+  <div class="welcome-and-list">
+    <div class="welcome-card">
+      <app-card
+        ><app-welcome [balance]="balance" [loggedIn]="loggedIn"></app-welcome
+      ></app-card>
+    </div>
+    <div class="main-list-card">
+      <app-card
+        ><app-main-list [tableData]="stockDetails"></app-main-list
+      ></app-card>
+    </div>
+  </div>
 
-  <div class="tab-switcher">
+  <div class="assets-and-overview">
+    <div class="overview-card">
+      <app-card><app-portfolio-overview></app-portfolio-overview></app-card>
+    </div>
+    <div class="assets-card">
+      <app-card><app-current-assets></app-current-assets></app-card>
+    </div>
+  </div>
+</div>
+<!-- <div class="tab-switcher">
     <h1 class="header">Current Prices</h1>
     <app-sidebar></app-sidebar>
-  </div>
-  <div class="table">
-    <app-table
+  </div> -->
+<!-- <div class="table"> -->
+<!-- <app-table
       *ngIf="tableFilterService.selectedStockList === 'tradesimChoice'"
       [tableData]="stockDetails"
       [columnHeaders]="tableColumnHeaders"
       [rowsPerPage]="10"
       [inHomeView]="true"
-    ></app-table>
-    <!-- <app-table
+    ></app-table> -->
+<!-- <app-table
       *ngIf="tableFilterService.selectedStockList === 'topMovers'"
       [tableData]="topMovers"
       [columnHeaders]="tableColumnHeaders"
       [rowsPerPage]="5"
     ></app-table> -->
-    <app-table
+<!-- <app-table
       *ngIf="tableFilterService.selectedStockList === 'mostActive'"
       [tableData]="mostActive"
       [columnHeaders]="tableColumnHeaders"
       [rowsPerPage]="5"
       [inHomeView]="true"
-    ></app-table>
-  </div>
-  <!-- </div> -->
-</div>
+    ></app-table> -->
+<!-- </div> -->
+<!-- </div> -->
