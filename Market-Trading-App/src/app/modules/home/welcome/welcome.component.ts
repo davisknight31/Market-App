@@ -12,8 +12,9 @@ import { Router, RouterModule } from '@angular/router';
 export class WelcomeComponent {
   @Input() balance: number;
   @Input() loggedIn: boolean;
+  @Input() username: string;
+
   date: Date = new Date();
-  username: string = 'John';
   formattedDate: string = '';
 
   constructor(private router: Router) {}

@@ -3,7 +3,11 @@
   <div class="welcome-and-list">
     <div class="welcome-card">
       <app-card
-        ><app-welcome [balance]="balance" [loggedIn]="loggedIn"></app-welcome
+        ><app-welcome
+          [balance]="balance"
+          [loggedIn]="loggedIn"
+          [username]="username"
+        ></app-welcome
       ></app-card>
     </div>
     <div class="main-list-card">
@@ -15,10 +19,17 @@
 
   <div class="assets-and-overview">
     <div class="overview-card">
-      <app-card><app-portfolio-overview></app-portfolio-overview></app-card>
+      <app-card
+        ><app-portfolio-overview [loggedIn]="loggedIn"></app-portfolio-overview
+      ></app-card>
     </div>
     <div class="assets-card">
-      <app-card><app-current-assets></app-current-assets></app-card>
+      <app-card
+        ><app-current-assets
+          [loggedIn]="loggedIn"
+          [assets]="ownedAssets"
+        ></app-current-assets
+      ></app-card>
     </div>
   </div>
 </div>

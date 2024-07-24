@@ -1,4 +1,11 @@
-<h1>Portfolio Overview</h1>
-<div class="profit-loss">$sss</div>
-<div class="highest-performer">Balance: 10</div>
-<div class="lowest-performer">Balance: 10</div>
+<div *ngIf="loggedIn" class="overview-wrapper">
+  <h1>Portfolio Overview</h1>
+  <div class="profit-loss">$sss</div>
+  <div class="highest-performer">Balance: 10</div>
+  <div class="lowest-performer">Balance: 10</div>
+</div>
+
+<div *ngIf="!loggedIn" class="overview-wrapper">
+  <h1>Your Assets</h1>
+  <div class="login-disclaimer">Login to view.</div>
+</div>

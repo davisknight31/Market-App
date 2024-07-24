@@ -39,6 +39,7 @@ export class LoginComponent {
     this.userService.loginUser(username, password).subscribe({
       next: (data) => {
         if (data) {
+          this.userService.getShares().subscribe();
           this.userService.getWatchlists().subscribe({
             next: () => {
               this.navigateToProfile();

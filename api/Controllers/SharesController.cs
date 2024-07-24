@@ -90,16 +90,17 @@ public class SharesController : ControllerBase
             if (shares.quantity == model.quantity)
             {
                 double newBalance = user.balance + (model.quantity * model.price);
-                _marketAppDbContext.shares.delete(shares);
+                _marketAppDbContext.shares.Remove(shares);
                 await _marketAppDbContext.SaveChangesAsync();
                 return Ok("Sucessfully sold and deleted");
             }
-
-            if (shares.quantity >= model.quantity)
+            else if (shares.quantity >= model.quantity)
             {
                 double newQuantity = shares.quantity - model.quantity;
 
                 shares.quantity = newQuantity;
+                shares.initialpurchasedate = DateTime.SpecifyKind(shares.initialpurchasedate, DateTimeKind.Utc);
+
 
                 double newBalance = user.balance + (model.quantity * model.price);
                 user.balance = newBalance;
@@ -109,14 +110,33 @@ public class SharesController : ControllerBase
                 await _marketAppDbContext.SaveChangesAsync();
                 return Ok(shares);
             }
+            else
+            {
+                return Ok("User does not have enough shares!");
+            }
+
         }
         catch (Exception ex)
         {
             return StatusCode(500, "An error occurred while selling shares: " + ex.Message);
 
         }
+    }
 
+    [HttpGet("GetUserShares/{userId}")]
+    public async Task<IActionResult> GetUserShares(int userId)
+    {
+        try
+        {
+            var retrievedUserSharesList = _marketAppDbContext.shares.Where(s => s.userid == userId).ToList();
+            return Ok(retrievedUserSharesList);
 
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving user shares: " + ex.Message);
+
+        }
 
     }
 }

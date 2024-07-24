@@ -4,7 +4,7 @@ import { TableComponent } from '../../shared/components/table/table.component';
 import { Stock, StockOld } from '../../shared/interfaces/stock';
 import { ApiService } from '../../core/services/api.service';
 import { NgIf } from '@angular/common';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, share } from 'rxjs';
 import { NewsCardComponent } from '../../shared/components/news-card/news-card.component';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -15,6 +15,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { PortfolioOverviewComponent } from './portfolio-overview/portfolio-overview.component';
 import { CurrentAssetsComponent } from './current-assets/current-assets.component';
 import { UserService } from '../../core/services/user.service';
+import { TradesimChoice } from '../../shared/interfaces/tradesimChoice';
+import { Share } from '../../shared/interfaces/share';
+import { OwnedAsset } from '../../shared/interfaces/ownedAsset';
 
 @Component({
   selector: 'app-home',
@@ -41,12 +44,17 @@ export class HomeComponent {
   tableColumnHeaders: string[] = [];
   isLoading: boolean = true;
   isDataCached: boolean = false;
-  tradesimsChoices: string[];
+  tradesimsChoices: TradesimChoice[];
   stockDetails: Stock[] = [];
   topMovers: Stock[] = [];
   mostActive: Stock[] = [];
   balance: number;
   loggedIn: boolean;
+  username: string;
+  shares: Share[];
+  ownedAssets: OwnedAsset[] = [];
+  highestPerformer: Share;
+  lowestPerformer: OwnedAsset;
 
   constructor(
     private apiService: ApiService,
@@ -67,27 +75,79 @@ export class HomeComponent {
     );
     this.getTopMovers();
     this.getMostActive();
-    this.getStocks(this.stockSymbols);
+    this.getStocks();
     this.tableFilterService.selectedStockList = 'tradesimChoice';
+    this.username = this.userService.username;
     this.balance = this.userService.balance;
     this.loggedIn = this.userService.loggedIn;
+    this.shares = this.userService.shares;
   }
 
-  getStocks(stockSymbols: string[]): void {
+  getStocks(): void {
     // const observables: Observable<any>[] = [];
     this.responseData = [];
 
-    this.apiService.getTradesimsChoices().subscribe((response: string[]) => {
-      this.tradesimsChoices = response;
-      this.apiService
-        .getStocks(this.tradesimsChoices)
-        .subscribe((response: Stock[]) => {
-          this.stockDetails = response;
-          console.log('home hit', response);
-
-          this.isLoading = false;
+    this.apiService
+      .getTradesimsChoices()
+      .subscribe((response: TradesimChoice[]) => {
+        this.tradesimsChoices = response;
+        this.tradesimsChoices.forEach((entry) => {
+          this.stockSymbols.push(entry.symbol);
         });
-    });
+        this.apiService
+          .getStocks(this.stockSymbols)
+          .subscribe((response: Stock[]) => {
+            this.stockDetails = response;
+            console.log('home hit', response);
+            console.log(this.userService.shares);
+            if (this.userService.loggedIn) {
+              this.highestPerformer = this.userService.shares[0];
+              this.userService.shares.forEach((share) => {
+                const ownedStock = this.tradesimsChoices.find(
+                  (stock) => stock.symbolid === share.symbolid
+                );
+                // console.log(share.sharesId);
+                console.log(ownedStock);
+
+                const ownedStockDetails = this.stockDetails.find(
+                  (stock) => stock.symbol === ownedStock.symbol
+                );
+
+                const asset: OwnedAsset = {
+                  symbolId: ownedStock.symbolid,
+                  symbol: ownedStock.symbol,
+                  price: ownedStockDetails.price,
+                  shares: share.quantity,
+                };
+
+                this.ownedAssets.push(asset);
+              });
+            }
+            this.ownedAssets.forEach((asset) => {
+              const correlatingShare = this.shares.find(
+                (share) => share.symbolid === asset.symbolId
+              );
+              console.log(
+                'First:',
+                asset.price - this.highestPerformer.averagepurchaseprice
+              );
+
+              console.log(
+                'Second:',
+                asset.price - correlatingShare.averagepurchaseprice
+              );
+              if (
+                asset.price - this.highestPerformer.averagepurchaseprice >
+                asset.price - correlatingShare.averagepurchaseprice
+              ) {
+                this.highestPerformer = correlatingShare;
+              }
+            });
+            console.log(this.highestPerformer);
+
+            this.isLoading = false;
+          });
+      });
 
     // stockSymbols.forEach((symbol) => {
     //   observables.push(this.apiService.getStockQuoteBySymbol(symbol));

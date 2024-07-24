@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { User } from '../../shared/interfaces/user';
 import { Watchlist, Watchlists } from '../../shared/interfaces/watchlists';
+import { Share } from '../../shared/interfaces/share';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,7 @@ export class UserService {
   userId: string;
   balance: number;
   watchlists: Watchlist[] = [];
+  shares: Share[] = [];
   selectedWatchlist: Watchlist;
   loggedIn: boolean = false;
   // any other info
@@ -148,6 +150,22 @@ export class UserService {
     return this.http.delete<Watchlists>(
       `${this.apiUrl}/Watchlist/RemoveWatchlist/${watchlistId}`
     );
+  }
+
+  getShares() {
+    return this.http
+      .get<Share[]>(`${this.apiUrl}/Shares/GetUserShares/${this.userId}`)
+      .pipe(
+        tap((data) => {
+          console.log('data', data);
+          this.shares = data;
+          console.log(this.shares);
+        }),
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
   }
 
   resetUser(): void {

@@ -9,6 +9,7 @@ import { Data } from '../../shared/interfaces/data';
 import { Profile } from '../../shared/interfaces/profile';
 import { NewsArticles } from '../../shared/interfaces/newsArticles';
 import { HistoricalBars } from '../../shared/interfaces/bars';
+import { TradesimChoice } from '../../shared/interfaces/tradesimChoice';
 
 @Injectable({
   providedIn: 'root',
@@ -109,11 +110,6 @@ export class ApiService {
 
   //in use
   getStocks(symbols: string[]): Observable<Stock[]> {
-    // let params = new HttpParams();
-    // symbols.forEach((symbol) => {
-    //   params.append('symbol', symbol);
-    // });
-
     const params = new HttpParams().set('symbols', symbols.join(','));
 
     return this.http
@@ -146,9 +142,9 @@ export class ApiService {
     );
   }
 
-  getTradesimsChoices(): Observable<string[]> {
+  getTradesimsChoices(): Observable<TradesimChoice[]> {
     return this.http
-      .get<string[]>(`${this.apiUrl}/Stocks/GetTradesimsChoices`)
+      .get<TradesimChoice[]>(`${this.apiUrl}/Stocks/GetTradesimsChoices`)
       .pipe(
         catchError((error) => {
           console.error('Error:', error);

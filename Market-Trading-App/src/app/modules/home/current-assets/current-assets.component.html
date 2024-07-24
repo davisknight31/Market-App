@@ -1,4 +1,26 @@
-<h1>Your Assets</h1>
-<div class="profit-loss">$sss</div>
-<div class="highest-performer">Balance: 10</div>
-<div class="lowest-performer">Balance: 10</div>
+<div *ngIf="loggedIn" class="assets-wrapper">
+  <h1>Your Assets</h1>
+  <div class="table-container">
+    <table class="asset-list">
+      <thead>
+        <tr class="headers">
+          <th class="symbol-label">Symbol</th>
+          <th>Shares</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="data-row" *ngFor="let asset of assets">
+          <td class="symbol">{{ asset.symbol }}</td>
+          <td class="shares">{{ asset.shares }}</td>
+          <td class="value">{{ formatNumber(asset.price * asset.shares) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="!loggedIn" class="assets-wrapper">
+  <h1>Your Assets</h1>
+  <div class="login-disclaimer">Login to view.</div>
+</div>
