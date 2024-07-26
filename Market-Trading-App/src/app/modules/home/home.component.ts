@@ -53,7 +53,7 @@ export class HomeComponent {
   username: string;
   shares: Share[];
   ownedAssets: OwnedAsset[] = [];
-  highestPerformer: Share;
+  highestPerformer: OwnedAsset;
   lowestPerformer: OwnedAsset;
 
   constructor(
@@ -101,7 +101,6 @@ export class HomeComponent {
             console.log('home hit', response);
             console.log(this.userService.shares);
             if (this.userService.loggedIn) {
-              this.highestPerformer = this.userService.shares[0];
               this.userService.shares.forEach((share) => {
                 const ownedStock = this.tradesimsChoices.find(
                   (stock) => stock.symbolid === share.symbolid
@@ -118,69 +117,53 @@ export class HomeComponent {
                   symbol: ownedStock.symbol,
                   price: ownedStockDetails.price,
                   shares: share.quantity,
+                  averagePurchasePrice: share.averagepurchaseprice,
                 };
 
                 this.ownedAssets.push(asset);
               });
             }
-            this.ownedAssets.forEach((asset) => {
-              const correlatingShare = this.shares.find(
-                (share) => share.symbolid === asset.symbolId
-              );
-              console.log(
-                'First:',
-                asset.price - this.highestPerformer.averagepurchaseprice
-              );
 
-              console.log(
-                'Second:',
-                asset.price - correlatingShare.averagepurchaseprice
-              );
-              if (
-                asset.price - this.highestPerformer.averagepurchaseprice >
-                asset.price - correlatingShare.averagepurchaseprice
-              ) {
-                this.highestPerformer = correlatingShare;
-              }
-            });
-            console.log(this.highestPerformer);
+            this.findHighestPerformer();
+            this.findLowestPerformer();
+            // this.highestPerformer = this.ownedAssets[0];
+            // this.ownedAssets.forEach((asset) => {
+            //   if (
+            //     asset.price - asset.averagePurchasePrice >
+            //     this.highestPerformer.price -
+            //       this.highestPerformer.averagePurchasePrice
+            //   ) {
+            //     this.highestPerformer = asset;
+            //   }
+            // });
 
             this.isLoading = false;
           });
       });
+  }
 
-    // stockSymbols.forEach((symbol) => {
-    //   observables.push(this.apiService.getStockQuoteBySymbol(symbol));
-    // });
+  findHighestPerformer(): void {
+    this.highestPerformer = this.ownedAssets[0];
+    this.ownedAssets.forEach((asset) => {
+      if (
+        asset.price - asset.averagePurchasePrice >
+        this.highestPerformer.price - this.highestPerformer.averagePurchasePrice
+      ) {
+        this.highestPerformer = asset;
+      }
+    });
+  }
 
-    // forkJoin(observables).subscribe({
-    //   next: (responses) => {
-    //     console.log('All data received', responses);
-    //     this.responseData = responses;
-
-    //     let i = 0;
-    //     this.responseData.forEach((response) => {
-    //       //creating new object to guarantee property order
-    //       const object: Stock = {
-    //         symbol: response.name,
-    //         price: parseInt(response.c),
-    //         change: parseInt(response.d),
-    //         percentChange: parseInt(response.dp),
-    //         high: parseInt(response.h),
-    //         low: parseInt(response.l),
-    //         open: parseInt(response.o),
-    //         close: parseInt(response.pc),
-    //       };
-    //       i++;
-    //       this.stockDetails.push(object);
-    //     });
-
-    //     this.isLoading = false;
-    //   },
-    //   error: (error) => {
-    //     console.error('error fetching', error);
-    //   },
-    // });
+  findLowestPerformer(): void {
+    this.lowestPerformer = this.ownedAssets[0];
+    this.ownedAssets.forEach((asset) => {
+      if (
+        asset.price - asset.averagePurchasePrice <
+        this.lowestPerformer.price - this.lowestPerformer.averagePurchasePrice
+      ) {
+        this.lowestPerformer = asset;
+      }
+    });
   }
 
   getTopMovers(): void {

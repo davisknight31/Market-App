@@ -1,6 +1,12 @@
 <div class="title-and-search">
   <h1 class="title">Prices</h1>
-  <input class="search-bar" type="search" placeholder="Search" />
+  <input
+    class="search-bar"
+    type="search"
+    placeholder="Search"
+    [(ngModel)]="searchString"
+    (input)="filterList()"
+  />
 </div>
 <div class="table-container">
   <table class="main-list">
@@ -16,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="data-row" *ngFor="let data of tableData">
+      <tr class="data-row" *ngFor="let data of displayedTableData">
         <td class="watchlist">★</td>
         <td class="symbol" (click)="navigateToStockDetails(data.symbol)">
           {{ data.symbol }}

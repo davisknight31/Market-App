@@ -3,7 +3,10 @@
     <h1>Welcome {{ username }}</h1>
     <div class="date">{{ formattedDate }}</div>
   </div>
-  <div class="balance">Balance: ${{ balance.toFixed(2) }}</div>
+  <div class="balance">
+    <div class="balance-label">Balance:</div>
+    <div>${{ balance.toFixed(2) }}</div>
+  </div>
 </div>
 
 <div *ngIf="!loggedIn" class="welcome-wrapper">

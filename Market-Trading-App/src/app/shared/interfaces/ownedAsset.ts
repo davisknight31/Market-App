@@ -3,4 +3,5 @@ export interface OwnedAsset {
   symbol: string;
   price: number;
   shares: number;
+  averagePurchasePrice: number;
 }

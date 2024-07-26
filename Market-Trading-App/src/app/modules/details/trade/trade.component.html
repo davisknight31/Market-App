@@ -1,4 +1,4 @@
-<div class="trade-wrapper">
+<div *ngIf="!showTransactionModal" class="trade-wrapper">
   <h1 class="trade-header">Trade</h1>
   <input
     class="shares-input"
@@ -12,7 +12,23 @@
   <div class="label">Transaction Value:</div>
   <div class="transaction-value">{{ transactionString }}</div>
   <div class="action-buttons">
-    <button class="buy-button">Buy</button
-    ><button class="sell-button">Sell</button>
+    <button class="buy-button" (click)="beginTransaction('buy')">Buy</button>
+    <button class="sell-button" (click)="beginTransaction('sell')">Sell</button>
+  </div>
+</div>
+
+<div *ngIf="showTransactionModal" class="trade-wrapper">
+  <h1 class="trade-header">Trade</h1>
+
+  <div>
+    Click below to confirm if you would like to
+    <strong>{{ clickedTransactionType }}:</strong><br /><br />
+    <strong>{{ transactionString }} ({{ sharesInput }} shares)</strong> of
+    <strong>{{ stockQuote.symbol }}</strong>
+  </div>
+
+  <div class="action-buttons">
+    <button class="buy-button" (click)="confirmTransaction()">Confirm</button>
+    <button class="sell-button" (click)="denyTransaction()">Deny</button>
   </div>
 </div>

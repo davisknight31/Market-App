@@ -12,7 +12,10 @@
     </div>
     <div class="main-list-card">
       <app-card
-        ><app-main-list [tableData]="stockDetails"></app-main-list
+        ><app-main-list
+          [tableData]="stockDetails"
+          [tradesimsChoices]="tradesimsChoices"
+        ></app-main-list
       ></app-card>
     </div>
   </div>
@@ -20,7 +23,11 @@
   <div class="assets-and-overview">
     <div class="overview-card">
       <app-card
-        ><app-portfolio-overview [loggedIn]="loggedIn"></app-portfolio-overview
+        ><app-portfolio-overview
+          [loggedIn]="loggedIn"
+          [highestPerformer]="highestPerformer"
+          [lowestPerformer]="lowestPerformer"
+        ></app-portfolio-overview
       ></app-card>
     </div>
     <div class="assets-card">

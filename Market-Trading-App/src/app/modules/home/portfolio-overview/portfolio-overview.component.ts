@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { OwnedAsset } from '../../../shared/interfaces/ownedAsset';
 
 @Component({
   selector: 'app-portfolio-overview',
@@ -10,4 +11,6 @@ import { Component, Input } from '@angular/core';
 })
 export class PortfolioOverviewComponent {
   @Input() loggedIn: boolean;
+  @Input() highestPerformer: OwnedAsset;
+  @Input() lowestPerformer: OwnedAsset;
 }

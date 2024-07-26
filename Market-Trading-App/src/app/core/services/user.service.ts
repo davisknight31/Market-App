@@ -168,6 +168,36 @@ export class UserService {
       );
   }
 
+  purchaseShares(
+    userid: number,
+    symbolid: number,
+    quantity: number,
+    price: number
+  ) {
+    return this.http
+      .post<Share>(`${this.apiUrl}/Shares/PurchaseShares`, {
+        userid,
+        symbolid,
+        quantity,
+        price,
+      })
+      .pipe(
+        tap((data) => {
+          console.log(data);
+        }),
+        catchError((error) => {
+          console.error('Error:', error);
+          let errorMessage: string;
+          if (error.status === 400) {
+            errorMessage = 'The user does not have the required funds.';
+          } else {
+            errorMessage = 'An error occurred. Please try again later.';
+          }
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
+
   resetUser(): void {
     this.userId = '';
     this.username = '';

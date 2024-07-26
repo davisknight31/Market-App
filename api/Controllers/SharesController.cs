@@ -34,6 +34,11 @@ public class SharesController : ControllerBase
             var user = await _marketAppDbContext.users.FirstOrDefaultAsync(u => u.userid == model.userid);
             var shares = await _marketAppDbContext.shares.FirstOrDefaultAsync(s => s.userid == model.userid && s.symbolid == model.symbolid);
 
+            if (user.balance < model.price * model.quantity)
+            {
+                return BadRequest("The user does not have the required funds.");
+            }
+
             if (shares != null)
             {
                 double newQuantity = shares.quantity + model.quantity;

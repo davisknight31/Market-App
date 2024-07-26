@@ -1,8 +1,12 @@
 <div *ngIf="loggedIn" class="overview-wrapper">
   <h1>Portfolio Overview</h1>
   <div class="profit-loss">$sss</div>
-  <div class="highest-performer">Balance: 10</div>
-  <div class="lowest-performer">Balance: 10</div>
+  <div class="highest-performer">
+    <span class="label">Highest Performer: </span>{{ highestPerformer.symbol }}
+  </div>
+  <div class="lowest-performer">
+    <span class="label">Lowest Performer: </span>{{ lowestPerformer.symbol }}
+  </div>
 </div>
 
 <div *ngIf="!loggedIn" class="overview-wrapper">

@@ -40,6 +40,7 @@ import { UserService } from '../../core/services/user.service';
 export class DetailsComponent {
   // @Input() stock?: Stock;
   @Input() stockSymbol?: string;
+  @Input() symbolId?: number;
 
   stockData: Data;
   chosenStock: Stock;
@@ -59,6 +60,8 @@ export class DetailsComponent {
 
   ngOnInit(): void {
     this.stockSymbol = this.route.snapshot.paramMap.get('stock');
+    this.symbolId = parseInt(this.route.snapshot.paramMap.get('symbolid'));
+
     this.balance = this.userService.balance;
 
     // this.stock = JSON.parse(stockParameter!) as Stock;
