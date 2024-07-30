@@ -21,7 +21,7 @@
         <th>Market Cap</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="displayedTableData">
       <tr class="data-row" *ngFor="let data of displayedTableData">
         <td class="watchlist">★</td>
         <td class="symbol" (click)="navigateToStockDetails(data.symbol)">
@@ -60,4 +60,7 @@
       </tr>
     </tbody>
   </table>
+  <div class="empty-search-container" *ngIf="displayedTableData.length <= 0">
+    <div class="empty-search">No results...</div>
+  </div>
 </div>

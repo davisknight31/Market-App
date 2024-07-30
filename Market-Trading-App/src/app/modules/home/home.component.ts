@@ -55,6 +55,7 @@ export class HomeComponent {
   ownedAssets: OwnedAsset[] = [];
   highestPerformer: OwnedAsset;
   lowestPerformer: OwnedAsset;
+  totalPortfolioValue: number = 0;
 
   constructor(
     private apiService: ApiService,
@@ -126,6 +127,8 @@ export class HomeComponent {
 
             this.findHighestPerformer();
             this.findLowestPerformer();
+            this.calculateTotalPortfolioValue();
+
             // this.highestPerformer = this.ownedAssets[0];
             // this.ownedAssets.forEach((asset) => {
             //   if (
@@ -163,6 +166,12 @@ export class HomeComponent {
       ) {
         this.lowestPerformer = asset;
       }
+    });
+  }
+
+  calculateTotalPortfolioValue() {
+    this.ownedAssets.forEach((asset) => {
+      this.totalPortfolioValue += asset.price * asset.shares;
     });
   }
 

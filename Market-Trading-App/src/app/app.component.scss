@@ -15,8 +15,7 @@
 
 .app-wrapper {
   display: flex;
-  height: 100vh;
-  // gap: 30px;
+  min-height: 100vh; // gap: 30px;
 }
 
 .main-content {

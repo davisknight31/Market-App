@@ -69,8 +69,13 @@ public class SharesController : ControllerBase
                     initialpurchasedate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc)
                 };
 
+                double newBalance = user.balance - (model.quantity * model.price);
+                user.balance = newBalance;
+
 
                 _marketAppDbContext.shares.Add(newShares);
+                _marketAppDbContext.users.Update(user);
+
                 await _marketAppDbContext.SaveChangesAsync();
                 return Ok(newShares);
             }
@@ -95,9 +100,14 @@ public class SharesController : ControllerBase
             if (shares.quantity == model.quantity)
             {
                 double newBalance = user.balance + (model.quantity * model.price);
+                user.balance = newBalance;
+
                 _marketAppDbContext.shares.Remove(shares);
+                _marketAppDbContext.users.Update(user);
+
                 await _marketAppDbContext.SaveChangesAsync();
-                return Ok("Sucessfully sold and deleted");
+
+                return Ok();
             }
             else if (shares.quantity >= model.quantity)
             {
@@ -127,6 +137,8 @@ public class SharesController : ControllerBase
 
         }
     }
+
+
 
     [HttpGet("GetUserShares/{userId}")]
     public async Task<IActionResult> GetUserShares(int userId)

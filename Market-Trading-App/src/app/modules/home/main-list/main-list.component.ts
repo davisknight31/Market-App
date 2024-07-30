@@ -38,8 +38,15 @@ export class MainListComponent {
     // console.log(this.searchString);
     const filteredData: Stock[] = [];
     this.tableData.forEach((data) => {
-      console.log(data);
-      if (data.symbol.includes(this.searchString.toUpperCase().trim())) {
+      const correlatingChoice = this.tradesimsChoices.find(
+        (stock) => data.symbol === stock.symbol
+      );
+      if (
+        data.symbol.includes(this.searchString.toUpperCase().trim()) ||
+        correlatingChoice.fullname
+          .toLowerCase()
+          .includes(this.searchString.toLowerCase())
+      ) {
         filteredData.push(data);
       }
     });
@@ -47,9 +54,9 @@ export class MainListComponent {
   }
 
   navigateToStockDetails(stockSymbol: string) {
-    const symbolId = this.tradesimsChoices.find(
+    const symbolIdStock = this.tradesimsChoices.find(
       (stock) => stock.symbol === stockSymbol
     );
-    this.router.navigate(['/details', stockSymbol, symbolId]);
+    this.router.navigate(['/details', stockSymbol, symbolIdStock.symbolid]);
   }
 }

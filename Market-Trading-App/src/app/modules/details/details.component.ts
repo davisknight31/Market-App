@@ -49,7 +49,6 @@ export class DetailsComponent {
   historicalBars: HistoricalBars;
   formattedHistoricalBars: FormattedHistoricalBar[] = [];
   isLoading: boolean = true;
-  balance: number;
   // add is loading for each call, and use that to determine if spinner should disappear
 
   constructor(
@@ -61,8 +60,6 @@ export class DetailsComponent {
   ngOnInit(): void {
     this.stockSymbol = this.route.snapshot.paramMap.get('stock');
     this.symbolId = parseInt(this.route.snapshot.paramMap.get('symbolid'));
-
-    this.balance = this.userService.balance;
 
     // this.stock = JSON.parse(stockParameter!) as Stock;
     // this.getCompanyOverview();

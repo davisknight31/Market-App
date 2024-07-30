@@ -1,4 +1,7 @@
-<div *ngIf="!showTransactionModal" class="trade-wrapper">
+<div
+  *ngIf="!showTransactionModal && !showOrderCompletionModal"
+  class="trade-wrapper"
+>
   <h1 class="trade-header">Trade</h1>
   <input
     class="shares-input"
@@ -8,13 +11,16 @@
     (input)="calculatePrice()"
   />
   <div class="label">Your Balance:</div>
-  <div class="your-balance">{{ formatNumber(balance) }}</div>
+  <div class="your-balance">{{ formatNumber(currentBalance) }}</div>
+  <div class="label">Your Current Shares:</div>
+  <div class="shares-value">{{ currentShares }}</div>
   <div class="label">Transaction Value:</div>
   <div class="transaction-value">{{ transactionString }}</div>
   <div class="action-buttons">
     <button class="buy-button" (click)="beginTransaction('buy')">Buy</button>
     <button class="sell-button" (click)="beginTransaction('sell')">Sell</button>
   </div>
+  <div *ngIf="hasError" class="error-message">{{ errorMessage }}</div>
 </div>
 
 <div *ngIf="showTransactionModal" class="trade-wrapper">
@@ -31,4 +37,9 @@
     <button class="buy-button" (click)="confirmTransaction()">Confirm</button>
     <button class="sell-button" (click)="denyTransaction()">Deny</button>
   </div>
+</div>
+
+<div *ngIf="showOrderCompletionModal" class="trade-wrapper">
+  <div>Completed</div>
+  <button class="buy-button" (click)="setDetails()">Continue</button>
 </div>

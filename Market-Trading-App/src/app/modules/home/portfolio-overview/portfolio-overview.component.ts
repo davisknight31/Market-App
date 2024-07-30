@@ -13,4 +13,13 @@ export class PortfolioOverviewComponent {
   @Input() loggedIn: boolean;
   @Input() highestPerformer: OwnedAsset;
   @Input() lowestPerformer: OwnedAsset;
+  @Input() totalPortfolioValue: number;
+
+  formatNumber(value: number) {
+    const options = {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    };
+    return '$' + Number(value).toLocaleString('en', options);
+  }
 }

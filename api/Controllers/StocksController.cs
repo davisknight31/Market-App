@@ -206,6 +206,7 @@ public class StocksController : Controller
                 {
                     symbolid = entry.symbolid,
                     symbol = entry.symbol,
+                    fullname = entry.fullname,
                 };
                 symbols.Add(formattedEntry);
             }

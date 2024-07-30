@@ -8,4 +8,5 @@ public class MainListStockModel
     [Key]
     public int symbolid { get; set; }
     public string symbol { get; set; }
+    public string fullname { get; set; }
 }

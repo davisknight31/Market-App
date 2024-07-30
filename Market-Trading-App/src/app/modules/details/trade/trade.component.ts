@@ -13,15 +13,24 @@ import { UserService } from '../../../core/services/user.service';
 })
 export class TradeComponent {
   @Input() stockQuote?: Stock;
-  @Input() balance: number;
+  // @Input() balance: number;
   @Input() symbolId?: number;
-  sharesInput: number;
+  currentBalance: number;
+  currentShares: number = 0;
+  sharesInput: number = null;
   transactionString: string = '$0.00';
   showTransactionModal: boolean = false;
+  showOrderCompletionModal: boolean = false;
   clickedTransactionType: string;
   transactionCost: number;
+  hasError: boolean = false;
+  errorMessage: string = '';
 
   constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.setDetails();
+  }
 
   calculatePrice() {
     this.transactionCost = this.sharesInput * this.stockQuote.price;
@@ -38,12 +47,28 @@ export class TradeComponent {
   }
 
   beginTransaction(transactionType: string): void {
-    this.showTransactionModal = true;
-    if (transactionType === 'buy') {
-      this.clickedTransactionType = 'purchase';
-    }
-    if (transactionType === 'sell') {
-      this.clickedTransactionType = 'sell';
+    if (this.sharesInput === null) {
+      this.errorMessage = 'Please enter a  valid value in the shares input.';
+      this.hasError = true;
+    } else if (this.sharesInput <= 0) {
+      this.errorMessage = 'Please enter a value greater than 0.';
+      this.hasError = true;
+    } else if (this.transactionCost > this.currentBalance) {
+      this.errorMessage =
+        'You do not have the required funds for this purchase.';
+      this.hasError = true;
+    } else {
+      if (transactionType === 'buy') {
+        this.errorMessage = '';
+        this.hasError = false;
+        this.clickedTransactionType = 'purchase';
+      }
+      if (transactionType === 'sell') {
+        this.errorMessage = '';
+        this.hasError = false;
+        this.clickedTransactionType = 'sell';
+      }
+      this.showTransactionModal = true;
     }
   }
 
@@ -68,7 +93,20 @@ export class TradeComponent {
       this.sharesInput,
       this.stockQuote.price
     );
-    // this.userService.purchaseShares(this.userService.userId).subscribe();
+    this.userService
+      .purchaseShares(
+        parseInt(this.userService.userId),
+        this.symbolId,
+        this.sharesInput,
+        this.stockQuote.price
+      )
+      .subscribe((response: any) => {
+        console.log('purchase complete', response);
+        this.userService.getShares().subscribe();
+        this.userService.getBalance().subscribe();
+        this.showTransactionModal = false;
+        this.showOrderCompletionModal = true;
+      });
   }
 
   sellShares(): void {
@@ -79,6 +117,33 @@ export class TradeComponent {
       this.sharesInput,
       this.stockQuote.price
     );
-    // this.userService.purchaseShares(this.userService.userId).subscribe();
+
+    this.userService
+      .sellShares(
+        parseInt(this.userService.userId),
+        this.symbolId,
+        this.sharesInput,
+        this.stockQuote.price
+      )
+      .subscribe((response: any) => {
+        console.log('sale complete', response);
+        this.userService.getShares().subscribe();
+        this.userService.getBalance().subscribe();
+        this.showTransactionModal = false;
+        this.showOrderCompletionModal = true;
+      });
+  }
+
+  setDetails() {
+    this.currentBalance = this.userService.balance;
+    const correlatingShare = this.userService.shares.find(
+      (shares) => shares.symbolid === this.symbolId
+    );
+
+    if (correlatingShare) {
+      this.currentShares = correlatingShare.quantity;
+    }
+
+    this.showOrderCompletionModal = false;
   }
 }

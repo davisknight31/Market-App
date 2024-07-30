@@ -25,6 +25,7 @@
 }
 
 .table-container {
+  height: 500px;
   max-height: 500px;
   overflow: auto;
   margin-top: 15px;
@@ -96,4 +97,13 @@ td {
   background: #ffe6e6;
   border-radius: 15px;
   padding: 5px 10px;
+}
+
+.empty-search-container {
+  margin-top: 100px;
+}
+
+.empty-search {
+  text-align: center;
+  font-weight: bold;
 }

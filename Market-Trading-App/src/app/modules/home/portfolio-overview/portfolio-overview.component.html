@@ -1,6 +1,12 @@
 <div *ngIf="loggedIn" class="overview-wrapper">
   <h1>Portfolio Overview</h1>
-  <div class="profit-loss">$sss</div>
+  <div class="total-value">
+    <span class="label">Total Value: </span
+    >{{ formatNumber(totalPortfolioValue) }}
+  </div>
+  <div class="profit-loss">
+    <span class="label">Total Value: </span>
+  </div>
   <div class="highest-performer">
     <span class="label">Highest Performer: </span>{{ highestPerformer.symbol }}
   </div>

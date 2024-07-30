@@ -85,5 +85,22 @@ public class UserController : ControllerBase
     }
 
 
+    [HttpGet("GetUserBalance/{userId}")]
+    public async Task<IActionResult> GetUserBalance(int userId)
+    {
+        try
+        {
+            var retrievedUser = _marketAppDbContext.users.FirstOrDefault(u => u.userid == userId);
+            var balance = retrievedUser.balance;
+            return Ok(balance);
+
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving user balance: " + ex.Message);
+
+        }
+    }
+
 
 }

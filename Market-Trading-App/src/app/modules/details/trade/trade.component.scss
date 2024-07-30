@@ -33,6 +33,12 @@
   margin-bottom: 10px;
 }
 
+.shares-value {
+  color: black;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
 .transaction-value {
   color: black;
   font-weight: bold;
@@ -75,4 +81,11 @@
 
 .sell-button:hover {
   background-color: #ffe1e1;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
 }
