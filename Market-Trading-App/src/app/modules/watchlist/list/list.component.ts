@@ -13,11 +13,18 @@ import { TableComponent } from '../../../shared/components/table/table.component
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { FormsModule } from '@angular/forms';
 import { TradesimChoice } from '../../../shared/interfaces/tradesimChoice';
+import { ManageWatchlistModalComponent } from '../manage-watchlist-modal/manage-watchlist-modal.component';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, TableComponent, SpinnerComponent, FormsModule],
+  imports: [
+    CommonModule,
+    TableComponent,
+    SpinnerComponent,
+    FormsModule,
+    ManageWatchlistModalComponent,
+  ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
@@ -37,6 +44,9 @@ export class ListComponent {
 
   displayedTableData: Stock[];
   searchString: string;
+
+  isModalOpen: boolean = false;
+  selectedSymbol: string;
 
   constructor(private apiService: ApiService) {}
   ngOnChanges() {
@@ -90,8 +100,6 @@ export class ListComponent {
     this.displayedTableData = filteredData;
   }
 
-  showModal() {}
-
   formatDollarChange(amount: string) {
     if (amount.includes('-')) {
       const splitNum = amount.split('-');
@@ -101,7 +109,21 @@ export class ListComponent {
     return '$' + amount;
   }
 
+  swapModalDisplay(symbol: string) {
+    this.selectedSymbol = symbol;
+    this.isModalOpen = !this.isModalOpen;
+  }
+
   refreshWatchlists() {
+    console.log('refresh watchlists hit');
     this.refreshListChange.emit(!this.refreshListChange);
   }
+
+  // swapModalDisplay() {
+  //   this.isModalOpen = !this.isModalOpen;
+  // }
+
+  // refreshWatchlists() {
+  //   this.refreshListChange.emit(!this.refreshListChange);
+  // }
 }

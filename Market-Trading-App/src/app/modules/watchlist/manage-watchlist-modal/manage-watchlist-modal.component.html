@@ -1,0 +1,13 @@
+<div class="background">
+  <div class="dialog">
+    <h1>{{ selectedWatchlist.name }}</h1>
+    <hr />
+    <div class="remove-from-watchlist" (click)="removeFromWatchlist()">
+      Remove {{ selectedSymbol }} from {{ selectedWatchlist.name }}
+    </div>
+    <div class="delete-watchlist" (click)="deleteWatchlist()">
+      Delete {{ selectedWatchlist.name }}
+    </div>
+    <button (click)="closeModal()">Close</button>
+  </div>
+</div>

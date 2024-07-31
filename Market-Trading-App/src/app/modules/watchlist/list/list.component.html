@@ -33,13 +33,13 @@
       </thead>
       <tbody *ngIf="displayedTableData">
         <tr class="data-row" *ngFor="let data of displayedTableData">
-          <td class="symbol" (click)="showModal()">
+          <td class="symbol" (click)="swapModalDisplay(data.symbol)">
             {{ data.symbol }}
           </td>
-          <td class="price" (click)="showModal()">
+          <td class="price" (click)="swapModalDisplay(data.symbol)">
             ${{ data.price.toFixed(2) }}
           </td>
-          <td class="percent-change" (click)="showModal()">
+          <td class="percent-change" (click)="swapModalDisplay(data.symbol)">
             <span
               [ngClass]="{
                 'negative-change': data.percentChange.toString().includes('-'),
@@ -48,7 +48,7 @@
               >{{ data.percentChange.toFixed(2) }}%</span
             >
           </td>
-          <td class="dollar-change" (click)="showModal()">
+          <td class="dollar-change" (click)="swapModalDisplay(data.symbol)">
             <span
               [ngClass]="{
                 'negative-change': data.change.toString().includes('-'),
@@ -57,13 +57,21 @@
               >{{ formatDollarChange(data.change.toFixed(2)) }}</span
             >
           </td>
-          <td class="open" (click)="showModal()">
+          <td class="open" (click)="swapModalDisplay(data.symbol)">
             ${{ data.open.toFixed(2) }}
           </td>
-          <td class="market-cap" (click)="showModal()">$1,234,567,890.12</td>
+          <td class="market-cap" (click)="swapModalDisplay(data.symbol)">
+            $1,234,567,890.12
+          </td>
         </tr>
       </tbody>
     </table>
+    <app-manage-watchlist-modal
+      *ngIf="isModalOpen"
+      [selectedSymbol]="selectedSymbol"
+      (isModalOpenChange)="swapModalDisplay('')"
+      (isListUpdatedChange)="refreshWatchlists()"
+    ></app-manage-watchlist-modal>
     <div class="empty-search-container" *ngIf="displayedTableData?.length <= 0">
       <div class="empty-search">No results...</div>
     </div>
