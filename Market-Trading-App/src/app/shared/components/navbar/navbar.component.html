@@ -35,29 +35,36 @@
 <div class="nav-wrapper">
   <div class="logo">TradeSim</div>
   <ul class="nav-list" [class.active]="menuActive">
-    <li class="nav-link">
-      <a routerLink="/home" (click)="closeMenu()">Home</a>
+    <li #home routerLink="/home" class="nav-link" (click)="closeMenu(home)">
+      <div class="link">Home</div>
     </li>
-    <li class="nav-link">
-      <a routerLink="/watchlists" (click)="closeMenu()">Watchlists</a>
+    <li
+      #watchlists
+      routerLink="/watchlists"
+      class="nav-link"
+      (click)="closeMenu(watchlists)"
+    >
+      <div class="link">Watchlists</div>
     </li>
-    <li class="nav-link">
-      <a routerLink="/news" (click)="closeMenu()">News</a>
+    <li #news routerLink="/news" class="nav-link" (click)="closeMenu(news)">
+      <div class="link">In The News</div>
     </li>
-    <li class="nav-link">
-      <a routerLink="/about" (click)="closeMenu()">About</a>
+    <li
+      #profile
+      routerLink="/about"
+      class="nav-link"
+      (click)="closeMenu(profile)"
+    >
+      <div class="link">Profile</div>
     </li>
-    <li class="nav-link">
-      <a routerLink="/contact" (click)="closeMenu()">Contact</a>
-    </li>
-    <li class="profile-button">
-      <a *ngIf="!checkIfLoggedIn()" routerLink="/login" (click)="closeMenu()"
+    <!-- <li  class="profile-button">
+      <a *ngIf="!checkIfLoggedIn()" routerLink="/login" (click)="closeMenu(profile)"
         ><img src="assets/profileIcon.png" class="profile-icon"
       /></a>
-      <a *ngIf="checkIfLoggedIn()" routerLink="/profile" (click)="closeMenu()"
+      <a *ngIf="checkIfLoggedIn()" routerLink="/profile" (click)="closeMenu(profile)"
         ><img src="assets/profileIcon.png" class="profile-icon"
       /></a>
-    </li>
+    </li> -->
     <!-- <li class="search-bar"><input type="text" placeholder="Search..." /></li> -->
   </ul>
 </div>

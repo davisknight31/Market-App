@@ -7,11 +7,19 @@ import { FormsModule } from '@angular/forms';
 import { Stock } from '../../shared/interfaces/stock';
 import { ApiService } from '../../core/services/api.service';
 import { RouterModule } from '@angular/router';
+import { CardComponent } from '../../shared/components/card/card.component';
+import { TradesimChoice } from '../../shared/interfaces/tradesimChoice';
 
 @Component({
   selector: 'app-watchlist',
   standalone: true,
-  imports: [CommonModule, ListComponent, FormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    ListComponent,
+    FormsModule,
+    RouterModule,
+    CardComponent,
+  ],
   templateUrl: './watchlist.component.html',
   styleUrl: './watchlist.component.scss',
 })
@@ -35,8 +43,13 @@ export class WatchlistComponent {
     'Previous Close',
   ];
   loggedIn: boolean;
+  tradesimsChoices: TradesimChoice[];
+  isDefaultSelected: boolean = true;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit() {
     this.emptyWatchlist = {
@@ -51,36 +64,32 @@ export class WatchlistComponent {
     if (this.userService.selectedWatchlist) {
       this.selectedWatchlist = this.userService.selectedWatchlist;
     }
-    console.log(this.userWatchlists);
     this.loggedIn = this.userService.loggedIn;
+    this.getTradesimsChoices();
   }
 
   switchList(choice: string) {
-    this.userWatchlists.forEach((watchlist) => {
-      if (watchlist.name === choice) {
-        this.selectedWatchlistName = watchlist.name;
-        this.selectedWatchlist = watchlist;
-        this.userService.selectedWatchlist = watchlist;
-      }
-    });
+    console.log(choice);
+    if (choice === 'Choose a watchlist') {
+      this.isDefaultSelected = true;
+    } else {
+      this.userWatchlists.forEach((watchlist) => {
+        if (watchlist.name === choice) {
+          this.selectedWatchlistName = watchlist.name;
+          this.selectedWatchlist = watchlist;
+          this.userService.selectedWatchlist = watchlist;
+        }
+      });
+      this.isDefaultSelected = false;
+    }
+  }
 
-    // this.watchlistSymbols = [];
-    // this.selectedWatchlist?.entries.forEach((entry) => {
-    //   this.watchlistSymbols.push(entry.stocksymbol);
-    // });
-
-    // this.apiService.getStocks(this.watchlistSymbols).subscribe({
-    //   next: (data) => {
-    //     // this.isLoading = true;
-    //     this.stockDetails = data;
-    //     console.log(this.stockDetails);
-    //     // this.isLoading = false;
-    //   },
-    //   error: (error) => {
-    //     console.error('Error:', error);
-    //     throw error;
-    //   },
-    // });
+  getTradesimsChoices() {
+    this.apiService
+      .getTradesimsChoices()
+      .subscribe((response: TradesimChoice[]) => {
+        this.tradesimsChoices = response;
+      });
   }
 
   refresh() {

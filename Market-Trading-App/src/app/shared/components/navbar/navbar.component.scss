@@ -13,21 +13,41 @@
   width: fit-content;
   max-width: 300px;
   background-color: white;
-  padding: 30px 20px;
+  // padding: 30px 20px;
 }
 
 .logo {
   font-size: 48px;
   font-weight: bold;
+  padding: 30px;
 }
 
 .nav-list {
   margin: 0;
+  width: 100%;
   // padding-left: 10px;
 }
 
 .nav-link {
   padding: 20px 0px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  color: #878787;
+  padding: 25px 0;
+}
+
+.nav-link:hover {
+  background-color: #ececec;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #f4ddff;
+  color: #bc2dff;
+}
+.active:hover {
+  background-color: #f4ddff;
 }
 
 // nav {

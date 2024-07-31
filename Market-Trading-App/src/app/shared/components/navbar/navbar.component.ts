@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 
@@ -12,8 +12,16 @@ import { UserService } from '../../../core/services/user.service';
 })
 export class NavbarComponent {
   menuActive: boolean = false;
+  // navLinkClasses: string;
+  currentElement: HTMLElement;
+  @ViewChild('home') homeElement: ElementRef;
 
   constructor(private userService: UserService) {}
+
+  ngAfterViewInit(): void {
+    this.currentElement = this.homeElement.nativeElement;
+    this.currentElement.classList.add('active');
+  }
 
   toggleMenu() {
     this.menuActive = !this.menuActive;
@@ -27,8 +35,11 @@ export class NavbarComponent {
     }
   }
 
-  closeMenu(): void {
-    console.log('hit');
+  closeMenu(elementReference: HTMLElement): void {
+    console.log(elementReference.classList);
+    this.currentElement.classList.remove('active');
+    elementReference.classList.add('active');
+    this.currentElement = elementReference;
     if (this.menuActive) {
       this.menuActive = !this.menuActive;
     }
