@@ -20,7 +20,11 @@
     />
   </div>
   <div class="table-container">
-    <table class="main-list">
+    <div class="spinner-container" *ngIf="isLoading">
+      <app-spinner></app-spinner>
+    </div>
+
+    <table class="main-list" *ngIf="!isLoading">
       <thead>
         <tr class="headers">
           <th class="symbol-label">Name</th>
@@ -72,18 +76,35 @@
       (isModalOpenChange)="swapModalDisplay('')"
       (isListUpdatedChange)="refreshWatchlists()"
     ></app-manage-watchlist-modal>
-    <div class="empty-search-container" *ngIf="displayedTableData?.length <= 0">
+    <div
+      class="empty-container"
+      *ngIf="
+        displayedTableData?.length <= 0 && watchlistStockDetails.length > 0
+      "
+    >
       <div class="empty-search">No results...</div>
     </div>
+    <div class="empty-container">
+      <div
+        class="empty-list"
+        *ngIf="watchlistStockDetails.length <= 0 && !isLoading"
+      >
+        This watchlist is empty...
+        <div class="add-button" routerLink="/home">Add to watchlist?</div>
+        <div class="delete-button" (click)="deleteWatchlist()">
+          Delete watchlist?
+        </div>
+      </div>
+    </div>
+    <!-- <div
+      class="no-watchlist"
+      *ngIf="
+        watchlistStockDetails.length <= 0 &&
+        selectedWatchlistName !== 'Choose a watchlist'
+      "
+    >
+      This watchlist is empty... <a routerLink="/home">Add?</a> Or
+      <span class="delete-button" (click)="deleteWatchlist()">delete?</span>
+    </div> -->
   </div>
-  <!-- <div
-    class="no-watchlist"
-    *ngIf="
-      watchlistStockDetails.length <= 0 &&
-      selectedWatchlistName !== 'Choose a watchlist'
-    "
-  >
-    This watchlist has no entries Add?
-  </div> -->
-  <app-spinner *ngIf="isLoading"></app-spinner>
 </div>

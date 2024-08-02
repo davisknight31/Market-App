@@ -23,7 +23,7 @@
     </thead>
     <tbody *ngIf="displayedTableData">
       <tr class="data-row" *ngFor="let data of displayedTableData">
-        <td class="watchlist">★</td>
+        <td class="watchlist" (click)="addToWatchlist(data.symbol)">★</td>
         <td class="symbol" (click)="navigateToStockDetails(data.symbol)">
           {{ data.symbol }}
         </td>
@@ -63,4 +63,9 @@
   <div class="empty-search-container" *ngIf="displayedTableData.length <= 0">
     <div class="empty-search">No results...</div>
   </div>
+  <app-update-watchlist-modal
+    *ngIf="isModalOpen"
+    [selectedSymbol]="selectedSymbol"
+    (isModalOpenChange)="swapModalDisplay()"
+  ></app-update-watchlist-modal>
 </div>

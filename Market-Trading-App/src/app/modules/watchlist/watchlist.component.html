@@ -54,7 +54,7 @@
         [headers]="watchlistColumnHeaders"
         (refreshListChange)="refresh()"
       ></app-list>
-      <div
+      <!-- <div
         *ngIf="
           selectedWatchlist?.entries.length <= 0 &&
           selectedWatchlistName !== 'Choose a watchlist'
@@ -62,8 +62,8 @@
       >
         This watchlist is empty... <a routerLink="/home">Add?</a> Or
         <span class="delete-button" (click)="deleteWatchlist()">delete?</span>
-      </div></app-card
-    >
+      </div> -->
+    </app-card>
   </div>
 
   <div *ngIf="!loggedIn" class="wrapper">

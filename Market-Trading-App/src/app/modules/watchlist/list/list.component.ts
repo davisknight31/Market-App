@@ -14,6 +14,8 @@ import { SpinnerComponent } from '../../../shared/components/spinner/spinner.com
 import { FormsModule } from '@angular/forms';
 import { TradesimChoice } from '../../../shared/interfaces/tradesimChoice';
 import { ManageWatchlistModalComponent } from '../manage-watchlist-modal/manage-watchlist-modal.component';
+import { UserService } from '../../../core/services/user.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -24,6 +26,7 @@ import { ManageWatchlistModalComponent } from '../manage-watchlist-modal/manage-
     SpinnerComponent,
     FormsModule,
     ManageWatchlistModalComponent,
+    RouterModule,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -48,18 +51,25 @@ export class ListComponent {
   isModalOpen: boolean = false;
   selectedSymbol: string;
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private userService: UserService
+  ) {}
   ngOnChanges() {
     this.isLoading = true;
     this.resetList();
     //calling api each time because if a user updates their watchlist we want to recall the api
     this.getStockData();
-    this.isLoading = false;
+
+    console.log('change');
+    console.log(this.displayedTableData);
+    // this.isLoading = false;
   }
 
   resetList() {
     this.watchlistStockDetails = [];
     this.watchlistSymbols = [];
+    this.displayedTableData = [];
     this.selectedWatchlist?.entries.forEach((entry) => {
       this.watchlistSymbols.push(entry.stocksymbol);
     });
@@ -72,12 +82,16 @@ export class ListComponent {
           this.watchlistStockDetails = data;
           this.displayedTableData = this.watchlistStockDetails;
           console.log(this.watchlistStockDetails);
+          console.log('hit');
+          this.isLoading = false;
         },
         error: (error) => {
           console.error('Error:', error);
           throw error;
         },
       });
+    } else {
+      this.isLoading = false;
     }
   }
 
@@ -117,6 +131,17 @@ export class ListComponent {
   refreshWatchlists() {
     console.log('refresh watchlists hit');
     this.refreshListChange.emit(!this.refreshListChange);
+  }
+
+  deleteWatchlist() {
+    const deleteWatchlist$ = this.userService.deleteWatchlist(
+      this.selectedWatchlist.watchlistid
+    );
+    deleteWatchlist$.subscribe(() => {
+      this.userService.getWatchlists().subscribe(() => {
+        this.refreshWatchlists();
+      });
+    });
   }
 
   // swapModalDisplay() {

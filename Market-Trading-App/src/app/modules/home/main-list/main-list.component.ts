@@ -4,11 +4,12 @@ import { Stock } from '../../../shared/interfaces/stock';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TradesimChoice } from '../../../shared/interfaces/tradesimChoice';
+import { UpdateWatchlistModalComponent } from '../update-watchlist-modal/update-watchlist-modal.component';
 
 @Component({
   selector: 'app-main-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, UpdateWatchlistModalComponent],
   templateUrl: './main-list.component.html',
   styleUrl: './main-list.component.scss',
 })
@@ -19,6 +20,8 @@ export class MainListComponent {
   displayedTableData: Stock[];
   splitNum: string[];
   searchString: string;
+  selectedSymbol: string;
+  isModalOpen: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -58,5 +61,15 @@ export class MainListComponent {
       (stock) => stock.symbol === stockSymbol
     );
     this.router.navigate(['/details', stockSymbol, symbolIdStock.symbolid]);
+  }
+
+  addToWatchlist(symbol: string) {
+    console.log('add to watchlist');
+    this.selectedSymbol = symbol;
+    this.swapModalDisplay();
+  }
+
+  swapModalDisplay() {
+    this.isModalOpen = !this.isModalOpen;
   }
 }
