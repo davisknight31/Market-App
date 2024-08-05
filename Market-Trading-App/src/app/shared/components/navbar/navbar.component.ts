@@ -13,10 +13,16 @@ import { UserService } from '../../../core/services/user.service';
 export class NavbarComponent {
   menuActive: boolean = false;
   // navLinkClasses: string;
+  route: string;
   currentElement: HTMLElement;
+  loggedIn: boolean = false;
   @ViewChild('home') homeElement: ElementRef;
 
   constructor(private userService: UserService) {}
+
+  // ngOnInit() {
+  //   this.loggedIn = this.userService.loggedIn;
+  // }
 
   ngAfterViewInit(): void {
     this.currentElement = this.homeElement.nativeElement;

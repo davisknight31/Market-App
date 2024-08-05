@@ -106,7 +106,6 @@ export class HomeComponent {
                 const ownedStock = this.tradesimsChoices.find(
                   (stock) => stock.symbolid === share.symbolid
                 );
-                // console.log(share.sharesId);
                 console.log(ownedStock);
 
                 const ownedStockDetails = this.stockDetails.find(
@@ -128,17 +127,6 @@ export class HomeComponent {
             this.findHighestPerformer();
             this.findLowestPerformer();
             this.calculateTotalPortfolioValue();
-
-            // this.highestPerformer = this.ownedAssets[0];
-            // this.ownedAssets.forEach((asset) => {
-            //   if (
-            //     asset.price - asset.averagePurchasePrice >
-            //     this.highestPerformer.price -
-            //       this.highestPerformer.averagePurchasePrice
-            //   ) {
-            //     this.highestPerformer = asset;
-            //   }
-            // });
 
             this.isLoading = false;
           });

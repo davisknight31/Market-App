@@ -1,13 +1,12 @@
 <div class="background">
   <div class="dialog">
-    <h1>{{ selectedWatchlist.name }}</h1>
-    <hr />
-    <div class="remove-from-watchlist" (click)="removeFromWatchlist()">
+    <h1 class="modal-header">Update {{ selectedWatchlist.name }}</h1>
+    <div class="action-button" (click)="removeFromWatchlist()">
       Remove {{ selectedSymbol }} from {{ selectedWatchlist.name }}
     </div>
-    <div class="delete-watchlist" (click)="deleteWatchlist()">
+    <div class="action-button" (click)="deleteWatchlist()">
       Delete {{ selectedWatchlist.name }}
     </div>
-    <button (click)="closeModal()">Close</button>
+    <div class="close-button" (click)="closeModal()">Close</div>
   </div>
 </div>

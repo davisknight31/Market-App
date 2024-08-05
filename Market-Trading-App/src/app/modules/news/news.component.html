@@ -1,24 +1,33 @@
-<div class="article-list-container">
-  <div class="spinner-container" *ngIf="isLoading">
-    <app-spinner></app-spinner>
-  </div>
-  <div *ngIf="!isLoading" class="article-list">
-    <div *ngFor="let article of newsArticles?.news" class="article-container">
-      <a [href]="article.url" target="_blank" class="article-link">
-        <img
-          *ngIf="article.images[0]?.url.length > 0"
-          class="article-image"
-          [src]="article.images[0]?.url"
-        />
-        <img
-          *ngIf="article.images[0]?.url.length <= 0"
-          class="article-image"
-          src="assets/breakingNews.jpg"
-        />
-      </a>
-      <a class="article-headline" [href]="article.url" target="_blank">{{
-        article.headline
-      }}</a>
-    </div>
+<div class="spinner-container" *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>
+
+<div class="article-list-container" *ngIf="!isLoading">
+  <div class="article-list-card">
+    <app-card>
+      <div *ngIf="!isLoading" class="article-list">
+        <div
+          *ngFor="let article of newsArticles?.news"
+          class="article-container"
+        >
+          <a [href]="article.url" target="_blank" class="article-link">
+            <img
+              *ngIf="article.images[0]?.url.length > 0"
+              class="article-image"
+              [src]="article.images[0]?.url"
+            />
+            <img
+              *ngIf="article.images[0]?.url.length <= 0"
+              class="article-image"
+              src="assets/breakingNews.jpg"
+            />
+            <div class="article-headline">{{ article.headline }}</div>
+          </a>
+          <!-- <a class="article-headline" [href]="article.url" target="_blank">{{
+            article.headline
+          }}</a> -->
+        </div>
+      </div></app-card
+    >
   </div>
 </div>

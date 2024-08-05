@@ -1,15 +1,4 @@
-.container {
-  // display: flex;
-  // justify-content: center;
-  // min-height: 50vh;
-  // padding-top: 10vh;
-}
-
 .wrapper {
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // flex-direction: column;
   width: 75%;
   margin: 30px;
 }
@@ -43,9 +32,9 @@
 }
 
 .watchlist-list {
-  // width: 100%;
   margin: 25px;
 }
+
 .option {
   background-color: white;
   font-weight: bold;
@@ -53,12 +42,28 @@
 }
 
 .no-watchlists {
-  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
 }
 
-.watchlist-list-card {
-  width: 75%;
-  margin: 30px;
+.add-button {
+  width: 250px;
+  font-weight: bold;
+  padding: 15px;
+  background-color: #f4ddff;
+  color: #bc2dff;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.add-button:hover {
+  cursor: pointer;
+  background-color: #f8e8ff;
+  color: #c853ff;
 }
 
 a {

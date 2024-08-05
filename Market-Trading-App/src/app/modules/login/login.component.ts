@@ -3,11 +3,12 @@ import { UserService } from '../../core/services/user.service';
 import { User } from '../../shared/interfaces/user';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { CardComponent } from '../../shared/components/card/card.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CardComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -17,8 +18,13 @@ export class LoginComponent {
   errorMessage: string;
   user: User;
   alreadyHasAccount: boolean = true;
+  loggedIn: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {}
+
+  // ngOnInit() {
+  //   this.loggedIn = this.userService.loggedIn;
+  // }
 
   togglePasswordVisibility() {
     this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
@@ -39,10 +45,11 @@ export class LoginComponent {
     this.userService.loginUser(username, password).subscribe({
       next: (data) => {
         if (data) {
+          this.loggedIn = this.userService.loggedIn;
           this.userService.getShares().subscribe();
           this.userService.getWatchlists().subscribe({
             next: () => {
-              this.navigateToProfile();
+              this.navigateToHome();
             },
           });
         }
@@ -63,7 +70,7 @@ export class LoginComponent {
       this.userService.createUser(username, password).subscribe({
         next: (data) => {
           if (data) {
-            this.navigateToProfile();
+            this.navigateToHome();
           }
         },
         error: (errorMessage) => {
@@ -78,7 +85,7 @@ export class LoginComponent {
     return /[A-Z]/.test(password);
   }
 
-  navigateToProfile() {
-    this.router.navigate(['/profile']);
+  navigateToHome() {
+    this.router.navigate(['/home']);
   }
 }

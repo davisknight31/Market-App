@@ -1,15 +1,6 @@
 <div *ngIf="isDefaultSelected" class="no-selection">Select a watchlist!</div>
 
 <div *ngIf="!isDefaultSelected" class="list-container">
-  <!-- <app-table
-    *ngIf="watchlistStockDetails.length > 0"
-    [tableData]="watchlistStockDetails"
-    [columnHeaders]="headers"
-    [rowsPerPage]="5"
-    [inHomeView]="false"
-    (isListUpdatedChange)="refreshWatchlists()"
-  ></app-table> -->
-
   <div class="title-and-search">
     <input
       class="search-bar"
@@ -96,15 +87,5 @@
         </div>
       </div>
     </div>
-    <!-- <div
-      class="no-watchlist"
-      *ngIf="
-        watchlistStockDetails.length <= 0 &&
-        selectedWatchlistName !== 'Choose a watchlist'
-      "
-    >
-      This watchlist is empty... <a routerLink="/home">Add?</a> Or
-      <span class="delete-button" (click)="deleteWatchlist()">delete?</span>
-    </div> -->
   </div>
 </div>

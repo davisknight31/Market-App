@@ -19,14 +19,46 @@
   z-index: 100;
 }
 
-.remove-from-watchlist {
-  font-weight: bold;
-  margin-bottom: 25px;
+.modal-header {
+  font-size: 36px;
+  margin: 0px 15px 15px 15px;
+  text-align: center;
 }
 
-.remove-from-watchlist:hover {
+.action-button {
+  font-family: inherit;
+  padding: 10px 40px;
+  background-color: #ffd4d4;
+  color: #ff3636;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.action-button:hover {
   cursor: pointer;
-  color: red;
+  background-color: #ffe1e1;
+}
+
+.close-button {
+  font-family: inherit;
+  font-weight: bold;
+  padding: 8px 24px;
+  background-color: #f4ddff;
+  color: #bc2dff;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.close-button:hover {
+  cursor: pointer;
+  background-color: #f8e8ff;
+  color: #c853ff;
 }
 
 .delete-watchlist {

@@ -26,6 +26,7 @@ export class MainListComponent {
   constructor(private router: Router) {}
 
   ngOnInit() {
+    this.sortTableData();
     this.displayedTableData = this.tableData;
   }
 
@@ -39,6 +40,9 @@ export class MainListComponent {
 
   filterList() {
     // console.log(this.searchString);
+
+    this.sortTableData();
+
     const filteredData: Stock[] = [];
     this.tableData.forEach((data) => {
       const correlatingChoice = this.tradesimsChoices.find(
@@ -71,5 +75,11 @@ export class MainListComponent {
 
   swapModalDisplay() {
     this.isModalOpen = !this.isModalOpen;
+  }
+
+  sortTableData() {
+    this.tableData = this.tableData.sort((a, b) =>
+      a.symbol.localeCompare(b.symbol)
+    );
   }
 }

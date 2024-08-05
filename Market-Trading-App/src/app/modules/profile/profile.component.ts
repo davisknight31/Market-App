@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { Router, RouterModule } from '@angular/router';
+import { CardComponent } from '../../shared/components/card/card.component';
+import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CardComponent, PersonalDetailsComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })

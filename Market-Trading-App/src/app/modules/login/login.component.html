@@ -1,96 +1,98 @@
-<div *ngIf="alreadyHasAccount" class="container">
-  <div class="window">
-    <h1 class="header">Welcome</h1>
-    <input
-      class="info-input"
-      type="text"
-      placeholder="Username..."
-      #loginUsernameInput
-    />
-    <div class="info-input">
+<div *ngIf="!loggedIn" class="container">
+  <div *ngIf="alreadyHasAccount" class="login-card">
+    <app-card>
+      <h1 class="header">Welcome</h1>
       <input
-        class="password-input"
-        [type]="passwordType"
-        placeholder="Password..."
-        #loginPasswordInput
+        class="info-input"
+        type="text"
+        placeholder="Username..."
+        #loginUsernameInput
       />
-      <button
-        class="toggle-password-visibility-button"
-        (click)="togglePasswordVisibility()"
-      >
-        {{ buttonLabel }}
-      </button>
-    </div>
+      <div class="info-input">
+        <input
+          class="password-input"
+          [type]="passwordType"
+          placeholder="Password..."
+          #loginPasswordInput
+        />
+        <div
+          class="toggle-password-visibility-button"
+          (click)="togglePasswordVisibility()"
+        >
+          {{ buttonLabel }}
+        </div>
+      </div>
 
-    <button
-      class="login-button"
-      (click)="login(loginUsernameInput.value, loginPasswordInput.value)"
+      <div
+        class="login-button"
+        (click)="login(loginUsernameInput.value, loginPasswordInput.value)"
+      >
+        Login
+      </div>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div class="signup-text">
+        Don't have an account?
+        <span class="signup-button" (click)="toggleSignup()">Create One!</span>
+      </div></app-card
     >
-      Login
-    </button>
   </div>
-  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-  <div class="signup-text">
-    Don't have an account?
-    <button class="signup-button" (click)="toggleSignup()">Create One!</button>
-  </div>
-</div>
 
-<div *ngIf="!alreadyHasAccount" class="container">
-  <div class="window">
-    <h1 class="header">Create Account</h1>
-    <input
-      class="info-input"
-      type="text"
-      placeholder="Username..."
-      #signupUsernameInput
-    />
-    <div class="info-input">
+  <div *ngIf="!alreadyHasAccount" class="login-card">
+    <app-card>
+      <h1 class="header">Create Account</h1>
       <input
-        class="password-input"
-        [type]="passwordType"
-        placeholder="Password..."
-        #signupPasswordInput
+        class="info-input"
+        type="text"
+        placeholder="Username..."
+        #signupUsernameInput
       />
-      <button
-        class="toggle-password-visibility-button"
-        (click)="togglePasswordVisibility()"
-      >
-        {{ buttonLabel }}
-      </button>
-    </div>
+      <div class="info-input">
+        <input
+          class="password-input"
+          [type]="passwordType"
+          placeholder="Password..."
+          #signupPasswordInput
+        />
+        <div
+          class="toggle-password-visibility-button"
+          (click)="togglePasswordVisibility()"
+        >
+          {{ buttonLabel }}
+        </div>
+      </div>
 
-    <div class="info-input">
-      <input
-        class="password-input"
-        [type]="passwordType"
-        placeholder="Confirm Password..."
-        #signupConfirmedPasswordInput
-      />
-      <button
-        class="toggle-password-visibility-button"
-        (click)="togglePasswordVisibility()"
-      >
-        {{ buttonLabel }}
-      </button>
-    </div>
+      <div class="info-input">
+        <input
+          class="password-input"
+          [type]="passwordType"
+          placeholder="Confirm Password..."
+          #signupConfirmedPasswordInput
+        />
+        <div
+          class="toggle-password-visibility-button"
+          (click)="togglePasswordVisibility()"
+        >
+          {{ buttonLabel }}
+        </div>
+      </div>
 
-    <button
-      class="login-button"
-      (click)="
-        signup(
-          signupUsernameInput.value,
-          signupPasswordInput.value,
-          signupConfirmedPasswordInput.value
-        )
-      "
-    >
-      Create Account
-    </button>
-  </div>
-  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-  <div class="signup-text">
-    Already have an account?
-    <button class="signup-button" (click)="toggleLogin()">Login</button>
+      <div
+        class="login-button"
+        (click)="
+          signup(
+            signupUsernameInput.value,
+            signupPasswordInput.value,
+            signupConfirmedPasswordInput.value
+          )
+        "
+      >
+        Create Account
+      </div>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div class="signup-text">
+        Already have an account?
+        <button class="signup-button" (click)="toggleLogin()">Login</button>
+      </div>
+    </app-card>
   </div>
 </div>

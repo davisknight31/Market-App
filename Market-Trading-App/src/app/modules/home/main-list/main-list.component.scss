@@ -6,7 +6,7 @@
 
 .title {
   flex-grow: 1;
-  font-weight: 800;
+  font-weight: bold;
 }
 
 .search-bar {
@@ -15,7 +15,7 @@
   border: none;
   background-color: var(--subtle-bg-color);
   border-radius: 10px;
-  font-weight: 800;
+  font-weight: bold;
   font-family: inherit;
   font-size: 16px;
   outline: none;
@@ -55,6 +55,10 @@ td {
 
 .watchlist {
   color: black;
+  font-size: 16px;
+}
+.watchlist:hover {
+  color: #bc2dff;
 }
 
 .symbol-label {

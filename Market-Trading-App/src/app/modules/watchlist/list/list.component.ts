@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Watchlist } from '../../../shared/interfaces/watchlists';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../core/services/api.service';
@@ -34,20 +28,14 @@ import { RouterModule } from '@angular/router';
 export class ListComponent {
   @Input() tradesimsChoices: TradesimChoice[];
   @Input() selectedWatchlist: Watchlist;
-  @Input() headers: string[];
-  @Input() stockDetails: Stock[];
-  @Input() refreshList: boolean = false;
   @Input() selectedWatchlistName: string;
   @Input() isDefaultSelected: boolean;
   @Output() refreshListChange = new EventEmitter<boolean>();
-  isListUpdated: boolean = false;
   watchlistSymbols: string[] = [];
   watchlistStockDetails: Stock[] = [];
   isLoading: boolean = false;
-
   displayedTableData: Stock[];
   searchString: string;
-
   isModalOpen: boolean = false;
   selectedSymbol: string;
 
@@ -55,24 +43,13 @@ export class ListComponent {
     private apiService: ApiService,
     private userService: UserService
   ) {}
+
   ngOnChanges() {
     this.isLoading = true;
     this.resetList();
+
     //calling api each time because if a user updates their watchlist we want to recall the api
     this.getStockData();
-
-    console.log('change');
-    console.log(this.displayedTableData);
-    // this.isLoading = false;
-  }
-
-  resetList() {
-    this.watchlistStockDetails = [];
-    this.watchlistSymbols = [];
-    this.displayedTableData = [];
-    this.selectedWatchlist?.entries.forEach((entry) => {
-      this.watchlistSymbols.push(entry.stocksymbol);
-    });
   }
 
   getStockData() {
@@ -81,8 +58,9 @@ export class ListComponent {
         next: (data) => {
           this.watchlistStockDetails = data;
           this.displayedTableData = this.watchlistStockDetails;
-          console.log(this.watchlistStockDetails);
-          console.log('hit');
+          console.log(this.displayedTableData);
+
+          this.sortTableData();
           this.isLoading = false;
         },
         error: (error) => {
@@ -95,8 +73,19 @@ export class ListComponent {
     }
   }
 
+  deleteWatchlist() {
+    const deleteWatchlist$ = this.userService.deleteWatchlist(
+      this.selectedWatchlist.watchlistid
+    );
+    deleteWatchlist$.subscribe(() => {
+      this.userService.getWatchlists().subscribe(() => {
+        this.refreshWatchlists();
+      });
+    });
+  }
+
   filterList() {
-    // console.log(this.searchString);
+    this.sortTableData();
     const filteredData: Stock[] = [];
     this.watchlistStockDetails.forEach((data) => {
       const correlatingChoice = this.tradesimsChoices.find(
@@ -129,26 +118,21 @@ export class ListComponent {
   }
 
   refreshWatchlists() {
-    console.log('refresh watchlists hit');
     this.refreshListChange.emit(!this.refreshListChange);
   }
 
-  deleteWatchlist() {
-    const deleteWatchlist$ = this.userService.deleteWatchlist(
-      this.selectedWatchlist.watchlistid
+  sortTableData() {
+    this.displayedTableData = this.displayedTableData.sort((a, b) =>
+      a.symbol.localeCompare(b.symbol)
     );
-    deleteWatchlist$.subscribe(() => {
-      this.userService.getWatchlists().subscribe(() => {
-        this.refreshWatchlists();
-      });
-    });
   }
 
-  // swapModalDisplay() {
-  //   this.isModalOpen = !this.isModalOpen;
-  // }
-
-  // refreshWatchlists() {
-  //   this.refreshListChange.emit(!this.refreshListChange);
-  // }
+  resetList() {
+    this.watchlistStockDetails = [];
+    this.watchlistSymbols = [];
+    this.displayedTableData = [];
+    this.selectedWatchlist?.entries.forEach((entry) => {
+      this.watchlistSymbols.push(entry.stocksymbol);
+    });
+  }
 }

@@ -54,14 +54,9 @@ export class ManageWatchlistModalComponent {
   }
 
   closeModal() {
-    console.log(this.clickCameFromAction);
-    // if (this.clickCameFromAction) {
-    this.isListUpdatedChange.emit(!this.isListUpdatedChange);
-    // }
+    if (this.clickCameFromAction) {
+      this.isListUpdatedChange.emit(!this.isListUpdatedChange);
+    }
     this.isModalOpenChange.emit(!this.isModalOpen);
   }
-
-  // closeModalAndRefresh() {
-  //   this.isListUpdatedChange.emit(!this.isListUpdatedChange);
-  // }
 }

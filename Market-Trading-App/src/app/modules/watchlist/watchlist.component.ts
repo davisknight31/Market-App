@@ -1,10 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { Watchlist } from '../../shared/interfaces/watchlists';
 import { CommonModule } from '@angular/common';
 import { ListComponent } from './list/list.component';
 import { FormsModule } from '@angular/forms';
-import { Stock } from '../../shared/interfaces/stock';
 import { ApiService } from '../../core/services/api.service';
 import { RouterModule } from '@angular/router';
 import { CardComponent } from '../../shared/components/card/card.component';
@@ -24,24 +23,11 @@ import { TradesimChoice } from '../../shared/interfaces/tradesimChoice';
   styleUrl: './watchlist.component.scss',
 })
 export class WatchlistComponent {
-  @Input() refreshLists: boolean;
   isRefreshing: boolean = false;
   userWatchlists: Watchlist[] = [];
   emptyWatchlist: Watchlist;
   selectedWatchlist: Watchlist;
   selectedWatchlistName: string;
-  stockDetails: Stock[] = [];
-  watchlistSymbols: string[] = [];
-  watchlistColumnHeaders: string[] = [
-    'Name',
-    'Current Price',
-    'Change',
-    '% Change',
-    'Daily High',
-    'Daily Low',
-    'Open Price',
-    'Previous Close',
-  ];
   loggedIn: boolean;
   tradesimsChoices: TradesimChoice[];
   isDefaultSelected: boolean = true;
@@ -68,8 +54,15 @@ export class WatchlistComponent {
     this.getTradesimsChoices();
   }
 
+  getTradesimsChoices() {
+    this.apiService
+      .getTradesimsChoices()
+      .subscribe((response: TradesimChoice[]) => {
+        this.tradesimsChoices = response;
+      });
+  }
+
   switchList(choice: string) {
-    console.log(choice);
     if (choice === 'Choose a watchlist') {
       this.isDefaultSelected = true;
     } else {
@@ -84,14 +77,6 @@ export class WatchlistComponent {
     }
   }
 
-  getTradesimsChoices() {
-    this.apiService
-      .getTradesimsChoices()
-      .subscribe((response: TradesimChoice[]) => {
-        this.tradesimsChoices = response;
-      });
-  }
-
   refresh() {
     this.isRefreshing = true;
     this.userService.getWatchlists().subscribe(() => {
@@ -103,11 +88,9 @@ export class WatchlistComponent {
             this.selectedWatchlist = watchlist;
           } else {
             this.isDefaultSelected = true;
-            this.selectedWatchlist = this.userWatchlists[0];
-            this.userService.selectedWatchlist = this.userWatchlists[0];
-            this.selectedWatchlistName = this.userWatchlists[0].name;
-            // this.selectedWatchlist = null;
-            // this.selectedWatchlistName = 'Choose a watchlist';
+            this.selectedWatchlistName = 'Choose a watchlist';
+            this.selectedWatchlist = this.emptyWatchlist;
+            this.userService.selectedWatchlist = this.emptyWatchlist;
           }
         });
       } else {
@@ -118,15 +101,4 @@ export class WatchlistComponent {
       this.isRefreshing = false;
     });
   }
-
-  // deleteWatchlist() {
-  //   const deleteWatchlist$ = this.userService.deleteWatchlist(
-  //     this.selectedWatchlist.watchlistid
-  //   );
-  //   deleteWatchlist$.subscribe(() => {
-  //     this.userService.getWatchlists().subscribe(() => {
-  //       this.refresh();
-  //     });
-  //   });
-  // }
 }

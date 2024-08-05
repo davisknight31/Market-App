@@ -1,5 +1,8 @@
+<div *ngIf="isLoading" class="spinner-container">
+  <app-spinner></app-spinner>
+</div>
+
 <div *ngIf="!isLoading" class="home-wrapper">
-  <!-- <app-news-card></app-news-card> -->
   <div class="welcome-and-list">
     <div class="welcome-card">
       <app-card
@@ -41,30 +44,3 @@
     </div>
   </div>
 </div>
-<!-- <div class="tab-switcher">
-    <h1 class="header">Current Prices</h1>
-    <app-sidebar></app-sidebar>
-  </div> -->
-<!-- <div class="table"> -->
-<!-- <app-table
-      *ngIf="tableFilterService.selectedStockList === 'tradesimChoice'"
-      [tableData]="stockDetails"
-      [columnHeaders]="tableColumnHeaders"
-      [rowsPerPage]="10"
-      [inHomeView]="true"
-    ></app-table> -->
-<!-- <app-table
-      *ngIf="tableFilterService.selectedStockList === 'topMovers'"
-      [tableData]="topMovers"
-      [columnHeaders]="tableColumnHeaders"
-      [rowsPerPage]="5"
-    ></app-table> -->
-<!-- <app-table
-      *ngIf="tableFilterService.selectedStockList === 'mostActive'"
-      [tableData]="mostActive"
-      [columnHeaders]="tableColumnHeaders"
-      [rowsPerPage]="5"
-      [inHomeView]="true"
-    ></app-table> -->
-<!-- </div> -->
-<!-- </div> -->
