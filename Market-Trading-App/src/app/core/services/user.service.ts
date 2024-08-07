@@ -11,7 +11,7 @@ import { Share } from '../../shared/interfaces/share';
 export class UserService {
   // private apiUrl = 'https://market-trading-app-davis.com/api';
   private apiUrl = 'https://localhost:5286/api';
-
+  user: User;
   username: string;
   userId: string;
   balance: number;
@@ -31,12 +31,11 @@ export class UserService {
       })
       .pipe(
         tap((data) => {
+          this.user = data;
           this.userId = data.userid;
           this.username = data.username;
           this.balance = data.balance;
           this.loggedIn = true;
-          console.log(this.userId, this.username);
-          console.log(this.balance);
         }),
         catchError((error) => {
           console.error('Error:', error);
@@ -239,6 +238,56 @@ export class UserService {
           } else {
             errorMessage = 'An error occurred. Please try again later.';
           }
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
+
+  updatePersonalInfo(
+    userid: string,
+    username: string,
+    email: string,
+    firstname: string,
+    lastname: string,
+    phonenumber: string
+  ) {
+    return this.http
+      .put<User>(`${this.apiUrl}/User/UpdateUserPersonalDetails`, {
+        userid,
+        username,
+        email,
+        firstname,
+        lastname,
+        phonenumber,
+      })
+      .pipe(
+        tap((data) => {
+          console.log(data);
+        }),
+        catchError((error) => {
+          console.error('Error:', error);
+          let errorMessage: string;
+          errorMessage =
+            'An error occurred updating the info. Please try again later.';
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
+
+  getUserById() {
+    return this.http
+      .get<User>(`${this.apiUrl}/User/GetUserById/${this.userId}`)
+      .pipe(
+        tap((data) => {
+          this.user = data;
+          this.username = data.username;
+          this.balance = data.balance;
+        }),
+        catchError((error) => {
+          console.error('Error:', error);
+          let errorMessage: string;
+          errorMessage =
+            'An error occurred updating the info. Please try again later.';
           return throwError(() => new Error(errorMessage));
         })
       );

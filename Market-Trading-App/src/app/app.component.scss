@@ -22,6 +22,12 @@
   width: 100%;
 }
 
+@media (max-width: 768px) {
+  .app-wrapper {
+    flex-direction: column;
+  }
+}
+
 //could make this only apply if the size of the window hits a certain height
 // .footer {
 //   position: fixed;

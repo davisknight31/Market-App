@@ -1,10 +1,10 @@
-.cards {
-  display: flex;
-  justify-content: space-between;
-  margin: 30px;
-  gap: 30px;
-  flex-wrap: wrap;
-}
+// .cards {
+//   display: flex;
+//   justify-content: space-between;
+//   margin: 30px;
+//   gap: 30px;
+//   flex-wrap: wrap;
+// }
 
 .spinner-container {
   display: flex;
@@ -13,14 +13,29 @@
   height: 100%;
 }
 
-.chart-and {
-  flex-grow: 1;
-  width: 750px;
+.chart-and-trade {
+  display: flex;
+  margin: 30px;
+  gap: 30px;
+  flex-wrap: wrap;
+  // flex-grow: 1;
+  // width: 750px;
 }
 
-.trade-and {
-  width: 400px;
+.chart-card-wrapper {
+  flex-grow: 1;
+  width: 30%;
+  min-width: 320px;
 }
+
+.trade-card-wrapper {
+  width: 25%;
+  min-width: 320px;
+}
+
+// .trade-and {
+//   width: 400px;
+// }
 
 // .chard-and-trade {
 //   display: flex;
@@ -28,39 +43,12 @@
 //   gap: 30px;
 // }
 
-// .chart-card-wrapper {
-//   flex-grow: 1;
+// .chart-card {
+//   min-width: 200px;
+//   max-width: 1200px;
 // }
 
-.first-column {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  min-width: 0;
-}
-
-.second-column {
-  display: flex;
-
-  flex-direction: column;
-  gap: 50px;
-  min-width: 0;
-}
-
-.general-info-card {
-  // this will adjust width of the card, but then creates a weird overlapping of cards when resizing window
-  //width: 25%;
-}
-
-.financial-info-card {
-}
-
-.chart-card {
-  min-width: 200px;
-  max-width: 1200px;
-}
-
-.description-card {
-  min-width: 200px;
-  max-width: 1200px;
-}
+// .description-card {
+//   min-width: 200px;
+//   max-width: 1200px;
+// }

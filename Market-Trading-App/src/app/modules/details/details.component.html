@@ -1,7 +1,7 @@
-<div class="cards">
-  <div *ngIf="isLoading" class="spinner-container">
-    <app-spinner></app-spinner>
-  </div>
+<div *ngIf="isLoading" class="spinner-container">
+  <app-spinner></app-spinner>
+</div>
+<div class="cards" *ngIf="!isLoading">
   <!-- <app-card
     ><app-general-info-card
       *ngIf="!isLoading"
@@ -31,7 +31,7 @@
     </div>
   </div> -->
 
-  <div class="chart-and">
+  <div class="chart-and-trade">
     <div class="chart-card-wrapper">
       <app-card
         ><app-chart-card
@@ -44,9 +44,6 @@
         ></app-chart-card
       ></app-card>
     </div>
-  </div>
-
-  <div class="trade-and">
     <div class="trade-card-wrapper">
       <app-card
         ><app-trade [stockQuote]="chosenStock" [symbolId]="symbolId"></app-trade

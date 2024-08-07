@@ -1,3 +1,8 @@
+.table {
+  table-layout: fixed;
+  width: 100%;
+}
+
 .data-row {
   font-size: 18px;
 }
@@ -13,4 +18,72 @@
 
 .cell {
   padding: 15px 25px 15px 0px;
+  overflow: auto;
+  word-wrap: break-word;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin: 10px 25px 0px auto;
+}
+
+.edit-button {
+  width: fit-content;
+  //   margin: 25px 25px 0px auto;
+  padding: 10px 40px;
+  background-color: #f4ddff;
+  color: #bc2dff;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.edit-button:hover {
+  background-color: #f8e9ff;
+}
+
+.edit-input {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  border-radius: 10px;
+  border-style: hidden;
+  background-color: var(--subtle-bg-color);
+  padding: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.edit-input:focus {
+  outline: none !important;
+}
+
+.readonly {
+  color: rgb(185, 185, 185);
+}
+
+.readonly::placeholder {
+  color: rgb(185, 185, 185);
+}
+
+.cancel-button {
+  width: fit-content;
+  padding: 10px 40px;
+  background-color: #ffdddd;
+  color: #ff2d2d;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cancel-button:hover {
+  background-color: #ffe9e9;
 }

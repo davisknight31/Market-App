@@ -11,12 +11,13 @@ import { UserService } from '../../../core/services/user.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  menuActive: boolean = false;
+  menuActive: boolean = true;
   // navLinkClasses: string;
   route: string;
   currentElement: HTMLElement;
   loggedIn: boolean = false;
   @ViewChild('home') homeElement: ElementRef;
+  @ViewChild('nav-wrapper') navElement: ElementRef;
 
   constructor(private userService: UserService) {}
 
@@ -26,7 +27,7 @@ export class NavbarComponent {
 
   ngAfterViewInit(): void {
     this.currentElement = this.homeElement.nativeElement;
-    this.currentElement.classList.add('active');
+    this.currentElement.classList.add('selected-link');
   }
 
   toggleMenu() {
@@ -41,13 +42,13 @@ export class NavbarComponent {
     }
   }
 
-  closeMenu(elementReference: HTMLElement): void {
+  setSelection(elementReference: HTMLElement): void {
     console.log(elementReference.classList);
-    this.currentElement.classList.remove('active');
-    elementReference.classList.add('active');
+    this.currentElement.classList.remove('selected-link');
+    elementReference.classList.add('selected-link');
     this.currentElement = elementReference;
-    if (this.menuActive) {
-      this.menuActive = !this.menuActive;
-    }
+    // if (this.menuActive) {
+    //   this.menuActive = !this.menuActive;
+    // }
   }
 }

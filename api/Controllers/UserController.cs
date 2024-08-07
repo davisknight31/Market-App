@@ -84,6 +84,24 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpGet("GetUserById/{userId}")]
+    public async Task<IActionResult> GetUserById(int userId)
+    {
+        try
+        {
+            var retrievedUser = _marketAppDbContext.users.FirstOrDefault(u => u.userid == userId);
+            retrievedUser.password = null;
+
+            return Ok(retrievedUser);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving user balance: " + ex.Message);
+
+        }
+
+    }
+
 
     [HttpGet("GetUserBalance/{userId}")]
     public async Task<IActionResult> GetUserBalance(int userId)
@@ -102,5 +120,30 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpPut("UpdateUserPersonalDetails")]
+    public async Task<IActionResult> UpdateUserPersonalDetails([FromBody] UpdateUserPersonalDetailsModel model)
+    {
+        try
+        {
+            var retrievedUser = _marketAppDbContext.users.FirstOrDefault(u => u.userid == model.userid);
 
+            
+            retrievedUser.username = model.username;
+            retrievedUser.email = model.email;
+            retrievedUser.firstname = model.firstname;
+            retrievedUser.lastname = model.lastname;
+            retrievedUser.phonenumber = model.phonenumber;
+            
+
+            _marketAppDbContext.users.Update(retrievedUser); 
+            _marketAppDbContext.SaveChanges();
+
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while updating the user: " + ex.Message);
+
+        }
+    }
 }
