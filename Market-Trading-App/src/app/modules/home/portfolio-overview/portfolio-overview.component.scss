@@ -5,16 +5,39 @@
 
 .total-value {
   font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.profit-loss {
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .highest-performer {
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .lowest-performer {
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .label {
   color: #b7b7b7;
+  font-weight: bold;
+}
+
+.profit {
+  color: #14dd1c;
+  background: #e2ffe3;
+  border-radius: 15px;
+  padding: 5px 10px;
+}
+.loss {
+  color: #ff3333;
+  background: #ffe6e6;
+  border-radius: 15px;
+  padding: 5px 10px;
 }

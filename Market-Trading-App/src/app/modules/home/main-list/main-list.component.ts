@@ -39,8 +39,6 @@ export class MainListComponent {
   }
 
   filterList() {
-    // console.log(this.searchString);
-
     this.sortTableData();
 
     const filteredData: Stock[] = [];

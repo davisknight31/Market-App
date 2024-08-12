@@ -19,19 +19,23 @@
 
 .general-info-list {
   list-style-type: none;
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 15px;
+
   // display: flex;
   // flex-wrap: wrap;
   gap: 20px;
 
   li {
+    margin-bottom: 20px;
     .list-label {
-      font-weight: bold;
+      color: #b7b7b7;
     }
   }
 }
 
 .general-info-container {
-  padding-top: 15px;
 }
 
 @media (max-width: 1000px) {

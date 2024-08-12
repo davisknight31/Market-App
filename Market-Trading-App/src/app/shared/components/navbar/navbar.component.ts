@@ -11,7 +11,7 @@ import { UserService } from '../../../core/services/user.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  menuActive: boolean = true;
+  menuActive: boolean = false;
   // navLinkClasses: string;
   route: string;
   currentElement: HTMLElement;

@@ -56,6 +56,9 @@ export class HomeComponent {
   highestPerformer: OwnedAsset;
   lowestPerformer: OwnedAsset;
   totalPortfolioValue: number = 0;
+  totalAveragePurchaseValue: number = 0;
+  profitLossDifference: number = 0;
+  isInProfit: boolean = false;
 
   constructor(
     private apiService: ApiService,
@@ -127,6 +130,7 @@ export class HomeComponent {
             this.findHighestPerformer();
             this.findLowestPerformer();
             this.calculateTotalPortfolioValue();
+            this.calculateProfitLoss();
 
             this.isLoading = false;
           });
@@ -161,6 +165,20 @@ export class HomeComponent {
     this.ownedAssets.forEach((asset) => {
       this.totalPortfolioValue += asset.price * asset.shares;
     });
+  }
+
+  calculateProfitLoss() {
+    this.ownedAssets.forEach((asset) => {
+      this.totalAveragePurchaseValue +=
+        asset.averagePurchasePrice * asset.shares;
+    });
+    this.profitLossDifference =
+      this.totalPortfolioValue - this.totalAveragePurchaseValue;
+    if (this.profitLossDifference > 0) {
+      this.isInProfit = true;
+    } else {
+      this.isInProfit = false;
+    }
   }
 
   getTopMovers(): void {

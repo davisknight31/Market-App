@@ -18,7 +18,7 @@
         <th>% 24hr</th>
         <th>$ 24hr</th>
         <th>Open</th>
-        <th>Market Cap</th>
+        <th>Close</th>
       </tr>
     </thead>
     <tbody *ngIf="displayedTableData">
@@ -54,8 +54,11 @@
         <td class="open" (click)="navigateToStockDetails(data.symbol)">
           ${{ data.open.toFixed(2) }}
         </td>
-        <td class="market-cap" (click)="navigateToStockDetails(data.symbol)">
-          $1,234,567,890.12
+        <td
+          class="previous-close"
+          (click)="navigateToStockDetails(data.symbol)"
+        >
+          ${{ data.close.toFixed(2) }}
         </td>
       </tr>
     </tbody>

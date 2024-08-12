@@ -6,12 +6,16 @@
 
 .home-wrapper {
   display: flex;
-  // flex-wrap: wrap;
-  justify-content: space-between;
+  // justify-content: space-between;
+  flex-wrap: wrap;
+  // max-width: 1500px;
+  margin-left: 90px;
 }
 
 .welcome-and-list {
   flex-grow: 1;
+  width: 61%;
+  // max-width: 750px;
 }
 
 .welcome-card {
@@ -28,10 +32,13 @@
 
 .overview-card {
   margin: 30px;
+  min-width: 300px;
+  flex-grow: 1;
 }
 
 .assets-card {
   margin: 30px;
+  flex-grow: 1;
 }
 // .spinner-container {
 //   width: 100%;
@@ -67,3 +74,42 @@
 //     // width: 100%;
 //   }
 // }
+
+@media (max-width: 1278px) {
+  .assets-and-overview {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-wrapper {
+    margin: 30px;
+    margin-top: 90px;
+  }
+}
+
+@media (max-width: 744px) {
+  .home-wrapper {
+    margin: 0;
+    margin-top: 90px;
+  }
+
+  .welcome-card {
+    margin: 15px;
+    margin-top: 0;
+  }
+
+  .main-list-card {
+    margin: 15px;
+  }
+  .overview-card {
+    margin: 15px;
+  }
+
+  .assets-card {
+    margin: 15px;
+  }
+}

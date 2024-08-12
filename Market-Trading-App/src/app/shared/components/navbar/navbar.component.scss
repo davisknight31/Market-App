@@ -10,6 +10,7 @@
 }
 
 .nav-wrapper {
+  position: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,6 +19,7 @@
   // max-width: 320px;
   background-color: white;
   // padding: 30px 20px;
+  z-index: 100;
 }
 
 .logo {
@@ -84,6 +86,7 @@
 .expand {
   display: list-item;
 }
+
 // nav {
 //   background: #f8f8f8;
 //   display: flex;
@@ -165,16 +168,19 @@
 }
 
 .profile-button {
-  // float: right;
   height: 20px;
   .profile-icon {
     width: 50px;
     padding-top: 15px;
-    // height: 10px;
   }
 }
 
 .nav-wrapper.active {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  .expand-icon {
+    transform: scale(-1);
+  }
+
   .logo-text {
     display: inline;
   }
@@ -183,69 +189,11 @@
   }
 }
 
-// .menu-btn {
-//   display: none;
-//   position: absolute;
-//   // top: 50%;
-//   right: 20px;
-//   transform: translateY(-50%);
-//   cursor: pointer;
-// }
-
-// .menu-btn__burger {
-//   width: 25px;
-//   height: 3px;
-//   background-color: #333;
-//   border-radius: 5px;
-//   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-//   transition: all 0.3s ease;
-// }
-
-// .menu-btn__burger::before {
-//   transform: translateY(-8px);
-// }
-
-// .menu-btn__burger::after {
-//   transform: translateY(8px);
-// }
-
-// nav ul.active {
-//   display: flex;
-//   z-index: 100;
-// }
-
-// @media (max-width: 768px) {
-//   .menu-btn {
-//     display: block;
-//   }
-
-//   nav ul {
-//     position: fixed;
-//     top: 80px;
-//     left: -100%;
-//     width: 100%;
-//     height: calc(100% - 80px);
-//     background-color: #fff;
-//     flex-direction: column;
-//     align-items: center;
-//     // justify-content: center;
-//     transition: all 0.3s ease;
-//     z-index: 100;
-//   }
-
-//   nav ul.active {
-//     left: 0;
-//   }
-
-//   nav ul li {
-//     margin: 20px 0;
-//   }
-// }
-
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .nav-wrapper {
     flex-direction: row;
     width: 100%;
+    height: auto;
   }
 
   .nav-list {

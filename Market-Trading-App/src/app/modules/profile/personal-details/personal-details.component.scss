@@ -17,7 +17,7 @@
 }
 
 .cell {
-  padding: 15px 25px 15px 0px;
+  padding: 15px 0px 15px 0px;
   overflow: auto;
   word-wrap: break-word;
 }
@@ -86,4 +86,13 @@
 
 .cancel-button:hover {
   background-color: #ffe9e9;
+}
+
+@media (max-width: 400px) {
+  .edit-button {
+    padding: 10px 10px;
+  }
+  .cancel-button {
+    padding: 10px 10px;
+  }
 }

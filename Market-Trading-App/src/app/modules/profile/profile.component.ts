@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { AccountActionsComponent } from './account-actions/account-actions.component';
+import { ManageFundsComponent } from './manage-funds/manage-funds.component';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,7 @@ import { AccountActionsComponent } from './account-actions/account-actions.compo
     CardComponent,
     PersonalDetailsComponent,
     AccountActionsComponent,
+    ManageFundsComponent,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
@@ -22,9 +24,7 @@ export class ProfileComponent {
 
   constructor(private userService: UserService, private router: Router) {}
 
-  ngOnInit() {
-    this.username = this.userService.username;
-  }
+  ngOnInit() {}
 
   navigateToWatchlists() {
     this.router.navigate(['/watchlists']);

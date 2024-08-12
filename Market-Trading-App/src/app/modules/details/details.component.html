@@ -51,8 +51,8 @@
     </div>
   </div>
 
-  <div class="inf-and">
-    <div class="info-card-wrapper">
+  <div class="general-info-and-financial-info">
+    <div class="general-info-card-wrapper">
       <app-card
         ><app-general-info-card
           *ngIf="!isLoading"
@@ -61,6 +61,28 @@
           [stockData]="stockData"
           [companyProfile]="companyProfile"
         ></app-general-info-card
+      ></app-card>
+    </div>
+    <div class="financial-info-card-wrapper">
+      <app-card
+        ><app-financial-info-card
+          *ngIf="!isLoading"
+          class="financial-info-card"
+          [stockData]="stockData"
+        ></app-financial-info-card
+      ></app-card>
+    </div>
+  </div>
+
+  <div class="description">
+    <div class="description-card-wrapper">
+      <app-card
+        ><app-description-card
+          class="description-card"
+          *ngIf="!isLoading"
+          [companyDescription]="companyDescription"
+          [companyName]="stockData.shortName"
+        ></app-description-card
       ></app-card>
     </div>
   </div>

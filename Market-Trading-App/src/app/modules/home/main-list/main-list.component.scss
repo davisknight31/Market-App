@@ -28,9 +28,9 @@
 .table-container {
   height: 500px;
   max-height: 500px;
-  overflow: auto;
   margin-top: 15px;
   padding: 0px 20px;
+  overflow: auto;
 }
 
 .main-list {
@@ -111,4 +111,13 @@ td {
 .empty-search {
   text-align: center;
   font-weight: bold;
+}
+
+@media (max-width: 650px) {
+  .title-and-search {
+    font-size: 80%;
+  }
+  .table-container {
+    padding: 0;
+  }
 }

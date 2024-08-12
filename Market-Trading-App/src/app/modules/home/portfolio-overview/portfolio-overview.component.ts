@@ -14,6 +14,7 @@ export class PortfolioOverviewComponent {
   @Input() highestPerformer: OwnedAsset;
   @Input() lowestPerformer: OwnedAsset;
   @Input() totalPortfolioValue: number;
+  @Input() profitLossDifference: number;
 
   formatNumber(value: number) {
     const options = {

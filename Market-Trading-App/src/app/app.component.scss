@@ -22,7 +22,11 @@
   width: 100%;
 }
 
-@media (max-width: 768px) {
+.temp {
+  color: red;
+}
+
+@media (max-width: 900px) {
   .app-wrapper {
     flex-direction: column;
   }

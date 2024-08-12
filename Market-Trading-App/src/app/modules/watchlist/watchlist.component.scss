@@ -1,3 +1,7 @@
+.watchlist-container {
+  margin-left: 90px;
+}
+
 .wrapper {
   width: 75%;
   margin: 30px;
@@ -81,4 +85,33 @@ a:hover {
   text-align: center;
   font-size: 18px;
   padding-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .watchlist-container {
+    margin: 30px;
+    margin-top: 90px;
+  }
+
+  .watchlist-dropdown-card {
+    width: auto;
+  }
+
+  .wrapper {
+    width: auto;
+  }
+}
+
+@media (max-width: 750px) {
+  .watchlist-container {
+    margin: 0px;
+    margin-top: 90px;
+  }
+  .watchlist-dropdown-card {
+    margin: 15px;
+  }
+
+  .wrapper {
+    margin: 15px;
+  }
 }

@@ -1,3 +1,9 @@
+.profile-wrapper {
+  margin-left: 90px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .container {
   min-height: 50vh;
   // min-width: 500px;
@@ -30,17 +36,6 @@
   text-align: center;
 }
 
-.watchlist-button {
-  font-size: 20px;
-  font-weight: bold;
-  width: fit-content;
-}
-
-.watchlist-button:hover {
-  color: #4c3ce0;
-  cursor: pointer;
-}
-
 .logout-button {
   margin-top: 50px;
   font-size: 20px;
@@ -61,4 +56,39 @@
 
 .account-actions-card {
   margin-top: 30px;
+}
+
+.funds {
+  margin: 30px;
+  flex-grow: 1;
+  max-width: 500px;
+}
+
+@media (max-width: 900px) {
+  .profile-wrapper {
+    margin: 30px;
+    margin-top: 90px;
+  }
+
+  .details-and-actions {
+    width: auto;
+  }
+
+  .funds {
+    width: auto;
+  }
+}
+
+@media (max-width: 750px) {
+  .profile-wrapper {
+    margin: 0;
+    margin-top: 90px;
+  }
+
+  .details-and-actions {
+    margin: 15px;
+  }
+  .funds {
+    margin: 15px;
+  }
 }

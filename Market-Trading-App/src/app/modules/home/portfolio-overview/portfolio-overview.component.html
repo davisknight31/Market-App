@@ -5,7 +5,14 @@
     >{{ formatNumber(totalPortfolioValue) }}
   </div>
   <div class="profit-loss">
-    <span class="label">Total Value: </span>
+    <span class="label">Profit/Loss: </span
+    ><span
+      [ngClass]="{
+        loss: profitLossDifference < 0,
+        profit: profitLossDifference >= 0
+      }"
+      >{{ formatNumber(profitLossDifference) }}</span
+    >
   </div>
   <div class="highest-performer">
     <span class="label">Highest Performer: </span>{{ highestPerformer.symbol }}

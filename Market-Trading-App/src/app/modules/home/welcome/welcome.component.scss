@@ -26,3 +26,22 @@
 .balance-label {
   font-size: 28px;
 }
+
+@media (max-width: 650px) {
+  .name-and-date {
+    font-size: 80%;
+  }
+
+  .balance {
+    background-color: #f4ddff;
+    padding: 10px;
+    padding-right: 30px;
+    border-radius: 15px;
+    color: #bc2dff;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .balance-label {
+    font-size: 18px;
+  }
+}

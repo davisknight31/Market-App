@@ -1,3 +1,7 @@
+.news-container {
+  margin-left: 90px;
+}
+
 .spinner-container {
   display: flex;
   justify-content: center;
@@ -44,4 +48,34 @@
 
 .article-container:hover {
   background-color: #f0f0f0;
+}
+
+@media (max-width: 900px) {
+  .news-container {
+    margin: 30px;
+    margin-top: 90px;
+  }
+
+  .article-link {
+    flex-direction: column;
+  }
+
+  .article-headline {
+    margin: 0;
+  }
+
+  .article-list {
+    padding: 0;
+  }
+}
+
+@media (max-width: 750px) {
+  .news-container {
+    margin: 0px;
+    margin-top: 90px;
+  }
+
+  .article-list-card {
+    margin: 15px;
+  }
 }
