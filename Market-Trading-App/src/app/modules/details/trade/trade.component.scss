@@ -49,6 +49,7 @@
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
+  margin-top: 15px;
 }
 
 .buy-button {
@@ -81,6 +82,19 @@
 .sell-button:hover {
   cursor: pointer;
   background-color: #ffe1e1;
+}
+
+.confirmation-message {
+  font-weight: bold;
+  color: #b7b7b7;
+}
+.completed-message {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.strong {
+  color: black;
 }
 
 .error-message {

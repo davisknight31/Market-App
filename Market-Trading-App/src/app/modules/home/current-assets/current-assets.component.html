@@ -10,13 +10,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="data-row" *ngFor="let asset of assets">
+        <tr
+          class="data-row"
+          *ngFor="let asset of assets"
+          (click)="navigateToDetails(asset.symbol, asset.symbolId)"
+        >
           <td class="symbol">{{ asset.symbol }}</td>
           <td class="shares">{{ asset.shares.toFixed(2) }}</td>
           <td class="value">{{ formatNumber(asset.price * asset.shares) }}</td>
         </tr>
       </tbody>
     </table>
+    <div class="no-assets" *ngIf="assets.length <= 0">No Assets</div>
   </div>
 </div>
 

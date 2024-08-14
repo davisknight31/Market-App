@@ -26,11 +26,14 @@
 <div *ngIf="showTransactionModal" class="trade-wrapper">
   <h1 class="trade-header">Trade</h1>
 
-  <div>
+  <div class="confirmation-message">
     Click below to confirm if you would like to
-    <strong>{{ clickedTransactionType }}:</strong><br /><br />
-    <strong>{{ transactionString }} ({{ sharesInput }} shares)</strong> of
-    <strong>{{ stockQuote.symbol }}</strong>
+    <strong class="strong">{{ clickedTransactionType }}:</strong><br /><br />
+    <strong class="strong"
+      >{{ transactionString }} ({{ sharesInput }} shares)</strong
+    >
+    of
+    <strong class="strong">{{ stockQuote.symbol }}</strong>
   </div>
 
   <div class="action-buttons">
@@ -40,6 +43,6 @@
 </div>
 
 <div *ngIf="showOrderCompletionModal" class="trade-wrapper">
-  <div>Completed</div>
+  <div class="completed-message">Completed</div>
   <button class="buy-button" (click)="setDetails()">Continue</button>
 </div>

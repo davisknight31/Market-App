@@ -38,7 +38,6 @@
 .chart-card-wrapper {
   flex-grow: 1;
   width: 30%;
-  min-width: 320px;
   margin: 30px;
 }
 
@@ -57,7 +56,6 @@
 }
 
 .general-info-card-wrapper {
-  min-width: 420px;
   margin: 30px;
 }
 
@@ -119,5 +117,23 @@
   .cards {
     margin: 0;
     margin-top: 90px;
+  }
+}
+
+@media (max-width: 744px) {
+  .chart-card-wrapper {
+    margin: 15px;
+  }
+  .trade-card-wrapper {
+    margin: 15px;
+  }
+  .general-info-card-wrapper {
+    margin: 15px;
+  }
+  .financial-info-card-wrapper {
+    margin: 15px;
+  }
+  .description-card-wrapper {
+    margin: 15px;
   }
 }

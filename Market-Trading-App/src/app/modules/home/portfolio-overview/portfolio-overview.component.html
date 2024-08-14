@@ -15,10 +15,14 @@
     >
   </div>
   <div class="highest-performer">
-    <span class="label">Highest Performer: </span>{{ highestPerformer.symbol }}
+    <span class="label">Highest Performer: </span
+    ><span *ngIf="highestPerformer">{{ highestPerformer.symbol }}</span
+    ><span *ngIf="!highestPerformer">None</span>
   </div>
   <div class="lowest-performer">
-    <span class="label">Lowest Performer: </span>{{ lowestPerformer.symbol }}
+    <span class="label">Lowest Performer: </span
+    ><span *ngIf="lowestPerformer">{{ lowestPerformer.symbol }}</span
+    ><span *ngIf="!lowestPerformer">None</span>
   </div>
 </div>
 

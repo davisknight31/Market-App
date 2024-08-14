@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class NavbarComponent {
   @ViewChild('home') homeElement: ElementRef;
   @ViewChild('nav-wrapper') navElement: ElementRef;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   // ngOnInit() {
   //   this.loggedIn = this.userService.loggedIn;
@@ -28,6 +28,14 @@ export class NavbarComponent {
   ngAfterViewInit(): void {
     this.currentElement = this.homeElement.nativeElement;
     this.currentElement.classList.add('selected-link');
+    this.router.events.subscribe(() => {
+      console.log('Current URL:', this.router.url);
+      if (this.router.url.includes('details')) {
+        this.currentElement.classList.remove('selected-link');
+      } else {
+        this.currentElement.classList.add('selected-link');
+      }
+    });
   }
 
   toggleMenu() {

@@ -43,9 +43,12 @@ export class ChartCardComponent {
     console.log(startUtcTimestamp, endUtcTimestamp);
 
     const areaSeries = this.chart.addAreaSeries({
-      lineColor: '#2962FF',
-      topColor: '#2962FF',
-      bottomColor: 'rgba(41, 98, 255, 0.28)',
+      // lineColor: '#2962FF',
+      // topColor: '#2962FF',
+      // bottomColor: 'rgba(41, 98, 255, 0.28)',
+      lineColor: '#bc2dff',
+      topColor: '#bc2dff',
+      bottomColor: '#efceff',
     });
 
     console.log(this.historicalBars);

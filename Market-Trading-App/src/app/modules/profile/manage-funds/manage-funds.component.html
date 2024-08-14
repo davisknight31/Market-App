@@ -1,29 +1,29 @@
 <h1>Adjust Balance</h1>
-<div class="current-balance">
-  <span class="label">Current Balance</span> ${{ balance.toFixed(2) }}
+<div class="spinner-container" *ngIf="refreshing">
+  <app-spinner></app-spinner>
 </div>
-<div class="inputs">
-  <!-- <select
-    #types
-    [(ngModel)]="adjustmentType"
-    class="watchlist-dropdown"
-    (change)="switchAdjustmentType(types.value)"
-  > -->
-  <!-- <select #types [(ngModel)]="adjustmentType" class="type-dropdown">
-    <option selected class="option" value="add">Add</option>
-    <option class="option" value="cashout">Cashout</option>
-  </select> -->
-  <input
-    #amount
-    class="amount-input"
-    type="number"
-    placeholder="Enter an amount"
-    [(ngModel)]="adjustmentAmount"
-  />
-  <select #types name="types" class="type-dropdown">
-    <option class="option" value="add" selected>Add</option>
-    <option class="option" value="cashout">Cashout</option>
-  </select>
-</div>
+<div class="adjust-balance-wrapper" *ngIf="!refreshing">
+  <div class="current-balance">
+    <span class="label">Current Balance</span> ${{ balance.toFixed(2) }}
+  </div>
+  <div class="inputs">
+    <input
+      #amount
+      class="amount-input"
+      type="number"
+      placeholder="Enter an amount"
+      [(ngModel)]="adjustmentAmount"
+    />
+    <select #types name="types" class="type-dropdown">
+      <option class="option" value="add" selected>Add</option>
+      <option class="option" value="cashout">Cashout</option>
+    </select>
+  </div>
 
-<div class="submit-adjustment-button" (click)="submit(types.value)">Submit</div>
+  <div class="submit-adjustment-button" (click)="submit(types.value)">
+    Submit
+  </div>
+  <div *ngIf="errorMessage.length > 0" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>

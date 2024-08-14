@@ -45,7 +45,7 @@ public class UserController : ControllerBase
         }
         else
         {
-            return BadRequest("Invalid username or password.");
+            return NotFound("Invalid username or password.");
         }
     }
 
@@ -120,6 +120,60 @@ public class UserController : ControllerBase
         }
     }
 
+
+    [HttpPost("AddToBalance/{userId}/{additionAmount}")]
+    public async Task<IActionResult> AddToBalance(int userId, double additionAmount)
+    {
+        try
+        {
+            var retrievedUser = _marketAppDbContext.users.FirstOrDefault(u => u.userid == userId);
+            var newBalance = retrievedUser.balance + additionAmount;
+
+            retrievedUser.balance = newBalance;
+
+            _marketAppDbContext.users.Update(retrievedUser);
+            _marketAppDbContext.SaveChanges();
+
+            return Ok();
+
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving user balance: " + ex.Message);
+
+        }
+    }
+
+    [HttpPost("RemoveFromBalance/{userId}/{removalAmount}")]
+    public async Task<IActionResult> RemoveFromBalance(int userId, double removalAmount)
+    {
+        try
+        {
+            var retrievedUser = _marketAppDbContext.users.FirstOrDefault(u => u.userid == userId);
+            var newBalance = retrievedUser.balance - removalAmount;
+            if (newBalance >= 0) {
+
+                retrievedUser.balance = newBalance; 
+
+                _marketAppDbContext.users.Update(retrievedUser);
+                _marketAppDbContext.SaveChanges();
+
+                return Ok();
+            } 
+            else
+            {
+                return BadRequest("Insufficient funds");
+
+            }
+
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving user balance: " + ex.Message);
+
+        }
+    } 
+
     [HttpPut("UpdateUserPersonalDetails")]
     public async Task<IActionResult> UpdateUserPersonalDetails([FromBody] UpdateUserPersonalDetailsModel model)
     {
@@ -133,12 +187,13 @@ public class UserController : ControllerBase
             retrievedUser.firstname = model.firstname;
             retrievedUser.lastname = model.lastname;
             retrievedUser.phonenumber = model.phonenumber;
-            
 
-            _marketAppDbContext.users.Update(retrievedUser); 
+            _marketAppDbContext.users.Update(retrievedUser);
             _marketAppDbContext.SaveChanges();
 
             return Ok();
+
+
         }
         catch (Exception ex)
         {

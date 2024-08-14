@@ -1,3 +1,8 @@
+.spinner-container {
+  display: flex;
+  justify-content: center;
+}
+
 .current-balance {
   font-weight: bold;
   font-size: 20px;
@@ -61,4 +66,11 @@
 
 .submit-adjustment-button:hover {
   background-color: #f8e9ff;
+}
+
+.error-message {
+  font-weight: bold;
+  color: red;
+  text-align: center;
+  margin: 15px 0px;
 }

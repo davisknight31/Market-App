@@ -53,22 +53,30 @@ export class TradeComponent {
     } else if (this.sharesInput <= 0) {
       this.errorMessage = 'Please enter a value greater than 0.';
       this.hasError = true;
-    } else if (this.transactionCost > this.currentBalance) {
-      this.errorMessage =
-        'You do not have the required funds for this purchase.';
-      this.hasError = true;
     } else {
       if (transactionType === 'buy') {
-        this.errorMessage = '';
-        this.hasError = false;
-        this.clickedTransactionType = 'purchase';
+        if (this.transactionCost > this.currentBalance) {
+          this.errorMessage =
+            'You do not have the required funds for this purchase.';
+          this.hasError = true;
+        } else {
+          this.errorMessage = '';
+          this.hasError = false;
+          this.clickedTransactionType = 'purchase';
+          this.showTransactionModal = true;
+        }
       }
       if (transactionType === 'sell') {
-        this.errorMessage = '';
-        this.hasError = false;
-        this.clickedTransactionType = 'sell';
+        if (this.currentShares < this.sharesInput) {
+          this.errorMessage = 'You do not have the required shares to sell.';
+          this.hasError = true;
+        } else {
+          this.errorMessage = '';
+          this.hasError = false;
+          this.clickedTransactionType = 'sell';
+          this.showTransactionModal = true;
+        }
       }
-      this.showTransactionModal = true;
     }
   }
 

@@ -42,7 +42,10 @@ export class UserService {
           let errorMessage: string;
           if (error.status === 404) {
             errorMessage = 'Username or password is incorrect.';
-          } else {
+          }
+          // else if (error.status === 400) {
+          //   }
+          else {
             errorMessage = 'An error occurred. Please try again later.';
           }
           return throwError(() => new Error(errorMessage));
@@ -60,6 +63,7 @@ export class UserService {
         tap((data) => {
           this.userId = data.userid;
           this.username = data.username;
+          this.balance = data.balance;
           this.loggedIn = true;
           console.log(this.userId, this.username);
         }),
@@ -160,6 +164,34 @@ export class UserService {
           this.balance = data;
           console.log('current balance:', this.balance);
         }),
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
+  addToBalance(amount: number) {
+    return this.http
+      .post<number>(
+        `${this.apiUrl}/User/AddToBalance/${this.userId}/${amount}`,
+        {}
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
+  removeFromBalance(amount: number) {
+    return this.http
+      .post<number>(
+        `${this.apiUrl}/User/RemoveFromBalance/${this.userId}/${amount}`,
+        {}
+      )
+      .pipe(
         catchError((error) => {
           console.error('Error:', error);
           throw error;

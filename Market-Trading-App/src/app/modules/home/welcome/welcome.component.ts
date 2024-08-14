@@ -32,4 +32,12 @@ export class WelcomeComponent {
   navigateToLogin() {
     this.router.navigate(['/login']);
   }
+
+  formatNumber(value: number) {
+    const options = {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    };
+    return '$' + Number(value).toLocaleString('en', options);
+  }
 }
