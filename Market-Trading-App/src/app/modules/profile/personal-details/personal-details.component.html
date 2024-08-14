@@ -1,154 +1,152 @@
-<div class="personal-details-wrapper">
-  <h1>Personal Details</h1>
-  <div class="spinner-container" *ngIf="isUpdatingDetails">
-    <app-spinner></app-spinner>
+<h1>Personal Details</h1>
+<div class="spinner-container" *ngIf="isUpdatingDetails">
+  <app-spinner></app-spinner>
+</div>
+<table class="table" *ngIf="!isUpdatingDetails">
+  <tbody>
+    <tr class="data-row">
+      <td class="label cell">Username</td>
+      <td class="data cell">
+        <input
+          class="edit-input readonly"
+          *ngIf="!isEditing"
+          readonly
+          type="text"
+          placeholder="{{ user.username }}"
+          value="{{ user.username }}"
+        /><input
+          class="edit-input"
+          *ngIf="isEditing"
+          type="text"
+          placeholder="Username..."
+          value="{{ user.username }}"
+        />
+      </td>
+    </tr>
+    <tr class="data-row">
+      <td class="label cell">First Name</td>
+      <td class="data cell">
+        <input
+          class="edit-input readonly"
+          *ngIf="!isEditing && user.firstname !== null"
+          readonly
+          type="text"
+          placeholder="{{ user.firstname }}"
+          value="{{ user.firstname }}"
+        />
+        <input
+          class="edit-input readonly"
+          *ngIf="!isEditing && user.firstname === null"
+          readonly
+          type="text"
+          placeholder="Not Specified"
+          value="Not Specified"
+          [(ngModel)]="updatedFirstName"
+        />
+        <input
+          class="edit-input"
+          *ngIf="isEditing"
+          type="text"
+          placeholder="First Name..."
+          value="{{ user.firstname }}"
+          [(ngModel)]="updatedFirstName"
+        />
+      </td>
+    </tr>
+    <tr class="data-row">
+      <td class="label cell">Last</td>
+      <td class="data cell">
+        <input
+          class="edit-input readonly"
+          *ngIf="!isEditing && user.lastname !== null"
+          readonly
+          type="text"
+          placeholder="{{ user.lastname }}"
+          value="{{ user.lastname }}"
+        />
+        <input
+          class="edit-input readonly"
+          *ngIf="!isEditing && user.lastname === null"
+          readonly
+          type="text"
+          placeholder="Not Specified"
+          value="Not Specified"
+          [(ngModel)]="updatedLastName"
+        /><input
+          class="edit-input"
+          *ngIf="isEditing"
+          type="text"
+          placeholder="Last Name..."
+          value="{{ user.lastname }}"
+          [(ngModel)]="updatedLastName"
+        />
+      </td>
+    </tr>
+    <tr class="data-row">
+      <td class="label cell">Phone Number</td>
+      <td class="data cell">
+        <input
+          class="edit-input readonly"
+          *ngIf="!isEditing && user.phonenumber !== null"
+          readonly
+          type="text"
+          placeholder="{{ user.phonenumber }}"
+          value="{{ user.phonenumber }}"
+        />
+        <input
+          class="edit-input readonly"
+          *ngIf="!isEditing && user.phonenumber === null"
+          readonly
+          type="text"
+          placeholder="Not Specified"
+          value="Not Specified"
+          [(ngModel)]="updatedPhoneNumber"
+        /><input
+          class="edit-input"
+          *ngIf="isEditing"
+          type="text"
+          placeholder="Phone Number..."
+          value="{{ user.phonenumber }}"
+          [(ngModel)]="updatedPhoneNumber"
+        />
+      </td>
+    </tr>
+    <tr class="data-row">
+      <td class="label cell">Email</td>
+      <td class="data cell">
+        <input
+          class="edit-input readonly"
+          *ngIf="!isEditing && user.email !== null"
+          readonly
+          type="text"
+          placeholder="{{ user.email }}"
+          value="{{ user.email }}"
+        />
+        <input
+          class="edit-input readonly"
+          *ngIf="!isEditing && user.email === null"
+          readonly
+          type="text"
+          placeholder="Not Specified"
+          value="Not Specified"
+          [(ngModel)]="updatedEmail"
+        /><input
+          class="edit-input"
+          *ngIf="isEditing"
+          type="text"
+          placeholder="Email..."
+          value="{{ user.email }}"
+          [(ngModel)]="updatedEmail"
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="buttons-container">
+  <div class="cancel-button" *ngIf="isEditing" (click)="handleCancelClick()">
+    Cancel
   </div>
-  <table class="table" *ngIf="!isUpdatingDetails">
-    <tbody>
-      <tr class="data-row">
-        <td class="label cell">Username</td>
-        <td class="data cell">
-          <input
-            class="edit-input readonly"
-            *ngIf="!isEditing"
-            readonly
-            type="text"
-            placeholder="{{ user.username }}"
-            value="{{ user.username }}"
-          /><input
-            class="edit-input"
-            *ngIf="isEditing"
-            type="text"
-            placeholder="Username..."
-            value="{{ user.username }}"
-          />
-        </td>
-      </tr>
-      <tr class="data-row">
-        <td class="label cell">First Name</td>
-        <td class="data cell">
-          <input
-            class="edit-input readonly"
-            *ngIf="!isEditing && user.firstname !== null"
-            readonly
-            type="text"
-            placeholder="{{ user.firstname }}"
-            value="{{ user.firstname }}"
-          />
-          <input
-            class="edit-input readonly"
-            *ngIf="!isEditing && user.firstname === null"
-            readonly
-            type="text"
-            placeholder="Not Specified"
-            value="Not Specified"
-            [(ngModel)]="updatedFirstName"
-          />
-          <input
-            class="edit-input"
-            *ngIf="isEditing"
-            type="text"
-            placeholder="First Name..."
-            value="{{ user.firstname }}"
-            [(ngModel)]="updatedFirstName"
-          />
-        </td>
-      </tr>
-      <tr class="data-row">
-        <td class="label cell">Last</td>
-        <td class="data cell">
-          <input
-            class="edit-input readonly"
-            *ngIf="!isEditing && user.lastname !== null"
-            readonly
-            type="text"
-            placeholder="{{ user.lastname }}"
-            value="{{ user.lastname }}"
-          />
-          <input
-            class="edit-input readonly"
-            *ngIf="!isEditing && user.lastname === null"
-            readonly
-            type="text"
-            placeholder="Not Specified"
-            value="Not Specified"
-            [(ngModel)]="updatedLastName"
-          /><input
-            class="edit-input"
-            *ngIf="isEditing"
-            type="text"
-            placeholder="Last Name..."
-            value="{{ user.lastname }}"
-            [(ngModel)]="updatedLastName"
-          />
-        </td>
-      </tr>
-      <tr class="data-row">
-        <td class="label cell">Phone Number</td>
-        <td class="data cell">
-          <input
-            class="edit-input readonly"
-            *ngIf="!isEditing && user.phonenumber !== null"
-            readonly
-            type="text"
-            placeholder="{{ user.phonenumber }}"
-            value="{{ user.phonenumber }}"
-          />
-          <input
-            class="edit-input readonly"
-            *ngIf="!isEditing && user.phonenumber === null"
-            readonly
-            type="text"
-            placeholder="Not Specified"
-            value="Not Specified"
-            [(ngModel)]="updatedPhoneNumber"
-          /><input
-            class="edit-input"
-            *ngIf="isEditing"
-            type="text"
-            placeholder="Phone Number..."
-            value="{{ user.phonenumber }}"
-            [(ngModel)]="updatedPhoneNumber"
-          />
-        </td>
-      </tr>
-      <tr class="data-row">
-        <td class="label cell">Email</td>
-        <td class="data cell">
-          <input
-            class="edit-input readonly"
-            *ngIf="!isEditing && user.email !== null"
-            readonly
-            type="text"
-            placeholder="{{ user.email }}"
-            value="{{ user.email }}"
-          />
-          <input
-            class="edit-input readonly"
-            *ngIf="!isEditing && user.email === null"
-            readonly
-            type="text"
-            placeholder="Not Specified"
-            value="Not Specified"
-            [(ngModel)]="updatedEmail"
-          /><input
-            class="edit-input"
-            *ngIf="isEditing"
-            type="text"
-            placeholder="Email..."
-            value="{{ user.email }}"
-            [(ngModel)]="updatedEmail"
-          />
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="buttons-container">
-    <div class="cancel-button" *ngIf="isEditing" (click)="handleCancelClick()">
-      Cancel
-    </div>
-    <div class="edit-button" (click)="handleActionClick()">
-      {{ buttonString }}
-    </div>
+  <div class="edit-button" (click)="handleActionClick()">
+    {{ buttonString }}
   </div>
 </div>

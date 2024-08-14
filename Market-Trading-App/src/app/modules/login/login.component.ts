@@ -24,10 +24,6 @@ export class LoginComponent {
 
   constructor(private userService: UserService, private router: Router) {}
 
-  // ngOnInit() {
-  //   this.loggedIn = this.userService.loggedIn;
-  // }
-
   togglePasswordVisibility() {
     this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
     this.buttonLabel = this.passwordType === 'password' ? 'show' : 'hide';
@@ -46,12 +42,6 @@ export class LoginComponent {
   onKeydown(event) {
     if (event.key === 'Enter') {
       if (this.alreadyHasAccount) {
-        console.log(
-          (<HTMLInputElement>document.getElementById('loginUsernameInput'))
-            .value,
-          (<HTMLInputElement>document.getElementById('loginPasswordInput'))
-            .value
-        );
         this.login(
           (<HTMLInputElement>document.getElementById('loginUsernameInput'))
             .value,
@@ -95,7 +85,6 @@ export class LoginComponent {
       });
     } else if (!username && password) {
       this.isLoggingIn = false;
-
       this.errorMessage = 'Please enter a username';
     } else if (username && !password) {
       this.isLoggingIn = false;
@@ -107,7 +96,6 @@ export class LoginComponent {
   }
 
   signup(username: string, password: string, confirmedPassword: string) {
-    console.log(username, password, confirmedPassword);
     if (!username && !password) {
       this.errorMessage = 'Please enter the information';
     } else if (!username) {
@@ -132,8 +120,6 @@ export class LoginComponent {
         });
       }
     }
-
-    //backend returns 400 if user exists
   }
 
   checkForUppercase(password: string): boolean {

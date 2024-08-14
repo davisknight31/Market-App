@@ -3,7 +3,6 @@ import { Watchlist } from '../../../shared/interfaces/watchlists';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../core/services/api.service';
 import { Stock } from '../../../shared/interfaces/stock';
-import { TableComponent } from '../../../shared/components/table/table.component';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { FormsModule } from '@angular/forms';
 import { TradesimChoice } from '../../../shared/interfaces/tradesimChoice';
@@ -16,7 +15,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [
     CommonModule,
-    TableComponent,
     SpinnerComponent,
     FormsModule,
     ManageWatchlistModalComponent,

@@ -4,50 +4,6 @@
   flex-wrap: wrap;
 }
 
-.container {
-  min-height: 50vh;
-  // min-width: 500px;
-  width: fit-content;
-  max-width: 800px;
-  margin: auto;
-  margin-top: 10vh;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.welcome-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: #d8d8d8 0px 4px 24px;
-  border-radius: 10px;
-  padding: 25px;
-  gap: 15px;
-}
-
-.header {
-  color: #4c3ce0;
-  text-align: center;
-}
-
-.select-option {
-  // font-weight: bold;
-  font-size: 20px;
-  text-align: center;
-}
-
-.logout-button {
-  margin-top: 50px;
-  font-size: 20px;
-  font-weight: bold;
-  width: fit-content;
-}
-
-.logout-button:hover {
-  color: #4c3ce0;
-  cursor: pointer;
-}
-
 .details-and-actions {
   width: 75%;
   max-width: 750px;

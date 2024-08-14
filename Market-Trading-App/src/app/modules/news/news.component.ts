@@ -25,7 +25,6 @@ export class NewsComponent {
   getNewsArticles(): void {
     this.apiService.getNewsArticles().subscribe((response: NewsArticles) => {
       this.newsArticles = response;
-      console.log(response);
       this.isLoading = false;
     });
   }

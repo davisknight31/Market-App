@@ -13,7 +13,6 @@ import { UserService } from '../../../core/services/user.service';
 })
 export class TradeComponent {
   @Input() stockQuote?: Stock;
-  // @Input() balance: number;
   @Input() symbolId?: number;
   currentBalance: number;
   currentShares: number = 0;
@@ -94,13 +93,6 @@ export class TradeComponent {
   }
 
   purchaseShares(): void {
-    console.log(
-      'Buying',
-      this.userService.userId,
-      this.symbolId,
-      this.sharesInput,
-      this.stockQuote.price
-    );
     this.userService
       .purchaseShares(
         parseInt(this.userService.userId),
@@ -108,8 +100,7 @@ export class TradeComponent {
         this.sharesInput,
         this.stockQuote.price
       )
-      .subscribe((response: any) => {
-        console.log('purchase complete', response);
+      .subscribe(() => {
         this.userService.getShares().subscribe();
         this.userService.getBalance().subscribe();
         this.showTransactionModal = false;
@@ -118,14 +109,6 @@ export class TradeComponent {
   }
 
   sellShares(): void {
-    console.log(
-      'Selling',
-      this.userService.userId,
-      this.symbolId,
-      this.sharesInput,
-      this.stockQuote.price
-    );
-
     this.userService
       .sellShares(
         parseInt(this.userService.userId),
@@ -133,8 +116,7 @@ export class TradeComponent {
         this.sharesInput,
         this.stockQuote.price
       )
-      .subscribe((response: any) => {
-        console.log('sale complete', response);
+      .subscribe(() => {
         this.userService.getShares().subscribe();
         this.userService.getBalance().subscribe();
         this.showTransactionModal = false;
@@ -147,7 +129,6 @@ export class TradeComponent {
     const correlatingShare = this.userService.shares.find(
       (shares) => shares.symbolid === this.symbolId
     );
-
     if (correlatingShare) {
       this.currentShares = correlatingShare.quantity;
     }

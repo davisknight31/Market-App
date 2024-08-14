@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Share } from '../../../shared/interfaces/share';
 import { OwnedAsset } from '../../../shared/interfaces/ownedAsset';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -16,10 +15,6 @@ export class CurrentAssetsComponent {
   @Input() assets: OwnedAsset[];
 
   constructor(private router: Router) {}
-
-  ngOnInit() {
-    console.log(this.assets.length);
-  }
 
   formatNumber(value: number) {
     const options = {

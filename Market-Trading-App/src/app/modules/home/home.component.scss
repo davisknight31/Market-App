@@ -6,16 +6,13 @@
 
 .home-wrapper {
   display: flex;
-  // justify-content: space-between;
   flex-wrap: wrap;
-  // max-width: 1500px;
   margin-left: 90px;
 }
 
 .welcome-and-list {
   flex-grow: 1;
   width: 61%;
-  // max-width: 750px;
 }
 
 .welcome-card {
@@ -40,40 +37,6 @@
   margin: 30px;
   flex-grow: 1;
 }
-// .spinner-container {
-//   width: 100%;
-//   height: 100%;
-//   padding-top: 10%;
-//   padding-bottom: 10%;
-// }
-
-// .header {
-//   display: flex;
-//   justify-content: center;
-//   padding: 20px;
-// }
-
-// .tab-switcher {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// }
-// app-sidebar {
-//   width: fit-content;
-//   margin-bottom: 2%;
-// }
-
-// .table {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   overflow-x: overlay;
-//   // padding: 50px;
-
-//   app-table {
-//     // width: 100%;
-//   }
-// }
 
 @media (max-width: 1278px) {
   .assets-and-overview {

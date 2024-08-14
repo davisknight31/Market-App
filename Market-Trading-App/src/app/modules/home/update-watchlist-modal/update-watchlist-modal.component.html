@@ -1,12 +1,6 @@
 <div class="background">
   <div class="dialog">
     <h1 class="modal-header">Manage Watchlists</h1>
-    <!-- <div *ngIf="!loggedIn">
-      <h1>
-        Please <a routerLink="/login">login</a> to add <br />to your watchlists
-      </h1>
-    </div> -->
-    <!-- <div *ngIf="loggedIn"> -->
     <div *ngIf="watchlists.length > 0">
       <div class="add-symbol-header">
         Add {{ selectedSymbol }} to existing list:
@@ -42,7 +36,6 @@
     <div *ngIf="successMessage" class="success-message">
       {{ successMessage }}
     </div>
-    <!-- </div> -->
     <button class="button close-button" (click)="closeModal()">Close</button>
   </div>
 </div>

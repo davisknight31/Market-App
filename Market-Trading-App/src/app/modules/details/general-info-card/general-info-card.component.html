@@ -1,31 +1,29 @@
-<div class="general-info-container">
-  <h1>General Information</h1>
-  <ul class="general-info-list">
-    <li>
-      <span class="list-label">Country: </span>{{ companyProfile?.country }}
-    </li>
-    <li>
-      <span class="list-label">Currency: </span>{{ companyProfile?.currency }}
-    </li>
-    <li>
-      <span class="list-label">Exchange: </span>{{ companyProfile?.exchange }}
-    </li>
-    <li>
-      <span class="list-label">Industry: </span
-      >{{ companyProfile?.finnhubIndustry }}
-    </li>
-    <li>
-      <span class="list-label">Website: </span>
-      <a [href]="companyProfile?.webUrl" target="_blank">{{
-        companyProfile?.webUrl
-      }}</a>
-    </li>
-    <li>
-      <span class="list-label">Phone Number: </span>{{ companyProfile?.phone }}
-    </li>
-    <li>
-      <span class="list-label">Initial Public Offering: </span
-      >{{ formatDate(companyProfile?.ipo) }}
-    </li>
-  </ul>
-</div>
+<h1>General Information</h1>
+<ul class="general-info-list">
+  <li>
+    <span class="list-label">Country: </span>{{ companyProfile?.country }}
+  </li>
+  <li>
+    <span class="list-label">Currency: </span>{{ companyProfile?.currency }}
+  </li>
+  <li>
+    <span class="list-label">Exchange: </span>{{ companyProfile?.exchange }}
+  </li>
+  <li>
+    <span class="list-label">Industry: </span
+    >{{ companyProfile?.finnhubIndustry }}
+  </li>
+  <li>
+    <span class="list-label">Website: </span>
+    <a [href]="companyProfile?.webUrl" target="_blank">{{
+      companyProfile?.webUrl
+    }}</a>
+  </li>
+  <li>
+    <span class="list-label">Phone Number: </span>{{ companyProfile?.phone }}
+  </li>
+  <li>
+    <span class="list-label">Initial Public Offering: </span
+    >{{ formatDate(companyProfile?.ipo) }}
+  </li>
+</ul>

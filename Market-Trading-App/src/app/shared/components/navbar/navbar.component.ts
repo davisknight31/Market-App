@@ -12,7 +12,6 @@ import { UserService } from '../../../core/services/user.service';
 })
 export class NavbarComponent {
   menuActive: boolean = false;
-  // navLinkClasses: string;
   route: string;
   currentElement: HTMLElement;
   loggedIn: boolean = false;
@@ -20,10 +19,6 @@ export class NavbarComponent {
   @ViewChild('nav-wrapper') navElement: ElementRef;
 
   constructor(private userService: UserService, private router: Router) {}
-
-  // ngOnInit() {
-  //   this.loggedIn = this.userService.loggedIn;
-  // }
 
   ngAfterViewInit(): void {
     this.currentElement = this.homeElement.nativeElement;
@@ -55,8 +50,5 @@ export class NavbarComponent {
     this.currentElement.classList.remove('selected-link');
     elementReference.classList.add('selected-link');
     this.currentElement = elementReference;
-    // if (this.menuActive) {
-    //   this.menuActive = !this.menuActive;
-    // }
   }
 }

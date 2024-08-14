@@ -30,7 +30,6 @@ export class UpdateWatchlistModalComponent {
 
   createWatchlist(watchlistName: string) {
     this.resetMessages();
-    console.log(watchlistName, this.userService.userId, this.selectedSymbol);
     this.userService
       .createNewWatchlist(
         this.selectedSymbol,
@@ -41,17 +40,13 @@ export class UpdateWatchlistModalComponent {
         next: (data) => {
           if (data) {
             this.successMessage = `Watchlist with name "${watchlistName}" created successfully`;
-            console.log(this.successMessage);
             this.watchlists = [];
-            this.userService.getWatchlists().subscribe((response) => {
-              console.log(response);
-            });
+            this.userService.getWatchlists().subscribe();
             this.watchlists = this.userService.watchlists;
           }
         },
         error: (errorMessage) => {
           this.errorMessage = errorMessage;
-          console.log(this.errorMessage);
         },
       });
   }
@@ -64,15 +59,11 @@ export class UpdateWatchlistModalComponent {
         next: (data) => {
           if (data) {
             this.successMessage = `Successfully added ${this.selectedSymbol}!`;
-            this.userService.getWatchlists().subscribe((response) => {
-              console.log(response);
-            });
-            console.log(this.successMessage);
+            this.userService.getWatchlists().subscribe();
           }
         },
         error: (errorMessage) => {
           this.errorMessage = errorMessage;
-          console.log(this.errorMessage);
         },
       });
   }

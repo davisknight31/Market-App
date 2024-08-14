@@ -2,35 +2,6 @@
   <app-spinner></app-spinner>
 </div>
 <div class="cards" *ngIf="!isLoading">
-  <!-- <app-card
-    ><app-general-info-card
-      *ngIf="!isLoading"
-      class="general-info-card"
-      [stockQuote]="chosenStock"
-      [stockData]="stockData"
-      [companyProfile]="companyProfile"
-    ></app-general-info-card
-  ></app-card> -->
-
-  <!-- <div class="chard-and-trade">
-    <div class="chart-card-wrapper">
-      <app-card
-        ><app-chart-card
-          class="chart-card"
-          *ngIf="!isLoading"
-          [historicalBars]="formattedHistoricalBars"
-          [stockQuote]="chosenStock"
-          [stockData]="stockData"
-          [logo]="companyProfile?.logo"
-        ></app-chart-card
-      ></app-card>
-    </div>
-
-    <div class="trade-card-wrapper">
-      <app-card><app-trade></app-trade></app-card>
-    </div>
-  </div> -->
-
   <div class="chart-and-trade">
     <div class="chart-card-wrapper">
       <app-card
@@ -86,26 +57,4 @@
       ></app-card>
     </div>
   </div>
-  <!-- 
-  <div class="cards-wrapper">
-    <app-general-info-card
-      *ngIf="!isLoading"
-      class="general-info-card"
-      [stockQuote]="chosenStock"
-      [stockData]="stockData"
-      [companyProfile]="companyProfile"
-    ></app-general-info-card>
-
-    <app-financial-info-card
-      *ngIf="!isLoading"
-      class="financial-info-card"
-      [stockData]="stockData"
-    ></app-financial-info-card>
-    <app-description-card
-      class="description-card"
-      *ngIf="!isLoading"
-      [companyDescription]="companyDescription"
-      [companyName]="stockData.shortName"
-    ></app-description-card>
-  </div> -->
 </div>

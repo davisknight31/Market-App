@@ -19,7 +19,6 @@ export class UserService {
   shares: Share[] = [];
   selectedWatchlist: Watchlist;
   loggedIn: boolean = false;
-  // any other info
 
   constructor(private http: HttpClient) {}
 
@@ -65,7 +64,6 @@ export class UserService {
           this.username = data.username;
           this.balance = data.balance;
           this.loggedIn = true;
-          console.log(this.userId, this.username);
         }),
         catchError((error) => {
           console.error('Error:', error);
@@ -85,9 +83,7 @@ export class UserService {
       .get<Watchlists>(`${this.apiUrl}/Watchlist/GetWatchlists/${this.userId}`)
       .pipe(
         tap((data) => {
-          console.log('data', data);
           this.watchlists = data.watchlists;
-          console.log(this.watchlists);
         }),
         catchError((error) => {
           console.error('Error:', error);
@@ -103,9 +99,6 @@ export class UserService {
         symbol,
       })
       .pipe(
-        tap((data) => {
-          console.log(data);
-        }),
         catchError((error) => {
           console.error('Error:', error);
           let errorMessage: string;
@@ -127,9 +120,6 @@ export class UserService {
         symbol,
       })
       .pipe(
-        tap((data) => {
-          console.log(data);
-        }),
         catchError((error) => {
           console.error('Error:', error);
           let errorMessage: string;
@@ -160,9 +150,7 @@ export class UserService {
       .get<number>(`${this.apiUrl}/User/GetUserBalance/${this.userId}`)
       .pipe(
         tap((data) => {
-          console.log(data);
           this.balance = data;
-          console.log('current balance:', this.balance);
         }),
         catchError((error) => {
           console.error('Error:', error);
@@ -204,9 +192,7 @@ export class UserService {
       .get<Share[]>(`${this.apiUrl}/Shares/GetUserShares/${this.userId}`)
       .pipe(
         tap((data) => {
-          console.log('data', data);
           this.shares = data;
-          console.log(this.shares);
         }),
         catchError((error) => {
           console.error('Error:', error);
@@ -229,9 +215,6 @@ export class UserService {
         price,
       })
       .pipe(
-        tap((data) => {
-          console.log(data);
-        }),
         catchError((error) => {
           console.error('Error:', error);
           let errorMessage: string;
@@ -259,9 +242,6 @@ export class UserService {
         price,
       })
       .pipe(
-        tap((data) => {
-          console.log(data);
-        }),
         catchError((error) => {
           console.error('Error:', error);
           let errorMessage: string;
@@ -293,9 +273,6 @@ export class UserService {
         phonenumber,
       })
       .pipe(
-        tap((data) => {
-          console.log(data);
-        }),
         catchError((error) => {
           console.error('Error:', error);
           let errorMessage: string;

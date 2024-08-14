@@ -40,7 +40,6 @@ export class MainListComponent {
 
   filterList() {
     this.sortTableData();
-
     const filteredData: Stock[] = [];
     this.tableData.forEach((data) => {
       const correlatingChoice = this.tradesimsChoices.find(
@@ -66,7 +65,6 @@ export class MainListComponent {
   }
 
   addToWatchlist(symbol: string) {
-    console.log('add to watchlist');
     this.selectedSymbol = symbol;
     this.swapModalDisplay();
   }

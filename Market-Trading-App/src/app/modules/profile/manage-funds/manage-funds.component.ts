@@ -27,7 +27,6 @@ export class ManageFundsComponent {
   changeSelection() {}
 
   submit(type: string) {
-    console.log(this.adjustmentAmount, type);
     if (type === 'add') {
       this.addToBalance();
     } else {
