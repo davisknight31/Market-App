@@ -14,8 +14,8 @@ import { TradesimChoice } from '../../shared/interfaces/tradesimChoice';
   providedIn: 'root',
 })
 export class ApiService {
-  // private apiUrl = 'https://market-trading-app-davis.com/api';
-  private apiUrl = 'https://localhost:5286/api';
+  private apiUrl = 'https://market-trading-app-davis.com/api';
+  // private apiUrl = 'https://localhost:5286/api';
   cachedData: StockOld[] = [];
 
   constructor(private http: HttpClient) {}

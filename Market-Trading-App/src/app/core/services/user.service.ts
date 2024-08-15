@@ -9,8 +9,8 @@ import { Share } from '../../shared/interfaces/share';
   providedIn: 'root',
 })
 export class UserService {
-  // private apiUrl = 'https://market-trading-app-davis.com/api';
-  private apiUrl = 'https://localhost:5286/api';
+  private apiUrl = 'https://market-trading-app-davis.com/api';
+  // private apiUrl = 'https://localhost:5286/api';
   user: User;
   username: string;
   userId: string;
