@@ -12,8 +12,8 @@
           *ngIf="!isEditing"
           readonly
           type="text"
-          placeholder="{{ user.username }}"
-          value="{{ user.username }}"
+          placeholder="{{ user?.username }}"
+          value="{{ user?.username }}"
         /><input
           class="edit-input"
           *ngIf="isEditing"

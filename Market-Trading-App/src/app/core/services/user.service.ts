@@ -20,6 +20,17 @@ export class UserService {
   selectedWatchlist: Watchlist;
   loggedIn: boolean = false;
 
+  resetUserModel: User = {
+    userid: '',
+    username: '',
+    password: '',
+    balance: 0,
+    email: '',
+    firstname: '',
+    lastname: '',
+    phonenumber: '',
+  };
+
   constructor(private http: HttpClient) {}
 
   loginUser(username: string, password: string): Observable<User> {
@@ -303,9 +314,11 @@ export class UserService {
   }
 
   resetUser(): void {
+    this.user = this.resetUserModel;
     this.userId = '';
     this.username = '';
     this.watchlists = [];
     this.loggedIn = false;
+    window.location.reload();
   }
 }

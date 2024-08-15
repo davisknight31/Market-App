@@ -32,7 +32,6 @@ import { OwnedAsset } from '../../shared/interfaces/ownedAsset';
 })
 export class HomeComponent {
   stockSymbols: string[] = [];
-  tableColumnHeaders: string[] = [];
   isLoading: boolean = true;
   tradesimsChoices: TradesimChoice[];
   stockDetails: Stock[] = [];
@@ -54,16 +53,7 @@ export class HomeComponent {
   ) {}
 
   ngOnInit() {
-    this.tableColumnHeaders.push(
-      'Name',
-      'Current Price',
-      'Change',
-      '% Change',
-      'Daily High',
-      'Daily Low',
-      'Open Price',
-      'Previous Close'
-    );
+    // this.resetStocks();
     this.getStocks();
     this.username = this.userService.username;
     this.balance = this.userService.balance;
@@ -162,4 +152,12 @@ export class HomeComponent {
       this.isInProfit = false;
     }
   }
+
+  // resetStocks() {
+  //   this.ownedAssets = [];
+  //   this.highestPerformer = null;
+  //   this.lowestPerformer = null;
+  //   this.totalPortfolioValue = 0;
+  //   this.profitLossDifference = 0;
+  // }
 }

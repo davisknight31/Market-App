@@ -24,7 +24,6 @@ export class NavbarComponent {
     this.currentElement = this.homeElement.nativeElement;
     this.currentElement.classList.add('selected-link');
     this.router.events.subscribe(() => {
-      console.log('Current URL:', this.router.url);
       if (this.router.url.includes('details')) {
         this.currentElement.classList.remove('selected-link');
       } else {
@@ -46,7 +45,6 @@ export class NavbarComponent {
   }
 
   setSelection(elementReference: HTMLElement): void {
-    console.log(elementReference.classList);
     this.currentElement.classList.remove('selected-link');
     elementReference.classList.add('selected-link');
     this.currentElement = elementReference;
