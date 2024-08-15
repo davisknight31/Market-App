@@ -1,20 +1,91 @@
-<div class="list-container">
-  <app-table
-    *ngIf="watchlistStockDetails.length > 0"
-    [tableData]="watchlistStockDetails"
-    [columnHeaders]="headers"
-    [rowsPerPage]="5"
-    [inHomeView]="false"
-    (isListUpdatedChange)="refreshWatchlists()"
-  ></app-table>
-  <!-- <div
-    class="no-watchlist"
-    *ngIf="
-      watchlistStockDetails.length <= 0 &&
-      selectedWatchlistName !== 'Choose a watchlist'
-    "
-  >
-    This watchlist has no entries Add?
-  </div> -->
-  <app-spinner *ngIf="isLoading"></app-spinner>
+<div *ngIf="isDefaultSelected" class="no-selection">Select a watchlist!</div>
+
+<div *ngIf="!isDefaultSelected" class="list-container">
+  <div class="title-and-search">
+    <input
+      class="search-bar"
+      type="search"
+      placeholder="Search"
+      [(ngModel)]="searchString"
+      (input)="filterList()"
+    />
+  </div>
+  <div class="table-container">
+    <div class="spinner-container" *ngIf="isLoading">
+      <app-spinner></app-spinner>
+    </div>
+
+    <table class="main-list" *ngIf="!isLoading">
+      <thead>
+        <tr class="headers">
+          <th class="symbol-label">Name</th>
+          <th>Price</th>
+          <th>% 24hr</th>
+          <th>$ 24hr</th>
+          <th>Open</th>
+          <th>Market Cap</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="displayedTableData">
+        <tr class="data-row" *ngFor="let data of displayedTableData">
+          <td class="symbol" (click)="swapModalDisplay(data.symbol)">
+            {{ data.symbol }}
+          </td>
+          <td class="price" (click)="swapModalDisplay(data.symbol)">
+            ${{ data.price.toFixed(2) }}
+          </td>
+          <td class="percent-change" (click)="swapModalDisplay(data.symbol)">
+            <span
+              [ngClass]="{
+                'negative-change': data.percentChange.toString().includes('-'),
+                'positive-change': !data.percentChange.toString().includes('-')
+              }"
+              >{{ data.percentChange.toFixed(2) }}%</span
+            >
+          </td>
+          <td class="dollar-change" (click)="swapModalDisplay(data.symbol)">
+            <span
+              [ngClass]="{
+                'negative-change': data.change.toString().includes('-'),
+                'positive-change': !data.change.toString().includes('-')
+              }"
+              >{{ formatDollarChange(data.change.toFixed(2)) }}</span
+            >
+          </td>
+          <td class="open" (click)="swapModalDisplay(data.symbol)">
+            ${{ data.open.toFixed(2) }}
+          </td>
+          <td class="market-cap" (click)="swapModalDisplay(data.symbol)">
+            $1,234,567,890.12
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-manage-watchlist-modal
+      *ngIf="isModalOpen"
+      [selectedSymbol]="selectedSymbol"
+      (isModalOpenChange)="swapModalDisplay('')"
+      (isListUpdatedChange)="refreshWatchlists()"
+    ></app-manage-watchlist-modal>
+    <div
+      class="empty-container"
+      *ngIf="
+        displayedTableData?.length <= 0 && watchlistStockDetails.length > 0
+      "
+    >
+      <div class="empty-search">No results...</div>
+    </div>
+    <div class="empty-container">
+      <div
+        class="empty-list"
+        *ngIf="watchlistStockDetails.length <= 0 && !isLoading"
+      >
+        This watchlist is empty...
+        <div class="add-button" routerLink="/home">Add to watchlist?</div>
+        <div class="delete-button" (click)="deleteWatchlist()">
+          Delete watchlist?
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,68 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  z-index: 100;
+}
+
+.modal-header {
+  font-size: 36px;
+  margin: 0px 15px 15px 15px;
+  text-align: center;
+}
+
+.action-button {
+  font-family: inherit;
+  padding: 10px 40px;
+  background-color: #ffd4d4;
+  color: #ff3636;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.action-button:hover {
+  cursor: pointer;
+  background-color: #ffe1e1;
+}
+
+.close-button {
+  font-family: inherit;
+  font-weight: bold;
+  padding: 8px 24px;
+  background-color: #f4ddff;
+  color: #bc2dff;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.close-button:hover {
+  cursor: pointer;
+  background-color: #f8e8ff;
+  color: #c853ff;
+}
+
+@media (max-width: 744px) {
+  .dialog {
+    width: 80%;
+  }
+}

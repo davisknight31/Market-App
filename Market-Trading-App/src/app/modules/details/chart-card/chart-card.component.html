@@ -1,4 +1,22 @@
-<div class="container">
-  <!-- <h2>Price</h2> -->
-  <div id="chart"></div>
+<div class="name-and-price">
+  <h2 class="stock-name">
+    <img [src]="logo" class="logo" />
+    {{ stockData?.shortName }}
+    <span class="symbol">{{ stockData?.symbol }}</span>
+  </h2>
+  <span class="price-percentage"
+    ><div class="price">
+      ${{ stockQuote?.price.toFixed(2) }}
+      <span
+        class="percent"
+        [ngClass]="{
+          'negative-change': stockQuote?.percentChange.toString().includes('-'),
+          'positive-change': !stockQuote?.percentChange.toString().includes('-')
+        }"
+      >
+        {{ stockQuote?.percentChange.toFixed(2) }}%
+      </span>
+    </div></span
+  >
 </div>
+<div id="chart"></div>

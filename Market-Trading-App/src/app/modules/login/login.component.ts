@@ -3,11 +3,13 @@ import { UserService } from '../../core/services/user.service';
 import { User } from '../../shared/interfaces/user';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { CardComponent } from '../../shared/components/card/card.component';
+import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CardComponent, SpinnerComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -17,6 +19,8 @@ export class LoginComponent {
   errorMessage: string;
   user: User;
   alreadyHasAccount: boolean = true;
+  loggedIn: boolean = false;
+  isLoggingIn: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -35,49 +39,94 @@ export class LoginComponent {
     this.errorMessage = '';
   }
 
-  login(username: string, password: string) {
-    this.userService.loginUser(username, password).subscribe({
-      next: (data) => {
-        if (data) {
-          this.userService.getWatchlists().subscribe({
-            next: () => {
-              this.navigateToProfile();
-            },
-          });
-        }
-      },
-      error: (errorMessage) => {
-        this.errorMessage = errorMessage;
-      },
-    });
+  onKeydown(event) {
+    if (event.key === 'Enter') {
+      if (this.alreadyHasAccount) {
+        this.login(
+          (<HTMLInputElement>document.getElementById('loginUsernameInput'))
+            .value,
+          (<HTMLInputElement>document.getElementById('loginPasswordInput'))
+            .value
+        );
+      } else {
+        this.signup(
+          (<HTMLInputElement>document.getElementById('signupUsernameInput'))
+            .value,
+          (<HTMLInputElement>document.getElementById('signupPasswordInput'))
+            .value,
+          (<HTMLInputElement>(
+            document.getElementById('signupConfirmedPasswordInput')
+          )).value
+        );
+      }
+    }
   }
 
-  signup(username: string, password: string, confirmedPassword: string) {
-    console.log(username, password, confirmedPassword);
-    if (password !== confirmedPassword) {
-      this.errorMessage = 'The passwords must match!';
-    } else if (!this.checkForUppercase(password)) {
-      this.errorMessage = 'The password must contain at least one uppercase!';
-    } else {
-      this.userService.createUser(username, password).subscribe({
+  login(username: string, password: string) {
+    this.isLoggingIn = true;
+    if (username && password) {
+      this.userService.loginUser(username, password).subscribe({
         next: (data) => {
           if (data) {
-            this.navigateToProfile();
+            this.loggedIn = this.userService.loggedIn;
+            this.userService.getShares().subscribe();
+            this.userService.getWatchlists().subscribe({
+              next: () => {
+                this.isLoggingIn = false;
+                this.navigateToHome();
+              },
+            });
           }
         },
         error: (errorMessage) => {
           this.errorMessage = errorMessage;
+          this.isLoggingIn = false;
         },
       });
+    } else if (!username && password) {
+      this.isLoggingIn = false;
+      this.errorMessage = 'Please enter a username';
+    } else if (username && !password) {
+      this.isLoggingIn = false;
+      this.errorMessage = 'Please enter a password';
+    } else {
+      this.isLoggingIn = false;
+      this.errorMessage = 'Please enter the information';
     }
-    //backend returns 400 if user exists
+  }
+
+  signup(username: string, password: string, confirmedPassword: string) {
+    if (!username && !password) {
+      this.errorMessage = 'Please enter the information';
+    } else if (!username) {
+      this.errorMessage = 'Please enter a username';
+    } else if (!password) {
+      this.errorMessage = 'Please enter a password';
+    } else {
+      if (password !== confirmedPassword) {
+        this.errorMessage = 'The passwords must match!';
+      } else if (!this.checkForUppercase(password)) {
+        this.errorMessage = 'The password must contain at least one uppercase!';
+      } else {
+        this.userService.createUser(username, password).subscribe({
+          next: (data) => {
+            if (data) {
+              this.navigateToHome();
+            }
+          },
+          error: (errorMessage) => {
+            this.errorMessage = errorMessage;
+          },
+        });
+      }
+    }
   }
 
   checkForUppercase(password: string): boolean {
     return /[A-Z]/.test(password);
   }
 
-  navigateToProfile() {
-    this.router.navigate(['/profile']);
+  navigateToHome() {
+    this.router.navigate(['/home']);
   }
 }

@@ -1,34 +1,78 @@
 .spinner-container {
-  width: 100%;
-  height: 100%;
-  padding-top: 10%;
-  padding-bottom: 10%;
-}
-
-.header {
   display: flex;
   justify-content: center;
-  padding: 20px;
+  margin-top: 200px;
 }
 
-.tab-switcher {
+.home-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  margin-left: 90px;
 }
-app-sidebar {
+
+.welcome-and-list {
+  flex-grow: 1;
+  width: 61%;
+}
+
+.welcome-card {
+  margin: 30px;
+}
+
+.main-list-card {
+  margin: 30px;
+}
+
+.assets-and-overview {
   width: fit-content;
-  margin-bottom: 2%;
 }
 
-.table {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: overlay;
-  // padding: 50px;
+.overview-card {
+  margin: 30px;
+  min-width: 300px;
+  flex-grow: 1;
+}
 
-  app-table {
-    // width: 100%;
+.assets-card {
+  margin: 30px;
+  flex-grow: 1;
+}
+
+@media (max-width: 1278px) {
+  .assets-and-overview {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-wrapper {
+    margin: 30px;
+    margin-top: 90px;
+  }
+}
+
+@media (max-width: 744px) {
+  .home-wrapper {
+    margin: 0;
+    margin-top: 90px;
+  }
+
+  .welcome-card {
+    margin: 15px;
+    margin-top: 0;
+  }
+
+  .main-list-card {
+    margin: 15px;
+  }
+  .overview-card {
+    margin: 15px;
+  }
+
+  .assets-card {
+    margin: 15px;
   }
 }

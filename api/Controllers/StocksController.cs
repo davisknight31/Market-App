@@ -195,13 +195,20 @@ public class StocksController : Controller
     {
         try
         {
-            List<string> symbols = new List<string>();
+            List<MainListStockModel> symbols = new List<MainListStockModel>();
 
             var retrievedList = _marketAppDbContext.tradesimschoice.ToList();
 
             foreach (var entry in retrievedList)
             {
-                symbols.Add(entry.symbol);
+
+                MainListStockModel formattedEntry = new MainListStockModel
+                {
+                    symbolid = entry.symbolid,
+                    symbol = entry.symbol,
+                    fullname = entry.fullname,
+                };
+                symbols.Add(formattedEntry);
             }
           
             return Ok(symbols);

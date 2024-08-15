@@ -1,32 +1,73 @@
-.container {
-  display: flex;
-  justify-content: center;
-  min-height: 50vh;
-  padding-top: 10vh;
+.watchlist-container {
+  margin-left: 90px;
 }
 
 .wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   width: 75%;
+  margin: 30px;
+}
+
+.watchlist-dropdown-card {
+  width: 75%;
+  margin: 30px;
 }
 
 .watchlist-dropdown {
-  margin-top: 10px;
+  // margin-top: 10px;
   font-size: 18px;
-  padding: 3px;
-  width: 50%;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  font-family: inherit;
+  font-weight: bold;
+  color: #b9b9b9;
+  border-right: 16px solid transparent;
+}
+
+.watchlist-dropdown:hover {
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+.watchlist-dropdown:focus {
+  outline: none;
 }
 
 .watchlist-list {
-  // width: 100%;
   margin: 25px;
 }
 
+.option {
+  background-color: white;
+  font-weight: bold;
+  color: rgb(87, 87, 87);
+}
+
 .no-watchlists {
-  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+}
+
+.add-button {
+  width: 250px;
+  font-weight: bold;
+  padding: 15px;
+  background-color: #f4ddff;
+  color: #bc2dff;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.add-button:hover {
+  cursor: pointer;
+  background-color: #f8e8ff;
+  color: #c853ff;
 }
 
 a {
@@ -44,4 +85,33 @@ a:hover {
   text-align: center;
   font-size: 18px;
   padding-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .watchlist-container {
+    margin: 30px;
+    margin-top: 90px;
+  }
+
+  .watchlist-dropdown-card {
+    width: auto;
+  }
+
+  .wrapper {
+    width: auto;
+  }
+}
+
+@media (max-width: 750px) {
+  .watchlist-container {
+    margin: 0px;
+    margin-top: 90px;
+  }
+  .watchlist-dropdown-card {
+    margin: 15px;
+  }
+
+  .wrapper {
+    margin: 15px;
+  }
 }

@@ -1,0 +1,31 @@
+<div *ngIf="loggedIn" class="assets-wrapper">
+  <h1>Your Assets</h1>
+  <div class="table-container">
+    <table class="asset-list">
+      <thead>
+        <tr class="headers">
+          <th class="symbol-label">Symbol</th>
+          <th>Shares</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="data-row"
+          *ngFor="let asset of assets"
+          (click)="navigateToDetails(asset.symbol, asset.symbolId)"
+        >
+          <td class="symbol">{{ asset.symbol }}</td>
+          <td class="shares">{{ asset.shares.toFixed(2) }}</td>
+          <td class="value">{{ formatNumber(asset.price * asset.shares) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="no-assets" *ngIf="assets.length <= 0">No Assets</div>
+  </div>
+</div>
+
+<div *ngIf="!loggedIn" class="assets-wrapper">
+  <h1>Your Assets</h1>
+  <div class="login-disclaimer">Login to view.</div>
+</div>

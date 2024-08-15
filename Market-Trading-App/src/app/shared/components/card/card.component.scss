@@ -1,0 +1,12 @@
+.card-wrapper {
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px 45px 25px 45px;
+  height: 100%;
+}
+
+@media (max-width: 750px) {
+  .card-wrapper {
+    padding: 15px;
+  }
+}

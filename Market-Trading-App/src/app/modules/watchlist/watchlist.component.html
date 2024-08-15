@@ -1,49 +1,52 @@
-<div class="container">
-  <div *ngIf="loggedIn && !isRefreshing" class="wrapper">
-    <h1>Watchlists</h1>
-    <select
-      #watchlists
-      [(ngModel)]="selectedWatchlistName"
-      class="watchlist-dropdown"
-      (change)="switchList(watchlists.value)"
-    >
-      <option default>Choose a watchlist</option>
-      <option *ngFor="let watchlist of userWatchlists" [value]="watchlist.name">
-        {{ watchlist.name }}
-      </option>
-    </select>
-
-    <div
-      class="no-watchlists"
-      *ngIf="
-        userWatchlists.length <= 0 &&
-        selectedWatchlistName === 'Choose a watchlist'
-      "
-    >
-      It seems you have no watchlists... <a routerLink="/home">Add?</a>
-    </div>
-
-    <app-list
-      *ngIf="selectedWatchlist"
-      class="watchlist-list"
-      [selectedWatchlist]="selectedWatchlist"
-      [selectedWatchlistName]="selectedWatchlistName"
-      [headers]="watchlistColumnHeaders"
-      (refreshListChange)="refresh()"
-    ></app-list>
-    <div
-      *ngIf="
-        selectedWatchlist?.entries.length <= 0 &&
-        selectedWatchlistName !== 'Choose a watchlist'
-      "
-    >
-      This watchlist is empty... <a routerLink="/home">Add?</a> Or
-      <span class="delete-button" (click)="deleteWatchlist()">delete?</span>
+<div class="watchlist-container">
+  <div *ngIf="loggedIn && !isRefreshing">
+    <div class="watchlist-dropdown-card">
+      <app-card
+        ><select
+          #watchlists
+          [(ngModel)]="selectedWatchlistName"
+          class="watchlist-dropdown"
+          (change)="switchList(watchlists.value)"
+        >
+          <option default class="option">Choose a watchlist</option>
+          <option
+            *ngFor="let watchlist of userWatchlists"
+            class="option"
+            [value]="watchlist.name"
+          >
+            {{ watchlist.name }}
+          </option>
+        </select></app-card
+      >
     </div>
   </div>
 
+  <div *ngIf="loggedIn && !isRefreshing" class="wrapper">
+    <app-card>
+      <div
+        class="no-watchlists"
+        *ngIf="
+          userWatchlists.length <= 0 &&
+          selectedWatchlistName === 'Choose a watchlist'
+        "
+      >
+        It seems you have no watchlists...
+        <div class="add-button" routerLink="/home">Add?</div>
+      </div>
+
+      <app-list
+        *ngIf="userWatchlists.length > 0"
+        class="watchlist-list"
+        [isDefaultSelected]="isDefaultSelected"
+        [selectedWatchlist]="selectedWatchlist"
+        [tradesimsChoices]="tradesimsChoices"
+        [selectedWatchlistName]="selectedWatchlistName"
+        (refreshListChange)="refresh()"
+      ></app-list>
+    </app-card>
+  </div>
+
   <div *ngIf="!loggedIn" class="wrapper">
-    <h1>Watchlists</h1>
     <div class="login-text">
       Please <a routerLink="/login">login</a> to see your watchlists!
     </div>

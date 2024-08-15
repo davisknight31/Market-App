@@ -3,18 +3,33 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { User } from '../../shared/interfaces/user';
 import { Watchlist, Watchlists } from '../../shared/interfaces/watchlists';
+import { Share } from '../../shared/interfaces/share';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'https://market-trading-app-davis.com/api';
+  // private apiUrl = 'https://market-trading-app-davis.com/api';
+  private apiUrl = 'https://localhost:5286/api';
+  user: User;
   username: string;
   userId: string;
+  balance: number;
   watchlists: Watchlist[] = [];
+  shares: Share[] = [];
   selectedWatchlist: Watchlist;
   loggedIn: boolean = false;
-  // any other info
+
+  resetUserModel: User = {
+    userid: '',
+    username: '',
+    password: '',
+    balance: 0,
+    email: '',
+    firstname: '',
+    lastname: '',
+    phonenumber: '',
+  };
 
   constructor(private http: HttpClient) {}
 
@@ -26,17 +41,21 @@ export class UserService {
       })
       .pipe(
         tap((data) => {
+          this.user = data;
           this.userId = data.userid;
           this.username = data.username;
+          this.balance = data.balance;
           this.loggedIn = true;
-          console.log(this.userId, this.username);
         }),
         catchError((error) => {
           console.error('Error:', error);
           let errorMessage: string;
           if (error.status === 404) {
             errorMessage = 'Username or password is incorrect.';
-          } else {
+          }
+          // else if (error.status === 400) {
+          //   }
+          else {
             errorMessage = 'An error occurred. Please try again later.';
           }
           return throwError(() => new Error(errorMessage));
@@ -54,8 +73,8 @@ export class UserService {
         tap((data) => {
           this.userId = data.userid;
           this.username = data.username;
+          this.balance = data.balance;
           this.loggedIn = true;
-          console.log(this.userId, this.username);
         }),
         catchError((error) => {
           console.error('Error:', error);
@@ -75,9 +94,7 @@ export class UserService {
       .get<Watchlists>(`${this.apiUrl}/Watchlist/GetWatchlists/${this.userId}`)
       .pipe(
         tap((data) => {
-          console.log('data', data);
           this.watchlists = data.watchlists;
-          console.log(this.watchlists);
         }),
         catchError((error) => {
           console.error('Error:', error);
@@ -93,9 +110,6 @@ export class UserService {
         symbol,
       })
       .pipe(
-        tap((data) => {
-          console.log(data);
-        }),
         catchError((error) => {
           console.error('Error:', error);
           let errorMessage: string;
@@ -117,9 +131,6 @@ export class UserService {
         symbol,
       })
       .pipe(
-        tap((data) => {
-          console.log(data);
-        }),
         catchError((error) => {
           console.error('Error:', error);
           let errorMessage: string;
@@ -145,10 +156,169 @@ export class UserService {
     );
   }
 
+  getBalance() {
+    return this.http
+      .get<number>(`${this.apiUrl}/User/GetUserBalance/${this.userId}`)
+      .pipe(
+        tap((data) => {
+          this.balance = data;
+        }),
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
+  addToBalance(amount: number) {
+    return this.http
+      .post<number>(
+        `${this.apiUrl}/User/AddToBalance/${this.userId}/${amount}`,
+        {}
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
+  removeFromBalance(amount: number) {
+    return this.http
+      .post<number>(
+        `${this.apiUrl}/User/RemoveFromBalance/${this.userId}/${amount}`,
+        {}
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
+  getShares() {
+    return this.http
+      .get<Share[]>(`${this.apiUrl}/Shares/GetUserShares/${this.userId}`)
+      .pipe(
+        tap((data) => {
+          this.shares = data;
+        }),
+        catchError((error) => {
+          console.error('Error:', error);
+          throw error;
+        })
+      );
+  }
+
+  purchaseShares(
+    userid: number,
+    symbolid: number,
+    quantity: number,
+    price: number
+  ) {
+    return this.http
+      .post<Share>(`${this.apiUrl}/Shares/PurchaseShares`, {
+        userid,
+        symbolid,
+        quantity,
+        price,
+      })
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          let errorMessage: string;
+          if (error.status === 400) {
+            errorMessage = 'The user does not have the required funds.';
+          } else {
+            errorMessage = 'An error occurred. Please try again later.';
+          }
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
+
+  sellShares(
+    userid: number,
+    symbolid: number,
+    quantity: number,
+    price: number
+  ) {
+    return this.http
+      .post<Share>(`${this.apiUrl}/Shares/SellShares`, {
+        userid,
+        symbolid,
+        quantity,
+        price,
+      })
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          let errorMessage: string;
+          if (error.status === 400) {
+            errorMessage = 'The user does not have the required funds.';
+          } else {
+            errorMessage = 'An error occurred. Please try again later.';
+          }
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
+
+  updatePersonalInfo(
+    userid: string,
+    username: string,
+    email: string,
+    firstname: string,
+    lastname: string,
+    phonenumber: string
+  ) {
+    return this.http
+      .put<User>(`${this.apiUrl}/User/UpdateUserPersonalDetails`, {
+        userid,
+        username,
+        email,
+        firstname,
+        lastname,
+        phonenumber,
+      })
+      .pipe(
+        catchError((error) => {
+          console.error('Error:', error);
+          let errorMessage: string;
+          errorMessage =
+            'An error occurred updating the info. Please try again later.';
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
+
+  getUserById() {
+    return this.http
+      .get<User>(`${this.apiUrl}/User/GetUserById/${this.userId}`)
+      .pipe(
+        tap((data) => {
+          this.user = data;
+          this.username = data.username;
+          this.balance = data.balance;
+        }),
+        catchError((error) => {
+          console.error('Error:', error);
+          let errorMessage: string;
+          errorMessage =
+            'An error occurred updating the info. Please try again later.';
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
+
   resetUser(): void {
+    this.user = this.resetUserModel;
     this.userId = '';
     this.username = '';
     this.watchlists = [];
     this.loggedIn = false;
+    window.location.reload();
   }
 }

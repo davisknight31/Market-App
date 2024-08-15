@@ -1,31 +1,47 @@
-<div *ngIf="!isLoading">
-  <app-news-card></app-news-card>
+<div *ngIf="isLoading" class="spinner-container">
+  <app-spinner></app-spinner>
+</div>
 
-  <div class="tab-switcher">
-    <h1 class="header">Current Prices</h1>
-    <app-sidebar></app-sidebar>
+<div *ngIf="!isLoading" class="home-wrapper">
+  <div class="welcome-and-list">
+    <div class="welcome-card">
+      <app-card
+        ><app-welcome
+          [balance]="balance"
+          [loggedIn]="loggedIn"
+          [username]="username"
+        ></app-welcome
+      ></app-card>
+    </div>
+    <div class="main-list-card">
+      <app-card
+        ><app-main-list
+          [tableData]="stockDetails"
+          [tradesimsChoices]="tradesimsChoices"
+        ></app-main-list
+      ></app-card>
+    </div>
   </div>
-  <div class="table">
-    <app-table
-      *ngIf="tableFilterService.selectedStockList === 'tradesimChoice'"
-      [tableData]="stockDetails"
-      [columnHeaders]="tableColumnHeaders"
-      [rowsPerPage]="10"
-      [inHomeView]="true"
-    ></app-table>
-    <!-- <app-table
-      *ngIf="tableFilterService.selectedStockList === 'topMovers'"
-      [tableData]="topMovers"
-      [columnHeaders]="tableColumnHeaders"
-      [rowsPerPage]="5"
-    ></app-table> -->
-    <app-table
-      *ngIf="tableFilterService.selectedStockList === 'mostActive'"
-      [tableData]="mostActive"
-      [columnHeaders]="tableColumnHeaders"
-      [rowsPerPage]="5"
-      [inHomeView]="true"
-    ></app-table>
+
+  <div class="assets-and-overview">
+    <div class="overview-card">
+      <app-card
+        ><app-portfolio-overview
+          [loggedIn]="loggedIn"
+          [totalPortfolioValue]="totalPortfolioValue"
+          [profitLossDifference]="profitLossDifference"
+          [highestPerformer]="highestPerformer"
+          [lowestPerformer]="lowestPerformer"
+        ></app-portfolio-overview
+      ></app-card>
+    </div>
+    <div class="assets-card">
+      <app-card
+        ><app-current-assets
+          [loggedIn]="loggedIn"
+          [assets]="ownedAssets"
+        ></app-current-assets
+      ></app-card>
+    </div>
   </div>
-  <!-- </div> -->
 </div>

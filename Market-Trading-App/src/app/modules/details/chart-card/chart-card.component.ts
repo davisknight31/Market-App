@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   ColorType,
   IChartApi,
@@ -6,16 +6,22 @@ import {
   createChart,
 } from 'lightweight-charts';
 import { FormattedHistoricalBar } from '../../../shared/interfaces/bars';
+import { Stock } from '../../../shared/interfaces/stock';
+import { Data } from '../../../shared/interfaces/data';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-chart-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './chart-card.component.html',
   styleUrl: './chart-card.component.scss',
 })
 export class ChartCardComponent {
   @Input() historicalBars?: FormattedHistoricalBar[];
+  @Input() stockQuote?: Stock;
+  @Input() stockData?: Data;
+  @Input() logo?: string;
 
   private chart: IChartApi;
   private initialRange;
@@ -37,12 +43,14 @@ export class ChartCardComponent {
     console.log(startUtcTimestamp, endUtcTimestamp);
 
     const areaSeries = this.chart.addAreaSeries({
-      lineColor: '#2962FF',
-      topColor: '#2962FF',
-      bottomColor: 'rgba(41, 98, 255, 0.28)',
+      // lineColor: '#2962FF',
+      // topColor: '#2962FF',
+      // bottomColor: 'rgba(41, 98, 255, 0.28)',
+      lineColor: '#bc2dff',
+      topColor: '#bc2dff',
+      bottomColor: '#efceff',
     });
 
-    console.log(this.historicalBars);
     areaSeries.setData(this.historicalBars);
 
     this.initialRange = { from: startUtcTimestamp, to: endUtcTimestamp };
@@ -59,18 +67,6 @@ export class ChartCardComponent {
         this.chart.timeScale().setVisibleRange(this.initialRange);
       }
     });
-
-    // const lineSeries = this.chart.addLineSeries();
-
-    // const data: LineData[] = [
-    //   { time: '2023-01-01', value: 110 },
-    //   { time: '2023-01-02', value: 120 },
-    //   { time: '2023-01-03', value: 125 },
-    //   { time: '2023-01-04', value: 130 },
-    //   { time: '2023-01-05', value: 115 },
-    // ];
-
-    // lineSeries.setData(data);
   }
 
   private createChart(showPriceScale: boolean): void {
@@ -92,11 +88,11 @@ export class ChartCardComponent {
         },
       },
       rightPriceScale: {
-        visible: showPriceScale, // Show or hide the Y-axis based on the parameter
+        visible: showPriceScale,
         borderVisible: false,
       },
       leftPriceScale: {
-        visible: false, // Hide the Y-axis on the left side (if you are using it)
+        visible: false,
       },
     });
   }

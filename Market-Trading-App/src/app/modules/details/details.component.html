@@ -1,30 +1,60 @@
-<div class="cards">
-  <div *ngIf="isLoading" class="spinner-container">
-    <app-spinner></app-spinner>
+<div *ngIf="isLoading" class="spinner-container">
+  <app-spinner></app-spinner>
+</div>
+<div class="cards" *ngIf="!isLoading">
+  <div class="chart-and-trade">
+    <div class="chart-card-wrapper">
+      <app-card
+        ><app-chart-card
+          class="chart-card"
+          *ngIf="!isLoading"
+          [historicalBars]="formattedHistoricalBars"
+          [stockQuote]="chosenStock"
+          [stockData]="stockData"
+          [logo]="companyProfile?.logo"
+        ></app-chart-card
+      ></app-card>
+    </div>
+    <div class="trade-card-wrapper">
+      <app-card
+        ><app-trade [stockQuote]="chosenStock" [symbolId]="symbolId"></app-trade
+      ></app-card>
+    </div>
   </div>
-  <div class="cards-wrapper">
-    <app-general-info-card
-      *ngIf="!isLoading"
-      class="general-info-card"
-      [stockQuote]="chosenStock"
-      [stockData]="stockData"
-      [companyProfile]="companyProfile"
-    ></app-general-info-card>
-    <app-chart-card
-      class="chart-card"
-      *ngIf="!isLoading"
-      [historicalBars]="formattedHistoricalBars"
-    ></app-chart-card>
-    <app-financial-info-card
-      *ngIf="!isLoading"
-      class="financial-info-card"
-      [stockData]="stockData"
-    ></app-financial-info-card>
-    <app-description-card
-      class="description-card"
-      *ngIf="!isLoading"
-      [companyDescription]="companyDescription"
-      [companyName]="stockData.shortName"
-    ></app-description-card>
+
+  <div class="general-info-and-financial-info">
+    <div class="general-info-card-wrapper">
+      <app-card
+        ><app-general-info-card
+          *ngIf="!isLoading"
+          class="general-info-card"
+          [stockQuote]="chosenStock"
+          [stockData]="stockData"
+          [companyProfile]="companyProfile"
+        ></app-general-info-card
+      ></app-card>
+    </div>
+    <div class="financial-info-card-wrapper">
+      <app-card
+        ><app-financial-info-card
+          *ngIf="!isLoading"
+          class="financial-info-card"
+          [stockData]="stockData"
+        ></app-financial-info-card
+      ></app-card>
+    </div>
+  </div>
+
+  <div class="description">
+    <div class="description-card-wrapper">
+      <app-card
+        ><app-description-card
+          class="description-card"
+          *ngIf="!isLoading"
+          [companyDescription]="companyDescription"
+          [companyName]="stockData.shortName"
+        ></app-description-card
+      ></app-card>
+    </div>
   </div>
 </div>

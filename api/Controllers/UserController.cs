@@ -45,7 +45,7 @@ public class UserController : ControllerBase
         }
         else
         {
-            return BadRequest("Invalid username or password.");
+            return NotFound("Invalid username or password.");
         }
     }
 
@@ -67,6 +67,7 @@ public class UserController : ControllerBase
         {
             username = model.username,
             password = hashedPassword,
+            balance = 10000
         };
 
         try
@@ -83,6 +84,121 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpGet("GetUserById/{userId}")]
+    public async Task<IActionResult> GetUserById(int userId)
+    {
+        try
+        {
+            var retrievedUser = _marketAppDbContext.users.FirstOrDefault(u => u.userid == userId);
+            retrievedUser.password = null;
+
+            return Ok(retrievedUser);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving user balance: " + ex.Message);
+
+        }
+
+    }
 
 
+    [HttpGet("GetUserBalance/{userId}")]
+    public async Task<IActionResult> GetUserBalance(int userId)
+    {
+        try
+        {
+            var retrievedUser = _marketAppDbContext.users.FirstOrDefault(u => u.userid == userId);
+            var balance = retrievedUser.balance;
+            return Ok(balance);
+
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving user balance: " + ex.Message);
+
+        }
+    }
+
+
+    [HttpPost("AddToBalance/{userId}/{additionAmount}")]
+    public async Task<IActionResult> AddToBalance(int userId, double additionAmount)
+    {
+        try
+        {
+            var retrievedUser = _marketAppDbContext.users.FirstOrDefault(u => u.userid == userId);
+            var newBalance = retrievedUser.balance + additionAmount;
+
+            retrievedUser.balance = newBalance;
+
+            _marketAppDbContext.users.Update(retrievedUser);
+            _marketAppDbContext.SaveChanges();
+
+            return Ok();
+
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving user balance: " + ex.Message);
+
+        }
+    }
+
+    [HttpPost("RemoveFromBalance/{userId}/{removalAmount}")]
+    public async Task<IActionResult> RemoveFromBalance(int userId, double removalAmount)
+    {
+        try
+        {
+            var retrievedUser = _marketAppDbContext.users.FirstOrDefault(u => u.userid == userId);
+            var newBalance = retrievedUser.balance - removalAmount;
+            if (newBalance >= 0) {
+
+                retrievedUser.balance = newBalance; 
+
+                _marketAppDbContext.users.Update(retrievedUser);
+                _marketAppDbContext.SaveChanges();
+
+                return Ok();
+            } 
+            else
+            {
+                return BadRequest("Insufficient funds");
+
+            }
+
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving user balance: " + ex.Message);
+
+        }
+    } 
+
+    [HttpPut("UpdateUserPersonalDetails")]
+    public async Task<IActionResult> UpdateUserPersonalDetails([FromBody] UpdateUserPersonalDetailsModel model)
+    {
+        try
+        {
+            var retrievedUser = _marketAppDbContext.users.FirstOrDefault(u => u.userid == model.userid);
+
+            
+            retrievedUser.username = model.username;
+            retrievedUser.email = model.email;
+            retrievedUser.firstname = model.firstname;
+            retrievedUser.lastname = model.lastname;
+            retrievedUser.phonenumber = model.phonenumber;
+
+            _marketAppDbContext.users.Update(retrievedUser);
+            _marketAppDbContext.SaveChanges();
+
+            return Ok();
+
+
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while updating the user: " + ex.Message);
+
+        }
+    }
 }

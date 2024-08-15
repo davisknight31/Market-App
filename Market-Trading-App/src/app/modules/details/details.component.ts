@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Stock, StockOld } from '../../shared/interfaces/stock';
+import { Stock } from '../../shared/interfaces/stock';
 import { Data } from '../../shared/interfaces/data';
 import { Profile } from '../../shared/interfaces/profile';
 import { ActivatedRoute } from '@angular/router';
@@ -16,6 +16,9 @@ import {
   FormattedHistoricalBar,
   HistoricalBars,
 } from '../../shared/interfaces/bars';
+import { CardComponent } from '../../shared/components/card/card.component';
+import { TradeComponent } from './trade/trade.component';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-details',
@@ -27,13 +30,16 @@ import {
     CommonModule,
     DescriptionCardComponent,
     ChartCardComponent,
+    CardComponent,
+    TradeComponent,
+    TradeComponent,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
 })
 export class DetailsComponent {
-  // @Input() stock?: Stock;
   @Input() stockSymbol?: string;
+  @Input() symbolId?: number;
 
   stockData: Data;
   chosenStock: Stock;
@@ -48,11 +54,9 @@ export class DetailsComponent {
 
   ngOnInit(): void {
     this.stockSymbol = this.route.snapshot.paramMap.get('stock');
-    // this.stock = JSON.parse(stockParameter!) as Stock;
-    // this.getCompanyOverview();
+    this.symbolId = parseInt(this.route.snapshot.paramMap.get('symbolid'));
+
     this.getStockPrice(this.stockSymbol);
-    // this.getStockData();
-    // this.getCompanyProfile();
     this.combineApisAndLoad();
     window.scrollTo(0, 0);
   }
@@ -69,7 +73,6 @@ export class DetailsComponent {
 
     forkJoin(combinedObservables).subscribe({
       next: (responses) => {
-        console.log(responses);
         this.stockData = responses[0];
         this.companyProfile = responses[1];
         this.companyDescription = responses[2];
@@ -89,20 +92,10 @@ export class DetailsComponent {
     });
   }
 
-  // getPriceInfoFromCachedData(): void {
-  //   this.apiService.cachedData.forEach((cache) => {
-  //     if (cache.name === this.stockSymbol) {
-  //       console.log(cache);
-  //       this.cachedStock = cache;
-  //     }
-  //   });
-  // }
-
   getStockPrice(stockSymbol: string): void {
     const symbolInList: string[] = [];
     symbolInList.push(stockSymbol);
     let responseData = [];
-
     this.apiService.getStocks(symbolInList).subscribe((response: Stock[]) => {
       responseData = response;
       this.chosenStock = responseData[0];
@@ -114,7 +107,6 @@ export class DetailsComponent {
       .getStockDataBySymbol(this.stockSymbol)
       .subscribe((response: Data) => {
         this.stockData = response;
-        console.log(response);
       });
   }
 
@@ -123,20 +115,6 @@ export class DetailsComponent {
       .GetCompanyProfileBySymbol(this.stockSymbol)
       .subscribe((response: Profile) => {
         this.companyProfile = response;
-        console.log(response);
       });
   }
-
-  // getCompanyDescription(): void {
-  //   this.apiService
-  //     .getCompanyDescription(this.stockSymbol)
-  //     .subscribe((response: CompanyDescription) => {
-  //       this.companyDescription = response;
-  //       console.log(response);
-  //     });
-  // }
-
-  // ngOnDestroy(): void {
-  //   this.companyOverview.unsubscribe();
-  // }
 }

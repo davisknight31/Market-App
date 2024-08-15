@@ -1,0 +1,20 @@
+<div *ngIf="loggedIn" class="welcome-wrapper">
+  <div class="name-and-date">
+    <h1>Welcome {{ username }}</h1>
+    <div class="date">{{ formattedDate }}</div>
+  </div>
+  <div class="balance">
+    <div class="balance-label">Available Balance:</div>
+    <div>{{ formatNumber(balance) }}</div>
+  </div>
+</div>
+
+<div *ngIf="!loggedIn" class="welcome-wrapper">
+  <div class="name-and-date">
+    <h1>
+      <span class="login-button" (click)="navigateToLogin()">Login</span> to see
+      your stats
+    </h1>
+    <div class="date">{{ formattedDate }}</div>
+  </div>
+</div>

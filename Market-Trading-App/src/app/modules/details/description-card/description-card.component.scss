@@ -1,20 +1,12 @@
 .container {
-  box-shadow: #d8d8d8 0px 4px 24px;
-  border-radius: 10px;
-  //   min-width: 200px;
-  //   width: 75vw;
-  //   max-width: 1200px;
-  padding: 20px;
   font-size: 16px;
-  margin-bottom: 50px;
-}
-
-.separator {
-  margin-top: 10px;
 }
 
 .description {
   padding-top: 16px;
+  line-height: 35px;
+  font-weight: bold;
+  color: #838383;
 }
 
 @media (max-width: 1000px) {

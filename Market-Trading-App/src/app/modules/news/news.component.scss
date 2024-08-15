@@ -1,20 +1,33 @@
+.news-container {
+  margin-left: 90px;
+}
+
 .spinner-container {
   display: flex;
   justify-content: center;
+  margin-top: 200px;
 }
 
-.article-list-container {
-  margin-top: 2%;
+.article-list-card {
+  margin: 30px;
+}
+
+.article-list {
+  max-height: 750px;
+  overflow: auto;
+  padding: 0px 50px;
 }
 
 .article-container {
   display: flex;
   align-items: center;
-  padding: 20px;
   border-bottom: 1px solid #ccc;
 }
 
 .article-link {
+  display: flex;
+  width: 100%;
+  padding: 20px;
   text-decoration: none;
   color: #333;
 }
@@ -27,7 +40,6 @@
 }
 
 .article-headline {
-  flex: 2;
   font-size: 18px;
   font-weight: bold;
   margin-left: 20px;
@@ -35,4 +47,34 @@
 
 .article-container:hover {
   background-color: #f0f0f0;
+}
+
+@media (max-width: 900px) {
+  .news-container {
+    margin: 30px;
+    margin-top: 90px;
+  }
+
+  .article-link {
+    flex-direction: column;
+  }
+
+  .article-headline {
+    margin: 0;
+  }
+
+  .article-list {
+    padding: 0;
+  }
+}
+
+@media (max-width: 750px) {
+  .news-container {
+    margin: 0px;
+    margin-top: 90px;
+  }
+
+  .article-list-card {
+    margin: 15px;
+  }
 }

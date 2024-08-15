@@ -1,0 +1,41 @@
+<div class="background">
+  <div class="dialog">
+    <h1 class="modal-header">Manage Watchlists</h1>
+    <div *ngIf="watchlists.length > 0">
+      <div class="add-symbol-header">
+        Add {{ selectedSymbol }} to existing list:
+      </div>
+      <div class="watchlist-list">
+        <div *ngFor="let watchlist of watchlists">
+          <div
+            class="watchlist"
+            (click)="addToWatchlist(watchlist.watchlistid)"
+          >
+            {{ watchlist.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="new-watchlist-header">
+      Create a list with {{ selectedSymbol }}:
+    </div>
+    <div class="watchlist-name-submit">
+      <input
+        class="name-input"
+        type="text"
+        placeholder="Enter watchlist name..."
+        #newWatchlistName
+      />
+      <button class="button" (click)="createWatchlist(newWatchlistName.value)">
+        Create
+      </button>
+    </div>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+    <button class="button close-button" (click)="closeModal()">Close</button>
+  </div>
+</div>

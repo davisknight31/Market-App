@@ -1,0 +1,74 @@
+<div class="title-and-search">
+  <h1 class="title">Prices</h1>
+  <input
+    class="search-bar"
+    type="search"
+    placeholder="Search"
+    [(ngModel)]="searchString"
+    (input)="filterList()"
+  />
+</div>
+<div class="table-container">
+  <table class="main-list">
+    <thead>
+      <tr class="headers">
+        <th class="watchlist-label"></th>
+        <th class="symbol-label">Name</th>
+        <th>Price</th>
+        <th>% 24hr</th>
+        <th>$ 24hr</th>
+        <th>Open</th>
+        <th>Close</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="displayedTableData">
+      <tr class="data-row" *ngFor="let data of displayedTableData">
+        <td class="watchlist" (click)="addToWatchlist(data.symbol)">★</td>
+        <td class="symbol" (click)="navigateToStockDetails(data.symbol)">
+          {{ data.symbol }}
+        </td>
+        <td class="price" (click)="navigateToStockDetails(data.symbol)">
+          ${{ data.price.toFixed(2) }}
+        </td>
+        <td
+          class="percent-change"
+          (click)="navigateToStockDetails(data.symbol)"
+        >
+          <span
+            [ngClass]="{
+              'negative-change': data.percentChange.toString().includes('-'),
+              'positive-change': !data.percentChange.toString().includes('-')
+            }"
+            >{{ data.percentChange.toFixed(2) }}%</span
+          >
+        </td>
+        <td class="dollar-change" (click)="navigateToStockDetails(data.symbol)">
+          <span
+            [ngClass]="{
+              'negative-change': data.change.toString().includes('-'),
+              'positive-change': !data.change.toString().includes('-')
+            }"
+            >{{ formatDollarChange(data.change.toFixed(2)) }}</span
+          >
+        </td>
+        <td class="open" (click)="navigateToStockDetails(data.symbol)">
+          ${{ data.open.toFixed(2) }}
+        </td>
+        <td
+          class="previous-close"
+          (click)="navigateToStockDetails(data.symbol)"
+        >
+          ${{ data.close.toFixed(2) }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty-search-container" *ngIf="displayedTableData.length <= 0">
+    <div class="empty-search">No results...</div>
+  </div>
+  <app-update-watchlist-modal
+    *ngIf="isModalOpen"
+    [selectedSymbol]="selectedSymbol"
+    (isModalOpenChange)="swapModalDisplay()"
+  ></app-update-watchlist-modal>
+</div>

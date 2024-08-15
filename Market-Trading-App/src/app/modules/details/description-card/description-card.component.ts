@@ -1,11 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { CompanyDescription } from '../../../shared/interfaces/companyDescription';
-import {
-  ColorType,
-  IChartApi,
-  LineData,
-  createChart,
-} from 'lightweight-charts';
 import { CommonModule } from '@angular/common';
 
 @Component({

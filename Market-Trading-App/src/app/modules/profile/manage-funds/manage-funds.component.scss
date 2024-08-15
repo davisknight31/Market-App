@@ -1,0 +1,72 @@
+.spinner-container {
+  display: flex;
+  justify-content: center;
+}
+
+.current-balance {
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+.label {
+  color: #b7b7b7;
+}
+.inputs {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.type-dropdown {
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  font-family: inherit;
+  font-weight: bold;
+  border-right: 16px solid transparent;
+}
+
+.option {
+  background-color: white;
+  font-weight: bold;
+  color: black;
+}
+
+.amount-input {
+  box-sizing: border-box;
+  display: flex;
+  border-radius: 10px;
+  border-style: hidden;
+  background-color: var(--subtle-bg-color);
+  padding: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.submit-adjustment-button {
+  padding: 10px 40px;
+  background-color: #f4ddff;
+  color: #bc2dff;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.submit-adjustment-button:hover {
+  background-color: #f8e9ff;
+}
+
+.error-message {
+  font-weight: bold;
+  color: red;
+  text-align: center;
+  margin: 15px 0px;
+}

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
@@ -12,8 +12,25 @@ import { UserService } from '../../../core/services/user.service';
 })
 export class NavbarComponent {
   menuActive: boolean = false;
+  route: string;
+  currentElement: HTMLElement;
+  loggedIn: boolean = false;
+  @ViewChild('home') homeElement: ElementRef;
+  @ViewChild('nav-wrapper') navElement: ElementRef;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
+
+  ngAfterViewInit(): void {
+    this.currentElement = this.homeElement.nativeElement;
+    this.currentElement.classList.add('selected-link');
+    this.router.events.subscribe(() => {
+      if (this.router.url.includes('details')) {
+        this.currentElement.classList.remove('selected-link');
+      } else {
+        this.currentElement.classList.add('selected-link');
+      }
+    });
+  }
 
   toggleMenu() {
     this.menuActive = !this.menuActive;
@@ -27,10 +44,9 @@ export class NavbarComponent {
     }
   }
 
-  closeMenu(): void {
-    console.log('hit');
-    if (this.menuActive) {
-      this.menuActive = !this.menuActive;
-    }
+  setSelection(elementReference: HTMLElement): void {
+    this.currentElement.classList.remove('selected-link');
+    elementReference.classList.add('selected-link');
+    this.currentElement = elementReference;
   }
 }
