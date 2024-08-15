@@ -58,9 +58,9 @@ export class HomeComponent {
     // this.resetStocks();
     this.getStocks();
 
-    this.refresh = interval(20000).subscribe(() => {
-      this.getStocks();
-    });
+    // this.refresh = interval(20000).subscribe(() => {
+    //   this.getStocks();
+    // });
     this.username = this.userService.username;
     this.balance = this.userService.balance;
     this.loggedIn = this.userService.loggedIn;
