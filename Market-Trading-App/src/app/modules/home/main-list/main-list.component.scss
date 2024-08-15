@@ -113,6 +113,19 @@ td {
   font-weight: bold;
 }
 
+.price {
+  animation: fade-in 1s linear forwards;
+}
+
+@keyframes fade-in {
+  from {
+    color: #cd60ff;
+  }
+  to {
+    color: #b7b7b7;
+  }
+}
+
 @media (max-width: 650px) {
   .title-and-search {
     font-size: 80%;

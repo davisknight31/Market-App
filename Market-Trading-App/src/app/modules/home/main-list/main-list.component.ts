@@ -30,6 +30,11 @@ export class MainListComponent {
     this.displayedTableData = this.tableData;
   }
 
+  ngOnChanges() {
+    this.sortTableData();
+    this.displayedTableData = this.tableData;
+  }
+
   formatDollarChange(amount: string) {
     if (amount.includes('-')) {
       this.splitNum = amount.split('-');

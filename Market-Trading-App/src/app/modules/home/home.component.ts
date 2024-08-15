@@ -13,6 +13,7 @@ import { UserService } from '../../core/services/user.service';
 import { TradesimChoice } from '../../shared/interfaces/tradesimChoice';
 import { Share } from '../../shared/interfaces/share';
 import { OwnedAsset } from '../../shared/interfaces/ownedAsset';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +32,7 @@ import { OwnedAsset } from '../../shared/interfaces/ownedAsset';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  private refresh: Subscription;
   stockSymbols: string[] = [];
   isLoading: boolean = true;
   tradesimsChoices: TradesimChoice[];
@@ -55,6 +57,10 @@ export class HomeComponent {
   ngOnInit() {
     // this.resetStocks();
     this.getStocks();
+
+    this.refresh = interval(20000).subscribe(() => {
+      this.getStocks();
+    });
     this.username = this.userService.username;
     this.balance = this.userService.balance;
     this.loggedIn = this.userService.loggedIn;
@@ -73,6 +79,7 @@ export class HomeComponent {
           .getStocks(this.stockSymbols)
           .subscribe((response: Stock[]) => {
             this.stockDetails = response;
+            console.log(this.stockDetails);
 
             if (this.userService.loggedIn) {
               this.findOwnedAssets();
@@ -88,6 +95,7 @@ export class HomeComponent {
   }
 
   findOwnedAssets(): void {
+    this.ownedAssets = [];
     this.userService.shares.forEach((share) => {
       const ownedStock = this.tradesimsChoices.find(
         (stock) => stock.symbolid === share.symbolid
@@ -134,12 +142,15 @@ export class HomeComponent {
   }
 
   calculateTotalPortfolioValue() {
+    this.totalPortfolioValue = 0;
     this.ownedAssets.forEach((asset) => {
       this.totalPortfolioValue += asset.price * asset.shares;
     });
   }
 
   calculateProfitLoss() {
+    this.profitLossDifference = 0;
+    this.totalAveragePurchaseValue = 0;
     this.ownedAssets.forEach((asset) => {
       this.totalAveragePurchaseValue +=
         asset.averagePurchasePrice * asset.shares;
